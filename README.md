@@ -18,7 +18,7 @@ Este proyecto se distribuye bajo la licencia [Creative Commons Attribution-Share
 
 El script está pensado para integrarse fácilmente en blogs y webs o proyectos estáticos, sin usar librerías de terceros. El propio código define su lógica de cálculo, estilos aislados mediante **Shadow DOM** y una API mínima de inicialización.
 
-Para instalar el widget de calendario acude a: [https://wwww.wikitolica.com/w/widget-calendario/](https://wwww.wikitolica.com/w/widget-calendario/)
+Para instalar el widget de calendario acude a: [Widget Calendario Litúrgico](https://www.wikitolica.com/w/widget-calendario/)
 
 ## 🙏 Sobre el proyecto
 
