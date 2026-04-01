@@ -29,7 +29,7 @@
 
     /* Solemnidades fijas */
     const SOLEM = {
-        '1-1': { n: 'Solemnidad de Santa María Madre de Dios', i: '👑', p: '/m/maria-madre-de-dios/' },
+        '1-1': { n: 'Santa María Madre de Dios', i: '👑', p: '/m/maria-madre-de-dios/' },
         '1-6': { n: 'Epifanía del Señor', i: '⭐', p: '/e/epifania/' },
         '2-2': { n: 'Presentación del Señor', i: '🕯️', p: '/p/presentacion-del-senor/' },
         '2-11': { n: 'Nuestra Señora de Lourdes', i: '💧', p: '/l/lourdes/' },
@@ -46,7 +46,8 @@
         '10-7': { n: 'Nuestra Señora del Rosario', i: '📿', p: '/r/rosario/' },
         '11-1': { n: 'Todos los Santos', i: '😇', p: '/t/todos-los-santos/' },
         '11-2': { n: 'Fieles Difuntos', i: '🕯️', p: '/p/purgatorio/' },
-        '12-8': { n: 'Inmaculada Concepción de la Virgen María', i: '🌙', p: '/d/dogma-de-la-inmaculada-concepcion/' },
+        '11-21': { n: 'Presentación de María', i: '🕯️', p: '/p/presentacion-de-la-virgen-maria-en-el-templo/' },
+        '12-8': { n: 'Inmaculada Concepción de la Virgen', i: '🌙', p: '/d/dogma-de-la-inmaculada-concepcion/' },
         '12-12': { n: 'Nuestra Señora de Guadalupe', i: '🌹', p: '/n/nuestra-senora-de-guadalupe/' },
         '12-25': { n: 'Natividad del Señor', i: '⭐', p: '/n/navidad/' },
     };
