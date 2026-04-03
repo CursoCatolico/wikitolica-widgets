@@ -295,17 +295,17 @@
             bap: baptism(y),
             dec25: new Date(y, 11, 25),
             mov: [
-                [addDays(adv, -7), { fiesta: 'Cristo Rey del Universo', ...T.ord, color: '#78350f', icono: '👑', p: '/c/cristo-rey/' }],
+                [addDays(adv, -7), { fiesta: 'Cristo Rey del Universo', ...T.ord, color: '#78350f', icono: '👑', p: '/s/solemnidad-de-cristo-rey/' }],
                 [addDays(E, -7), { fiesta: 'Domingo de Ramos', ...T.sem, p: '/d/domingo-de-ramos/' }],
                 [addDays(E, -3), { fiesta: 'Jueves Santo', ...T.tri, p: '/j/jueves-santo/' }],
                 [addDays(E, -2), { fiesta: 'Viernes Santo', ...T.tri, color: '#111827', p: '/v/viernes-santo/' }],
                 [addDays(E, -1), { fiesta: 'Sábado Santo', ...T.tri, p: '/s/sabado-santo/' }],
-                [E, { fiesta: 'Domingo de Resurrección', ...T.pas, icono: '✨', p: '/r/resurreccion/' }],
+                [E, { fiesta: 'Domingo de Resurrección', ...T.pas, icono: '✨', p: '/d/domingo-de-resurreccion/' }],
                 [addDays(E, 8), { fiesta: 'San Vicente Ferrer', ...T.pas, icono: '✝️', p: '/s/san-vicente-ferrer/' }],
-                [addDays(E, 39), { fiesta: 'Ascensión del Señor', ...T.pas, icono: '☁️', p: '/a/ascension/' }],
-                [addDays(E, 49), { fiesta: 'Pentecostés', ...T.pas, color: '#7f1d1d', icono: '🔥', p: '/p/pentecostes/' }],
-                [addDays(E, 56), { fiesta: 'Santísima Trinidad', ...T.ord, color: '#78350f', icono: '✝️', p: '/t/trinidad/' }],
-                [addDays(E, 60), { fiesta: 'Corpus Christi', ...T.ord, color: '#78350f', icono: '🍞', p: '/c/corpus-christi/' }],
+                [addDays(E, 39), { fiesta: 'Ascensión del Señor', ...T.pas, icono: '☁️', p: '/s/solemnidad-de-la-ascension/' }],
+                [addDays(E, 49), { fiesta: 'Pentecostés', ...T.pas, color: '#7f1d1d', icono: '🔥', p: '/s/solemnidad-de-pentecostes/' }],
+                [addDays(E, 56), { fiesta: 'Santísima Trinidad', ...T.ord, color: '#78350f', icono: '✝️', p: '/s/solemnidad-de-la-santisima-trinidad/' }],
+                [addDays(E, 60), { fiesta: 'Corpus Christi', ...T.ord, color: '#78350f', icono: '🍞', p: '/s/solemnidad-de-corpus-christi/' }],
             ],
         };
     }
