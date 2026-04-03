@@ -214,56 +214,50 @@
         "9-13": [{ n: "Juan Crisóstomo", p: "/s/san-juan-crisostomo/" }],
         "9-15": [{ n: "María Santísima del Mayor Dolor", p: "/m/maria-santisima-del-mayor-dolor/" }, { n: "Catalina de Génova", p: "/s/santa-catalina-de-genova/" }, { n: "San Pedro de Arbués", p: "/s/san-pedro-de-arbues/" }],
         "9-16": [{ n: "San Juan Macías", p: "/s/san-juan-macias/" }, { n: "San Cornelio", p: "/p/papa-cornelio/" }],
-        "9-17": [{ n: "Estigmas de San Francisco de Asís", p: "/e/estigmas-de-san-francisco-de-asis/" }, { n: "Hildegarda de Bingen", p: "/s/santa-hildegarda-de-bingen/" }, { n: "San Roberto Belarmino", p: "/s/san-roberto-belarmino/" }],
-        "9-18": [{ n: "San José de Cupertino", p: "/l/levitacion-de-san-jose-de-cupertino/" }],
-        "9-19": [{ n: "San Jenaro", p: "/s/san-jenaro/" }],
-        "9-20": [{ n: "San Andrés Kim Taegon y compañeros", p: "/s/san-andres-kim-taegon-y-companeros/" }],
-        "9-21": [{ n: "San Mateo", p: "/s/san-mateo-evangelista/" }],
-        "9-23": [{ n: "Lino", p: "/p/papa-lino/" }, { n: "Padre Pío", p: "/p/padre-pio/" }],
-        "9-24": [{ n: "Santa Tecla", p: "/s/santa-tecla/" }],
-        "9-26": [{ n: "San Cosme", p: "/s/san-cosme/" }, { n: "San Damián", p: "/s/san-damian/" }],
+        "9-17": [{ n: "San Roberto Belarmino", p: "/s/san-roberto-belarmino/" }, { n: "Estigmas de San Francisco", p: "/e/estigmas-de-san-francisco-de-asis/" }],
+        "9-19": [{ n: "Jenaro de Benevento", p: "/s/san-jenaro/" }],
+        "9-20": [{ n: "San Andrés Kim Taegon", p: "/s/san-andres-kim-taegon/" }],
+        "9-21": [{ n: "San Mateo", p: "/s/san-mateo-apostol/" }],
+        "9-22": [{ n: "San Mauricio", p: "/s/san-mauricio/" }],
+        "9-23": [{ n: "San Pío de Pietrelcina", p: "/s/san-pio-de-pietrelcina/" }],
+        "9-26": [{ n: "Cosme y Damián", p: "/s/santos-cosme-y-damian/" }],
         "9-27": [{ n: "San Vicente de Paúl", p: "/s/san-vicente-de-paul/" }],
-        "9-28": [{ n: "San Venceslao", p: "/s/san-venceslao/" }, { n: "Lorenzo Ruiz", p: "/s/san-lorenzo-ruiz/" }],
-        "9-29": [{ n: "Arcángeles Miguel, Gabriel y Rafael", p: "/s/santos-arcangeles-miguel-gabriel-y-rafael/" }],
+        "9-28": [{ n: "San Wenceslao", p: "/s/san-wenceslao/" }, { n: "San Lorenzo Ruiz", p: "/s/san-lorenzo-ruiz/" }],
+        "9-29": [{ n: "San Miguel Arcángel", p: "/s/san-miguel-arcangel/" }, { n: "San Gabriel Arcángel", p: "/s/san-gabriel-arcangel/" }, { n: "San Rafael Arcángel", p: "/s/san-rafael-arcangel/" }],
         "9-30": [{ n: "San Jerónimo", p: "/s/san-jeronimo/" }],
-        "10-1": [{ n: "Santa Teresa del Niño Jesús", p: "/s/santa-teresa-de-lisieux/" }],
-        "10-2": [{ n: "Ángeles Custodios", p: "/s/santos-angeles-custodios/" }],
-        "10-4": [{ n: "San Amón de Nitria", p: "/s/san-amon-de-nitria/" }, { n: "San Francisco de Asís", p: "/s/san-francisco-de-asis/" }],
-        "10-5": [{ n: "Santa María Faustina Kowalska", p: "/s/santa-maria-faustina-kowalska/" }],
+        "10-1": [{ n: "Santa Teresita del Niño Jesús", p: "/s/santa-teresa-del-nino-jesus/" }],
+        "10-2": [{ n: "Ángel de la Guarda", p: "/a/angel-de-la-guarda/" }],
+        "10-4": [{ n: "San Francisco de Asís", p: "/s/san-francisco-de-asis/" }],
+        "10-5": [{ n: "Santa Faustina Kowalska", p: "/s/santa-faustina-kowalska/" }],
         "10-6": [{ n: "San Bruno", p: "/s/san-bruno/" }],
-        "10-9": [{ n: "Juan Leonardi", p: "/s/san-juan-leonardi/" }, { n: "San Dionisio y compañeros", p: "/s/san-dionisio-y-companeros/" }],
-        "10-10": [{ n: "San Francisco de Borja", p: "/s/san-francisco-de-borja/" }],
-        "10-11": [{ n: "Nuestra Señora de Begoña", p: "/n/nuestra-senora-de-begona/" }, { n: "San Juan XXIII", p: "/s/san-juan-xxiii/" }],
-        "10-12": [{ n: "Nuestra Señora del Pilar", p: "/n/nuestra-senora-del-pilar/" }, { n: "San Cornelio", p: "/s/san-cornelio/" }],
-        "10-13": [{ n: "San Eduardo", p: "/s/san-eduardo/" }],
+        "10-9": [{ n: "San Dionisio Areopagita", p: "/s/san-dionisio-areopagita/" }, { n: "San Juan Leonardi", p: "/s/san-juan-leonardi/" }],
+        "10-11": [{ n: "San Juan XXIII", p: "/s/san-juan-xxiii/" }],
+        "10-13": [{ n: "Milagro del Sol de Fátima", p: "/m/milagro-del-sol-de-fatima/" }],
         "10-14": [{ n: "San Calixto I", p: "/p/papa-calixto-i/" }],
-        "10-15": [{ n: "Virgen de Estíbaliz", p: "/v/virgen-de-estibaliz/" }, { n: "Santa Teresa de Ávila", p: "/s/santa-teresa-de-avila/" }],
-        "10-16": [{ n: "Margarita María de Alacoque", p: "/s/santa-margarita-maria-de-alacoque/" }, { n: "Santa Eduvigis", p: "/s/santa-eduvigis/" }],
-        "10-17": [{ n: "Ignacio de Antioquía", p: "/s/san-ignacio-de-antioquia/" }],
+        "10-15": [{ n: "Santa Teresa de Jesús", p: "/s/santa-teresa-de-jesus/" }],
+        "10-16": [{ n: "San Galo", p: "/s/san-galo/" }, { n: "Santa Margarita María de Alacoque", p: "/s/santa-margarita-maria-de-alacoque/" }],
+        "10-17": [{ n: "San Ignacio de Antioquía", p: "/s/san-ignacio-de-antioquía/" }],
         "10-18": [{ n: "San Lucas Evangelista", p: "/s/san-lucas-evangelista/" }],
-        "10-19": [{ n: "San Pedro de Alcántara", p: "/s/san-pedro-de-alcantara/" }, { n: "San Isaac Jogues y compañeros", p: "/s/san-isaac-jogues-y-companeros/" }],
+        "10-19": [{ n: "San Juan de Brébeuf", p: "/s/san-juan-de-brebeuf/" }, { n: "San Isaac Jogues", p: "/s/san-isaac-jogues/" }],
         "10-22": [{ n: "San Juan Pablo II", p: "/s/san-juan-pablo-ii/" }],
         "10-23": [{ n: "San Juan de Capistrano", p: "/s/san-juan-de-capistrano/" }],
         "10-24": [{ n: "San Antonio María Claret", p: "/s/san-antonio-maria-claret/" }],
-        "10-28": [{ n: "San Simón el Zelote", p: "/s/san-simon-zelote/" }, { n: "San Judas Tadeo", p: "/s/san-judas-tadeo/" }, { n: "San Simeón", p: "/s/san-simeon/" }],
-        "10-29": [{ n: "Chiara Badano", p: "/b/beata-chiara-badano/" }],
-        "11-1": [{ n: "Nuno Álvares Pereira", p: "/s/san-nuno-alvares-pereira/" }],
+        "10-28": [{ n: "San Simón Apóstol", p: "/s/san-simon-apostol/" }, { n: "San Judas Tadeo", p: "/s/san-judas-tadeo/" }],
         "11-3": [{ n: "San Martín de Porres", p: "/s/san-martin-de-porres/" }],
-        "11-4": [{ n: "Carlos Borromeo", p: "/s/san-carlos-borromeo/" }],
-        "11-5": [{ n: "Zacarías", p: "/z/zacarias/" }],
-        "11-8": [{ n: "Deusdedit", p: "/p/papa-deusdedit-adeodato-i/" }],
+        "11-4": [{ n: "San Carlos Borromeo", p: "/s/san-carlos-borromeo/" }],
+        "11-5": [{ n: "San Zacarías", p: "/s/san-zacarias/" }],
         "11-9": [{ n: "Dedicación de la Basílica de Letrán", p: "/b/basilica-de-san-juan-de-letran/" }],
-        "11-10": [{ n: "San León Magno", p: "/s/san-leon-magno/" }],
-        "11-11": [{ n: "San Martín", p: "/s/san-martin/" }],
-        "11-12": [{ n: "San Nilo Sinaíta", p: "/s/san-nilo-sinaita/" }, { n: "San Josafat", p: "/s/san-josafat/" }],
-        "11-15": [{ n: "San Alberto Magno", p: "/s/san-alberto-magno/" }, { n: "Milagro de la Virgen de Kibeho", p: "/m/milagro-de-la-virgen-de-kibeho-ruanda/" }],
-        "11-16": [{ n: "Margarita de Escocia", p: "/s/santa-margarita-de-escocia/" }, { n: "Gertrudis la Grande", p: "/s/santa-gertrudis-la-grande/" }],
-        "11-17": [{ n: "San Hugh el Grande", p: "/s/san-hugh-el-grande/" }, { n: "Isabel de Hungría", p: "/s/santa-isabel-de-hungria/" }],
-        "11-18": [{ n: "Odo", p: "/s/san-odo/" }],
-        "11-19": [{ n: "Ponciano", p: "/p/papa-ponciano/" }],
+        "11-10": [{ n: "San León Magno", p: "/s/san-leon-i-magno/" }],
+        "11-11": [{ n: "San Martín de Tours", p: "/s/san-martin-de-tours/" }],
+        "11-12": [{ n: "San Josafat", p: "/s/san-josafat/" }],
+        "11-13": [{ n: "San Leandro", p: "/s/san-leandro/" }],
+        "11-15": [{ n: "San Alberto Magno", p: "/s/san-alberto-magno/" }],
+        "11-16": [{ n: "Santa Margarita de Escocia", p: "/s/santa-margarita-de-escocia/" }, { n: "Santa Gertrudis", p: "/s/santa-gertrudis/" }],
+        "11-17": [{ n: "Santa Isabel de Hungría", p: "/s/santa-isabel-de-hungria/" }],
+        "11-18": [{ n: "Dedicación de la Basílica de San Pedro", p: "/b/basilica-de-san-pedro-vaticano/" }],
         "11-22": [{ n: "Santa Cecilia", p: "/s/santa-cecilia/" }],
-        "11-23": [{ n: "San Clemente I", p: "/s/san-clemente-i/" }, { n: "Columbano", p: "/s/san-columbano/" }],
-        "11-24": [{ n: "San Andrés Dung‑Lac", p: "/s/san-andres-dung-lac/" }],
+        "11-23": [{ n: "San Clemente I", p: "/p/papa-san-clemente-i/" }, { n: "San Columbano", p: "/s/san-columbano/" }],
+        "11-24": [{ n: "San Andrés Dung-Lac y compañeros", p: "/s/san-andres-dung-lac/" }],
         "11-25": [{ n: "Santa Catalina de Alejandría", p: "/s/santa-catalina-de-alejandria/" }],
         "11-26": [{ n: "San Silvestre Gozzolini", p: "/s/san-silvestre-gozzolini/" }],
         "11-27": [{ n: "Nuestra Señora de la Medalla Milagrosa", p: "/n/nuestra-senora-de-la-medalla-milagrosa/" }],
@@ -287,7 +281,7 @@
         "12-31": [{ n: "San Silvestre I", p: "/s/san-silvestre-i/" }]
     };
 
-    /* Cache por año: evita recalcular easter/advent en cada getLit */
+    /* Cache por año */
     const _yc = {};
     function ydata(y) {
         if (_yc[y]) return _yc[y];
@@ -332,7 +326,6 @@
         return T.ord;
     }
 
-    /* basePeriod: tiempo litúrgico subyacente sin fiestas ni solemnidades */
     function basePeriod(date) {
         const y = date.getFullYear(), m = date.getMonth() + 1;
         const { E, adv, ashWed, palm, holyThu, pent, bap, dec25 } = ydata(y);
@@ -340,138 +333,158 @@
         if (date >= dec25) return T.nav;
         if (m === 1 && date <= bap) return T.nav;
         if (date >= ashWed && date < palm) return T.cua;
-        if (date >= palm && date < holyThu) return T.sem;  // Lun-Mié Semana Santa
-        if (date >= holyThu && date < E) return T.tri;  // Jue-Sáb Triduo
-        if (date >= E && date <= pent) return T.pas;  // Pascua inclusive Pentecostés
+        if (date >= palm && date < holyThu) return T.sem;
+        if (date >= holyThu && date < E) return T.tri;
+        if (date >= E && date <= pent) return T.pas;
         return T.ord;
     }
 
-    /* CSS aislado en Shadow DOM */
-    const CSS = `*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:host{display:block;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Ubuntu,Cantarell,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
-font-size:16px;line-height:1.5;-webkit-text-size-adjust:100%;text-size-adjust:100%;--bg:#fafafa;--bg-s:#f8f9fa;--bd:#ddd;--tx:#333;--mu:#666;--lk:#0d6efd;--lkh:#0a58ca;--lit:#2d6a4f;--ph:#e0e9f9}
-@media(prefers-color-scheme:dark){:host{--bg:#1a1a1a;--bg-s:#2d2d2d;--bd:#444;--tx:#c0c0c0;--mu:#ccc;--lk:#4dabf7;--lkh:#74c0fc;--lit:#4a8a6a;font-weight:300;letter-spacing:.01ch}}
-#wt-ph{display:flex;flex-direction:column;gap:.5em;padding:.75em .85em;border:1px solid var(--bd);border-radius:4px;background:var(--bg)}
-.ph-line{height:.75em;border-radius:3px;background:var(--ph);animation:ph-pulse 1.4s ease-in-out infinite}
-.ph-line.w60{width:60%}.ph-line.w40{width:40%}.ph-line.w80{width:80%}.ph-line.w50{width:50%}
-@keyframes ph-pulse{0%,100%{opacity:.45}50%{opacity:.9}}
-@media(prefers-color-scheme:dark){#wt-ph,#wt-ph .ph-line{--ph:#383838}}
-#wt{background:var(--bg);border:1px solid var(--bd);border-radius:4px;overflow:hidden;width:100%}
-#hoy{background:var(--bg-s);border-bottom:1px solid var(--bd);padding:.7em .85em;display:flex;gap:.75em;align-items:center;min-width:0}
-#stripe{width:3px;align-self:stretch;border-radius:2px;background:var(--lit);flex-shrink:0;transition:background .3s}
-#body{flex:1;min-width:0;overflow:hidden}
-#fecha{font-size:.67em;color:var(--mu);margin-bottom:.15em}
-#tiempo{font-size:.97em;font-weight:700;line-height:1.2;color:var(--tx)}
-#fiesta{font-size:.78em;color:var(--lk);margin-top:.1em;display:none}
-#fecha,#tiempo,#fiesta,.en{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-#tiempo a{color:inherit;text-decoration:none}
-#tiempo a:hover,#fiesta a:hover,.en a:hover{text-decoration:underline}
-#fiesta a{color:inherit;text-decoration:none}
-#icono{font-size:1.35em;line-height:1;flex-shrink:0}
-#lista{padding:.3em 0}
-.row{display:grid;grid-template-columns:42px 1fr;gap:0 .65em;padding:.35em .85em;transition:background .1s;min-width:0}
-.row:hover{background:var(--bg-s)}
-.dt{font-size:.7em;color:var(--mu);font-style:italic;text-align:right;padding-top:.1em;line-height:1.35;flex-shrink:0}
-.dow{display:block;font-size:.59em;font-style:normal;text-transform:uppercase;letter-spacing:.06em;color:var(--bd)}
-.cel{min-width:0;overflow:hidden}
-.en{font-size:.82em;font-weight:600;line-height:1.4;color:var(--tx)}
-.en a{color:var(--lk);text-decoration:none}
-.en a:hover{color:var(--lkh)}
-#foot{padding:.45em .85em;border-top:1px solid var(--bd);text-align:center;font-size:.67em;color:var(--mu);background:var(--bg-s);white-space:nowrap;overflow:hidden}
-#foot a{color:var(--lk);text-decoration:none}
-#foot a:hover{color:var(--lkh);text-decoration:underline}
-@media(max-width:220px){.row{grid-template-columns:30px 1fr;gap:0 .4em;padding:.3em .5em}#hoy{padding:.6em .5em}}`;
+    /* CSS con aislamiento máximo.
+       Host: #wikitolica-calendario o .wikitolica-calendario (ambos soportados).
+       Especificidades: reset * = (0,1,1); componentes .wt .clase = (0,2,0) > reset;
+       links .wt .wikitolica-calendario-a = (0,2,0) > host .sidebar a (0,1,1);
+       narrow [data-wt-narrow] = (0,3,0)/(0,2,1) > todo lo anterior. */
+    const CSS = `
+#wikitolica-calendario,.wikitolica-calendario{display:block;margin:0;padding:0;box-sizing:border-box}
+.wikitolica-calendario-wt{
+  all:initial;display:block;box-sizing:border-box;container-type:inline-size;
+  font-family:system-ui,-apple-system,"Segoe UI",Roboto,Ubuntu,Cantarell,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+  font-size:16px;line-height:1.5;-webkit-text-size-adjust:100%;text-size-adjust:100%;
+  color:var(--wt-tx);background:var(--wt-bg);border:1px solid var(--wt-bd);border-radius:4px;overflow:hidden;width:100%;
+  --wt-bg:#fafafa;--wt-bg-s:#f8f9fa;--wt-bd:#ddd;--wt-tx:#333;--wt-mu:#666;--wt-dow:#999;--wt-lk:#0d6efd;--wt-lkh:#0a58ca
+}
+@media(prefers-color-scheme:dark){.wikitolica-calendario-wt{
+  --wt-bg:#1a1a1a;--wt-bg-s:#2d2d2d;--wt-bd:#444;--wt-tx:#c0c0c0;--wt-mu:#888;--wt-dow:#666;--wt-lk:#4dabf7;--wt-lkh:#74c0fc;
+  font-weight:300;letter-spacing:.01ch
+}}
+.wikitolica-calendario-wt *,.wikitolica-calendario-wt *::before,.wikitolica-calendario-wt *::after{
+  box-sizing:border-box;margin:0;padding:0;
+  font-family:inherit;font-size:inherit;font-weight:inherit;font-style:normal;
+  line-height:inherit;letter-spacing:inherit;word-spacing:normal;
+  text-transform:none;text-decoration:none;vertical-align:baseline;color:inherit
+}
+.wikitolica-calendario-wt .wikitolica-calendario-a{color:var(--wt-lk);text-decoration:none;cursor:pointer}
+.wikitolica-calendario-wt .wikitolica-calendario-a:hover{text-decoration:underline;color:var(--wt-lkh)}
+.wikitolica-calendario-wt .wikitolica-calendario-hoy{background:var(--wt-bg-s);border-bottom:1px solid var(--wt-bd);padding:.7em .85em;display:flex;gap:.75em;align-items:center;min-width:0}
+.wikitolica-calendario-wt .wikitolica-calendario-stripe{width:3px;align-self:stretch;border-radius:2px;flex-shrink:0;transition:background .3s}
+.wikitolica-calendario-wt .wikitolica-calendario-body{flex:1;min-width:0;overflow:hidden}
+.wikitolica-calendario-wt .wikitolica-calendario-fecha{font-size:.67em;color:var(--wt-mu);margin-bottom:.15em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wikitolica-calendario-wt .wikitolica-calendario-tiempo{font-size:.97em;font-weight:700;line-height:1.2;color:var(--wt-tx);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wikitolica-calendario-wt .wikitolica-calendario-tiempo .wikitolica-calendario-a{color:inherit}
+.wikitolica-calendario-wt .wikitolica-calendario-fiesta{font-size:.78em;color:var(--wt-lk);margin-top:.1em;display:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wikitolica-calendario-wt .wikitolica-calendario-fiesta .wikitolica-calendario-a{color:inherit}
+.wikitolica-calendario-wt .wikitolica-calendario-icono{font-size:1.35em;line-height:1;flex-shrink:0}
+.wikitolica-calendario-wt .wikitolica-calendario-lista{padding:.3em 0}
+.wikitolica-calendario-wt .wikitolica-calendario-row{display:grid;grid-template-columns:42px 1fr;gap:0 .65em;padding:.35em .85em;transition:background .1s;min-width:0}
+.wikitolica-calendario-wt .wikitolica-calendario-row:hover{background:var(--wt-bg-s)}
+.wikitolica-calendario-wt .wikitolica-calendario-dt{font-size:.7em;color:var(--wt-mu);font-style:italic;text-align:right;padding-top:.1em;line-height:1.35;flex-shrink:0}
+.wikitolica-calendario-wt .wikitolica-calendario-dow{display:block;font-size:.59em;font-style:normal;text-transform:uppercase;letter-spacing:.06em;color:var(--wt-dow)}
+.wikitolica-calendario-wt .wikitolica-calendario-cel{min-width:0;overflow:hidden}
+.wikitolica-calendario-wt .wikitolica-calendario-en{font-size:.82em;font-weight:600;line-height:1.4;color:var(--wt-tx);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wikitolica-calendario-wt .wikitolica-calendario-en .wikitolica-calendario-a{color:var(--wt-lk)}
+.wikitolica-calendario-wt .wikitolica-calendario-en .wikitolica-calendario-a:hover{color:var(--wt-lkh)}
+.wikitolica-calendario-wt .wikitolica-calendario-foot{padding:.45em .85em;border-top:1px solid var(--wt-bd);text-align:center;font-size:.67em;color:var(--wt-mu);background:var(--wt-bg-s);white-space:nowrap;overflow:hidden}
+.wikitolica-calendario-wt .wikitolica-calendario-foot .wikitolica-calendario-a{color:var(--wt-lk)}
+.wikitolica-calendario-wt .wikitolica-calendario-foot .wikitolica-calendario-a:hover{color:var(--wt-lkh);text-decoration:underline}
+.wikitolica-calendario-wt[data-wt-narrow] .wikitolica-calendario-hoy{padding:.55em .55em;gap:.55em}
+.wikitolica-calendario-wt[data-wt-narrow] .wikitolica-calendario-row{grid-template-columns:34px 1fr;gap:0 .35em;padding:.3em .55em}
+.wikitolica-calendario-wt[data-wt-narrow] .wikitolica-calendario-foot{padding:.4em .55em}
+`;
 
     const MO = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
     const MES = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
     const DOW = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
 
-    function render(root, days) {
+    // Target _blank en dominios de terceros; mismo tab en el propio dominio
+    const SELF = /^(www\.)?wikitolica\.com$/.test(typeof location !== 'undefined' ? location.hostname : '');
+    const TA = SELF ? '' : ' target="_blank" rel="noopener"';
+    const a = (href, text) => `<a href="${href}"${TA} class="wikitolica-calendario-a">${text}</a>`;
+
+    function init(host) {
+        if (host.dataset.loaded) return;
+        host.dataset.loaded = '1';
+
+        const raw = parseInt(host.dataset.days, 10);
+        const days = Math.max(0, Math.min(365, isNaN(raw) ? 14 : raw));
+
+        // CSS: una sola inyección al <head>
+        if (!document.getElementById('wikitolica-calendario-style')) {
+            const s = document.createElement('style');
+            s.id = 'wikitolica-calendario-style';
+            s.textContent = CSS;
+            document.head.appendChild(s);
+        }
+
+        // Calcular todo antes de tocar el DOM
         const today = new Date(); today.setHours(0, 0, 0, 0);
         const lit = getLit(today);
-
-        root.querySelector('#stripe').style.background = lit.color;
-        root.querySelector('#fecha').textContent =
-            `${DOW[today.getDay()]}, ${today.getDate()} de ${MES[today.getMonth()]} de ${today.getFullYear()}`;
-
-        // Siempre mostramos el periodo litúrgico real (sin fiestas ni solemnidades)
         const bp = basePeriod(today);
-        root.querySelector('#tiempo').innerHTML = `<a href="${u(bp.p)}">${bp.tiempo}</a>`;
+        const todayKey = `${today.getMonth() + 1}-${today.getDate()}`;
 
-        // Build all today's items: moveable feast + fixed solemnity + saints
-        {
-            const todayM = today.getMonth() + 1, todayD = today.getDate();
-            const todayKey = `${todayM}-${todayD}`;
-            const items = [];
-            if (lit.fiesta) items.push({ n: lit.fiesta, p: lit.p });
-            if (SOLEM[todayKey] && !lit.fiesta) items.push({ n: SOLEM[todayKey].n, p: SOLEM[todayKey].p });
-            (SAINTS[todayKey] || []).forEach(s => items.push(s));
-            if (items.length) {
-                const f = root.querySelector('#fiesta');
-                f.style.display = 'block';
-                f.innerHTML = items.map(e => `<a href="${u(e.p)}">${e.n}</a>`).join(' · ');
-            }
-        }
-        root.querySelector('#icono').textContent = lit.icono;
+        const fiestaItems = [];
+        if (lit.fiesta) fiestaItems.push({ n: lit.fiesta, p: lit.p });
+        if (SOLEM[todayKey] && !lit.fiesta) fiestaItems.push({ n: SOLEM[todayKey].n, p: SOLEM[todayKey].p });
+        (SAINTS[todayKey] || []).forEach(s => fiestaItems.push(s));
 
-        // Lista: construir HTML en string array, un solo innerHTML al final
+        const fiestaHTML = fiestaItems.length
+            ? `<div class="wikitolica-calendario-fiesta" style="display:block">${fiestaItems.map(e => a(u(e.p), e.n)).join(' · ')}</div>`
+            : `<div class="wikitolica-calendario-fiesta"></div>`;
+
         const rows = [];
         for (let i = 1; i <= days; i++) {
             const d = addDays(today, i);
             const m = d.getMonth() + 1, day = d.getDate();
             const key = `${m}-${day}`;
             const dl = getLit(d);
-            // getLit ya prioriza móviles sobre SOLEM; confiamos en su resultado
             const isMov = !!dl.fiesta;
             const isSolem = !!SOLEM[key] && !dl.fiesta;
             const saints = SAINTS[key] || [];
             if (!isMov && !isSolem && !saints.length) continue;
-
             const items = [];
             if (isMov) items.push({ n: dl.fiesta, p: dl.p });
             if (isSolem) items.push({ n: SOLEM[key].n, p: SOLEM[key].p });
             saints.forEach(s => items.push(s));
-
             rows.push(
-                `<div class="row"><div class="dt">${day} ${MO[m - 1]}<span class="dow">${DOW[d.getDay()]}</span></div>` +
-                `<div class="cel">${items.map(e => `<div class="en"><a href="${u(e.p)}">${e.n}</a></div>`).join('')}</div></div>`
+                `<div class="wikitolica-calendario-row">` +
+                `<div class="wikitolica-calendario-dt">${day} ${MO[m - 1]}<span class="wikitolica-calendario-dow">${DOW[d.getDay()]}</span></div>` +
+                `<div class="wikitolica-calendario-cel">${items.map(e => `<div class="wikitolica-calendario-en">${a(u(e.p), e.n)}</div>`).join('')}</div>` +
+                `</div>`
             );
         }
-        root.querySelector('#lista').innerHTML = rows.join('');
-    }
 
-    function init(host) {
-        if (host.shadowRoot) return; // ya inicializado
-        const raw = parseInt(host.dataset.days, 10);
-        const days = Math.max(0, Math.min(365, isNaN(raw) ? 14 : raw));
+        // Una sola escritura al DOM
+        host.innerHTML =
+            `<div class="wikitolica-calendario-wt">` +
+                `<div class="wikitolica-calendario-hoy">` +
+                    `<div class="wikitolica-calendario-stripe" style="background:${lit.color}"></div>` +
+                    `<div class="wikitolica-calendario-body">` +
+                        `<div class="wikitolica-calendario-fecha">${DOW[today.getDay()]}, ${today.getDate()} de ${MES[today.getMonth()]} de ${today.getFullYear()}</div>` +
+                        `<div class="wikitolica-calendario-tiempo">${a(u(bp.p), bp.tiempo)}</div>` +
+                        fiestaHTML +
+                    `</div>` +
+                    `<div class="wikitolica-calendario-icono">${lit.icono}</div>` +
+                `</div>` +
+                `<div class="wikitolica-calendario-lista">${rows.join('')}</div>` +
+                `<div class="wikitolica-calendario-foot">${a(BASE, 'Wikitólica')} · ${a(`${BASE}/w/widget-calendario/`, 'Ponlo en tu web')}</div>` +
+            `</div>`;
 
-        const shadow = host.attachShadow({ mode: 'open' });
-        const style = document.createElement('style');
-        style.textContent = CSS;
-
-        const wt = document.createElement('div');
-        wt.id = 'wt';
-        wt.innerHTML =
-            `<div id="hoy"><div id="stripe"></div><div id="body">` +
-            `<div id="fecha"></div><div id="tiempo"></div><div id="fiesta"></div>` +
-            `</div><div id="icono"></div></div>` +
-            `<div id="lista"></div>` +
-            `<div id="foot"><a href="${BASE}">Wikitólica</a> · ` +
-            `<a href="${BASE}/w/widget-calendario/">Ponlo en tu web</a></div>`;
-
-        shadow.append(style, wt);
-        render(shadow, days);
+        // ResizeObserver: responsive por ancho de elemento, no de viewport
+        if (typeof ResizeObserver !== 'undefined') {
+            const wt = host.firstElementChild;
+            new ResizeObserver(([e]) => {
+                wt.toggleAttribute('data-wt-narrow', e.contentRect.width < 280);
+            }).observe(wt);
+        }
     }
 
     // Funciona en todos los casos: defer, async, inline, y carga post-onload
     function bootstrap() {
-        document.querySelectorAll('#wikitolica-calendario').forEach(init);
+        document.querySelectorAll('#wikitolica-calendario,.wikitolica-calendario').forEach(init);
     }
 
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', bootstrap);
     } else {
-        // defer + readyState 'interactive'/'complete': DOM ya disponible
         bootstrap();
     }
 
