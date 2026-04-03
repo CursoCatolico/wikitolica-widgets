@@ -340,10 +340,11 @@
     }
 
     /* CSS con aislamiento máximo:
-       - all:initial en #wikitolica-calendario-wt crea un boundary real de herencia CSS
-       - vars prefijadas --wt-* evitan colisiones con el host
-       - reset de hijos con especificidad de ID (1,0,0) gana a selectores de elemento/clase del host
-       - links reseteados explícitamente para anular colores del host */
+       - all:initial en #wikitolica-calendario-wt corta toda herencia del host
+       - vars --wt-* evitan colisiones
+       - Reset * tiene especificidad (1,0,1). Todos los selectores de componente
+         se prefijan con #wikitolica-calendario-wt para obtener (1,1,0) o (2,0,0),
+         garantizando que siempre ganan al reset sin necesitar !important */
     const CSS = `
 #wikitolica-calendario{display:block}
 #wikitolica-calendario-wt{
@@ -351,45 +352,46 @@
   font-family:system-ui,-apple-system,"Segoe UI",Roboto,Ubuntu,Cantarell,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
   font-size:16px;line-height:1.5;-webkit-text-size-adjust:100%;text-size-adjust:100%;
   color:var(--wt-tx);background:var(--wt-bg);border:1px solid var(--wt-bd);border-radius:4px;overflow:hidden;width:100%;
-  --wt-bg:#fafafa;--wt-bg-s:#f8f9fa;--wt-bd:#ddd;--wt-tx:#333;--wt-mu:#666;--wt-lk:#0d6efd;--wt-lkh:#0a58ca;--wt-ph:#e0e9f9
+  --wt-bg:#fafafa;--wt-bg-s:#f8f9fa;--wt-bd:#ddd;--wt-tx:#333;--wt-mu:#666;--wt-lk:#0d6efd;--wt-lkh:#0a58ca
 }
 @media(prefers-color-scheme:dark){#wikitolica-calendario-wt{
-  --wt-bg:#1a1a1a;--wt-bg-s:#2d2d2d;--wt-bd:#444;--wt-tx:#c0c0c0;--wt-mu:#ccc;--wt-lk:#4dabf7;--wt-lkh:#74c0fc;--wt-ph:#383838;
+  --wt-bg:#1a1a1a;--wt-bg-s:#2d2d2d;--wt-bd:#444;--wt-tx:#c0c0c0;--wt-mu:#ccc;--wt-lk:#4dabf7;--wt-lkh:#74c0fc;
   font-weight:300;letter-spacing:.01ch
 }}
 #wikitolica-calendario-wt *,#wikitolica-calendario-wt *::before,#wikitolica-calendario-wt *::after{
   box-sizing:border-box;margin:0;padding:0;
   font-family:inherit;font-size:inherit;font-weight:inherit;font-style:normal;
   line-height:inherit;letter-spacing:inherit;word-spacing:normal;
-  text-transform:none;text-decoration:none;vertical-align:baseline;color:inherit;
-  background:transparent;border:none;outline:none;list-style:none
+  text-transform:none;text-decoration:none;vertical-align:baseline;color:inherit
 }
-#wikitolica-calendario-wt a{color:var(--wt-lk);text-decoration:none;cursor:pointer;background:transparent}
+#wikitolica-calendario-wt a{color:var(--wt-lk);text-decoration:none;cursor:pointer}
 #wikitolica-calendario-wt a:hover{text-decoration:underline;color:var(--wt-lkh)}
 @keyframes wikitolica-ph-pulse{0%,100%{opacity:.45}50%{opacity:.9}}
-#wikitolica-calendario-hoy{background:var(--wt-bg-s);border-bottom:1px solid var(--wt-bd);padding:.7em .85em;display:flex;gap:.75em;align-items:center;min-width:0}
-#wikitolica-calendario-stripe{width:3px;align-self:stretch;border-radius:2px;flex-shrink:0;transition:background .3s}
-#wikitolica-calendario-body{flex:1;min-width:0;overflow:hidden}
-#wikitolica-calendario-fecha{font-size:.67em;color:var(--wt-mu);margin-bottom:.15em}
-#wikitolica-calendario-tiempo{font-size:.97em;font-weight:700;line-height:1.2;color:var(--wt-tx)}
-#wikitolica-calendario-fiesta{font-size:.78em;color:var(--wt-lk);margin-top:.1em;display:none}
-#wikitolica-calendario-fecha,#wikitolica-calendario-tiempo,#wikitolica-calendario-fiesta,.wikitolica-calendario-en{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-#wikitolica-calendario-tiempo a{color:inherit}
-#wikitolica-calendario-fiesta a{color:inherit}
-#wikitolica-calendario-icono{font-size:1.35em;line-height:1;flex-shrink:0}
-#wikitolica-calendario-lista{padding:.3em 0}
-.wikitolica-calendario-row{display:grid;grid-template-columns:42px 1fr;gap:0 .65em;padding:.35em .85em;transition:background .1s;min-width:0;background:transparent}
-.wikitolica-calendario-row:hover{background:var(--wt-bg-s)}
-.wikitolica-calendario-dt{font-size:.7em;color:var(--wt-mu);font-style:italic;text-align:right;padding-top:.1em;line-height:1.35;flex-shrink:0}
-.wikitolica-calendario-dow{display:block;font-size:.59em;font-style:normal;text-transform:uppercase;letter-spacing:.06em;color:var(--wt-bd)}
-.wikitolica-calendario-cel{min-width:0;overflow:hidden}
-.wikitolica-calendario-en{font-size:.82em;font-weight:600;line-height:1.4;color:var(--wt-tx)}
-.wikitolica-calendario-en a{color:var(--wt-lk)}
-.wikitolica-calendario-en a:hover{color:var(--wt-lkh)}
-#wikitolica-calendario-foot{padding:.45em .85em;border-top:1px solid var(--wt-bd);text-align:center;font-size:.67em;color:var(--wt-mu);background:var(--wt-bg-s);white-space:nowrap;overflow:hidden}
-#wikitolica-calendario-foot a{color:var(--wt-lk)}
-#wikitolica-calendario-foot a:hover{color:var(--wt-lkh);text-decoration:underline}
-@media(max-width:220px){.wikitolica-calendario-row{grid-template-columns:30px 1fr;gap:0 .4em;padding:.3em .5em}#wikitolica-calendario-hoy{padding:.6em .5em}}
+#wikitolica-calendario-wt #wikitolica-calendario-hoy{background:var(--wt-bg-s);border-bottom:1px solid var(--wt-bd);padding:.7em .85em;display:flex;gap:.75em;align-items:center;min-width:0}
+#wikitolica-calendario-wt #wikitolica-calendario-stripe{width:3px;align-self:stretch;border-radius:2px;flex-shrink:0;transition:background .3s}
+#wikitolica-calendario-wt #wikitolica-calendario-body{flex:1;min-width:0;overflow:hidden}
+#wikitolica-calendario-wt #wikitolica-calendario-fecha{font-size:.67em;color:var(--wt-mu);margin-bottom:.15em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#wikitolica-calendario-wt #wikitolica-calendario-tiempo{font-size:.97em;font-weight:700;line-height:1.2;color:var(--wt-tx);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#wikitolica-calendario-wt #wikitolica-calendario-tiempo a{color:inherit;text-decoration:none}
+#wikitolica-calendario-wt #wikitolica-calendario-fiesta{font-size:.78em;color:var(--wt-lk);margin-top:.1em;display:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#wikitolica-calendario-wt #wikitolica-calendario-fiesta a{color:inherit;text-decoration:none}
+#wikitolica-calendario-wt #wikitolica-calendario-icono{font-size:1.35em;line-height:1;flex-shrink:0}
+#wikitolica-calendario-wt #wikitolica-calendario-lista{padding:.3em 0}
+#wikitolica-calendario-wt .wikitolica-calendario-row{display:grid;grid-template-columns:42px 1fr;gap:0 .65em;padding:.35em .85em;transition:background .1s;min-width:0}
+#wikitolica-calendario-wt .wikitolica-calendario-row:hover{background:var(--wt-bg-s)}
+#wikitolica-calendario-wt .wikitolica-calendario-dt{font-size:.7em;color:var(--wt-mu);font-style:italic;text-align:right;padding-top:.1em;line-height:1.35;flex-shrink:0}
+#wikitolica-calendario-wt .wikitolica-calendario-dow{display:block;font-size:.59em;font-style:normal;text-transform:uppercase;letter-spacing:.06em;color:var(--wt-bd)}
+#wikitolica-calendario-wt .wikitolica-calendario-cel{min-width:0;overflow:hidden}
+#wikitolica-calendario-wt .wikitolica-calendario-en{font-size:.82em;font-weight:600;line-height:1.4;color:var(--wt-tx);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#wikitolica-calendario-wt .wikitolica-calendario-en a{color:var(--wt-lk)}
+#wikitolica-calendario-wt .wikitolica-calendario-en a:hover{color:var(--wt-lkh)}
+#wikitolica-calendario-wt #wikitolica-calendario-foot{padding:.45em .85em;border-top:1px solid var(--wt-bd);text-align:center;font-size:.67em;color:var(--wt-mu);background:var(--wt-bg-s);white-space:nowrap;overflow:hidden}
+#wikitolica-calendario-wt #wikitolica-calendario-foot a{color:var(--wt-lk)}
+#wikitolica-calendario-wt #wikitolica-calendario-foot a:hover{color:var(--wt-lkh);text-decoration:underline}
+@media(max-width:220px){
+  #wikitolica-calendario-wt .wikitolica-calendario-row{grid-template-columns:30px 1fr;gap:0 .4em;padding:.3em .5em}
+  #wikitolica-calendario-wt #wikitolica-calendario-hoy{padding:.6em .5em}
+}
 `;
 
     const MO = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
