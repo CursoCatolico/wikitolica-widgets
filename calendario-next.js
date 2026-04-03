@@ -339,16 +339,14 @@
         return T.ord;
     }
 
-    /* CSS con aislamiento máximo:
-       - all:initial en #wikitolica-calendario-wt corta toda herencia del host
-       - vars --wt-* evitan colisiones
-       - Reset * tiene especificidad (1,0,1). Todos los selectores de componente
-         se prefijan con #wikitolica-calendario-wt para obtener (1,1,0) o (2,0,0),
-         garantizando que siempre ganan al reset sin necesitar !important */
+    /* CSS con aislamiento máximo.
+       Responsive por ancho de elemento (no viewport) via ResizeObserver + [data-wt-narrow].
+       Especificidades: reset * = (1,0,1); componentes con #wt prefix = (1,1,0)/(2,0,0);
+       narrow con [data-wt-narrow] = (1,1,1)/(2,1,0) — siempre ganan al reset. */
     const CSS = `
 #wikitolica-calendario{display:block}
 #wikitolica-calendario-wt{
-  all:initial;display:block;
+  all:initial;display:block;container-type:inline-size;
   font-family:system-ui,-apple-system,"Segoe UI",Roboto,Ubuntu,Cantarell,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
   font-size:16px;line-height:1.5;-webkit-text-size-adjust:100%;text-size-adjust:100%;
   color:var(--wt-tx);background:var(--wt-bg);border:1px solid var(--wt-bd);border-radius:4px;overflow:hidden;width:100%;
@@ -366,7 +364,6 @@
 }
 #wikitolica-calendario-wt a{color:var(--wt-lk);text-decoration:none;cursor:pointer}
 #wikitolica-calendario-wt a:hover{text-decoration:underline;color:var(--wt-lkh)}
-@keyframes wikitolica-ph-pulse{0%,100%{opacity:.45}50%{opacity:.9}}
 #wikitolica-calendario-wt #wikitolica-calendario-hoy{background:var(--wt-bg-s);border-bottom:1px solid var(--wt-bd);padding:.7em .85em;display:flex;gap:.75em;align-items:center;min-width:0}
 #wikitolica-calendario-wt #wikitolica-calendario-stripe{width:3px;align-self:stretch;border-radius:2px;flex-shrink:0;transition:background .3s}
 #wikitolica-calendario-wt #wikitolica-calendario-body{flex:1;min-width:0;overflow:hidden}
@@ -388,10 +385,9 @@
 #wikitolica-calendario-wt #wikitolica-calendario-foot{padding:.45em .85em;border-top:1px solid var(--wt-bd);text-align:center;font-size:.67em;color:var(--wt-mu);background:var(--wt-bg-s);white-space:nowrap;overflow:hidden}
 #wikitolica-calendario-wt #wikitolica-calendario-foot a{color:var(--wt-lk)}
 #wikitolica-calendario-wt #wikitolica-calendario-foot a:hover{color:var(--wt-lkh);text-decoration:underline}
-@media(max-width:220px){
-  #wikitolica-calendario-wt .wikitolica-calendario-row{grid-template-columns:30px 1fr;gap:0 .4em;padding:.3em .5em}
-  #wikitolica-calendario-wt #wikitolica-calendario-hoy{padding:.6em .5em}
-}
+#wikitolica-calendario-wt[data-wt-narrow] #wikitolica-calendario-hoy{padding:.55em .55em;gap:.55em}
+#wikitolica-calendario-wt[data-wt-narrow] .wikitolica-calendario-row{grid-template-columns:34px 1fr;gap:0 .35em;padding:.3em .55em}
+#wikitolica-calendario-wt[data-wt-narrow] #wikitolica-calendario-foot{padding:.4em .55em}
 `;
 
     const MO = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
@@ -475,6 +471,14 @@
             `</div>`;
 
         render(host, days);
+
+        // Responsive por ancho de elemento (no viewport). ResizeObserver: soporte universal moderno.
+        const wt = host.querySelector('#wikitolica-calendario-wt');
+        if (typeof ResizeObserver !== 'undefined') {
+            new ResizeObserver(([e]) => {
+                wt.toggleAttribute('data-wt-narrow', e.contentRect.width < 280);
+            }).observe(wt);
+        }
     }
 
     // Funciona en todos los casos: defer, async, inline, y carga post-onload
