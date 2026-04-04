@@ -445,7 +445,7 @@
             const url = URL.createObjectURL(blob);
             const lnk = document.createElement('a');
             lnk.href = url;
-            lnk.download = 'santoral_wikitolica.ics';
+            lnk.download = 'calendario_wikitolica.ics';
             lnk.style.display = 'none';
             document.body.appendChild(lnk);
             lnk.click();
