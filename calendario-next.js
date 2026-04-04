@@ -16,7 +16,6 @@
     const advent1 = y => { const n = new Date(y, 10, 27); return addDays(n, (7 - n.getDay()) % 7); };
     const baptism = y => { const j = new Date(y, 0, 6); return j.getDay() === 0 ? new Date(y, 0, 13) : addDays(j, 7 - j.getDay()); };
 
-    /* Tiempos litúrgicos */
     const T = {
         ord: { tiempo: 'Tiempo Ordinario', color: '#2d6a4f', icono: '📖', p: '/t/tiempo-ordinario/' },
         adv: { tiempo: 'Adviento', color: '#5b21b6', icono: '🕯️', p: '/a/adviento/' },
@@ -27,37 +26,36 @@
         pas: { tiempo: 'Tiempo de Pascua', color: '#78350f', icono: '✨', p: '/t/tiempo-de-pascua/' },
     };
 
-    /* Solemnidades fijas */
     const SOLEM = {
-        '1-1': { n: 'Santa María Madre de Dios', i: '👑', p: '/m/maria-madre-de-dios/' },
-        '1-6': { n: 'Epifanía del Señor', i: '⭐', p: '/e/epifania/' },
-        '2-2': { n: 'Presentación del Señor', i: '🕯️', p: '/p/presentacion-del-senor/' },
-        '2-11': { n: 'Nuestra Señora de Lourdes', i: '💧', p: '/l/lourdes/' },
-        '3-19': { n: 'San José, Esposo de la Virgen', i: '⚒️', p: '/s/san-jose/' },
-        '3-25': { n: 'Anunciación del Señor', i: '🕊️', p: '/a/anunciacion/' },
-        '6-24': { n: 'Natividad de San Juan Bautista', i: '💧', p: '/s/san-juan-bautista/' },
-        '6-29': { n: 'Santos Pedro y Pablo', i: '⚓', p: '/s/san-pedro/' },
-        '7-16': { n: 'Nuestra Señora del Carmen', i: '🌹', p: '/v/virgen-del-carmen/' },
-        '8-6': { n: 'Transfiguración del Señor', i: '✨', p: '/t/transfiguracion/' },
-        '8-15': { n: 'Asunción de la Virgen María', i: '☁️', p: '/d/dogma-de-asuncion-en-cuerpo-y-alma-de-maria/' },
-        '8-22': { n: 'Bienaventurada Virgen María Reina', i: '👑', p: '/m/maria-reina/' },
-        '9-8': { n: 'Natividad de la Virgen María', i: '🌸', p: '/n/natividad-de-maria/' },
-        '9-14': { n: 'Exaltación de la Santa Cruz', i: '✝️', p: '/e/exaltacion-de-la-santa-cruz/' },
-        '10-7': { n: 'Nuestra Señora del Rosario', i: '📿', p: '/r/rosario/' },
-        '11-1': { n: 'Todos los Santos', i: '😇', p: '/t/todos-los-santos/' },
-        '11-2': { n: 'Fieles Difuntos', i: '🕯️', p: '/p/purgatorio/' },
-        '11-21': { n: 'Presentación de María', i: '🕯️', p: '/p/presentacion-de-la-virgen-maria-en-el-templo/' },
-        '12-8': { n: 'Inmaculada Concepción de la Virgen', i: '🌙', p: '/d/dogma-de-la-inmaculada-concepcion/' },
-        '12-12': { n: 'Nuestra Señora de Guadalupe', i: '🌹', p: '/n/nuestra-senora-de-guadalupe/' },
-        '12-25': { n: 'Natividad del Señor', i: '⭐', p: '/n/navidad/' },
+        '1-1':  { n: 'Santa María Madre de Dios',             i: '👑', p: '/s/santa-maria-madre-de-dios/' },
+        '1-6':  { n: 'Epifanía del Señor',                    i: '⭐', p: '/e/epifania/' },
+        '2-2':  { n: 'Presentación del Señor',                i: '🕯️', p: '/f/fiesta-de-la-presentacion-del-senor/' },
+        '2-11': { n: 'Nuestra Señora de Lourdes',             i: '💧', p: '/n/nuestra-senora-de-lourdes/' },
+        '3-19': { n: 'San José, Esposo de la Virgen',         i: '⚒️', p: '/s/san-jose/' },
+        '3-25': { n: 'Anunciación del Señor',                 i: '🕊️', p: '/s/solemnidad-de-la-anunciacion-del-senor/' },
+        '6-24': { n: 'Natividad de San Juan Bautista',        i: '💧', p: '/s/san-juan-bautista/' },
+        '6-29': { n: 'Santos Pedro y Pablo',                  i: '⚓', p: '/s/san-pedro/' },
+        '7-16': { n: 'Nuestra Señora del Carmen',             i: '🌹', p: '/v/virgen-del-carmen/' },
+        '8-6':  { n: 'Transfiguración del Señor',             i: '✨', p: '/t/transfiguracion/' },
+        '8-15': { n: 'Asunción de la Virgen María',           i: '☁️', p: '/d/dogma-de-asuncion-en-cuerpo-y-alma-de-maria/' },
+        '8-22': { n: 'Bienaventurada Virgen María Reina',     i: '👑', p: '/m/memoria-de-la-virgen-maria-reina/' },
+        '9-8':  { n: 'Natividad de la Virgen María',          i: '🌸', p: '/n/natividad-de-maria/' },
+        '9-14': { n: 'Exaltación de la Santa Cruz',           i: '✝️', p: '/f/fiesta-de-la-exaltacion-de-la-santa-cruz/' },
+        '10-7': { n: 'Nuestra Señora del Rosario',            i: '📿', p: '/r/rosario/' },
+        '11-1': { n: 'Todos los Santos',                      i: '😇', p: '/t/todos-los-santos-festividad/' },
+        '11-2': { n: 'Fieles Difuntos',                       i: '🕯️', p: '/p/purgatorio/' },
+        '11-21':{ n: 'Presentación de María',                 i: '🕯️', p: '/p/presentacion-de-la-virgen-maria-en-el-templo/' },
+        '12-8': { n: 'Inmaculada Concepción de la Virgen',    i: '🌙', p: '/d/dogma-de-la-inmaculada-concepcion-de-maria/' },
+        '12-12':{ n: 'Nuestra Señora de Guadalupe',           i: '🌹', p: '/n/nuestra-senora-de-guadalupe/' },
+        '12-25':{ n: 'Natividad del Señor',                   i: '⭐', p: '/n/navidad/' },
     };
 
     const SAINTS = {
-        "1-1": [{ n: "San Basilio de Cesarea", p: "/s/san-basilio-de-cesarea/" }, { n: "Guillermo de Saint‑Benignus", p: "/s/san-guillermo-de-saint-benignus/" }],
-        "1-2": [{ n: "Gregorio Nacianceno", p: "/s/san-gregorio-nacianceno/" }],
-        "1-3": [{ n: "Genoveva", p: "/s/santa-genoveva-de-paris/" }],
-        "1-6": [{ n: "Nuestra Señora de los Reyes", p: "/n/nuestra-senora-de-los-reyes/" }, { n: "San Juan de Ribera", p: "/s/san-juan-de-ribera/" }],
-        "1-7": [{ n: "Raimundo de Peñafort", p: "/s/san-raimundo-de-penafort/" }],
+        "1-1":  [{ n: "San Basilio de Cesarea", p: "/s/san-basilio-de-cesarea/" }, { n: "Guillermo de Saint‑Benignus", p: "/s/san-guillermo-de-saint-benignus/" }],
+        "1-2":  [{ n: "Gregorio Nacianceno", p: "/s/san-gregorio-nacianceno/" }],
+        "1-3":  [{ n: "Genoveva", p: "/s/santa-genoveva-de-paris/" }],
+        "1-6":  [{ n: "Nuestra Señora de los Reyes", p: "/n/nuestra-senora-de-los-reyes/" }, { n: "San Juan de Ribera", p: "/s/san-juan-de-ribera/" }],
+        "1-7":  [{ n: "Raimundo de Peñafort", p: "/s/san-raimundo-de-penafort/" }],
         "1-10": [{ n: "San Marcos de Trache", p: "/s/san-marcos-de-trache/" }],
         "1-13": [{ n: "Hilario de Poitiers", p: "/s/san-hilario-de-poitiers/" }],
         "1-15": [{ n: "Arnold Janssen", p: "/s/san-arnold-janssen/" }, { n: "San Macario el Viejo", p: "/s/san-macario-el-viejo/" }],
@@ -75,13 +73,13 @@
         "1-28": [{ n: "Tomás de Aquino", p: "/s/santo-tomas-de-aquino/" }, { n: "San Pedro Nolasco", p: "/s/san-pedro-nolasco/" }],
         "1-30": [{ n: "Félix IV (III)", p: "/p/papa-felix-iv-iii/" }],
         "1-31": [{ n: "San Juan Bosco", p: "/s/san-juan-bosco/" }],
-        "2-1": [{ n: "Santa Brígida de Irlanda", p: "/s/santa-brigida-de-irlanda/" }],
-        "2-2": [{ n: "Nuestra Señora de la Candelaria de Copiapó", p: "/n/nuestra-senora-de-la-candelaria-de-copiapo/" }, { n: "Nuestra Señora del Buen Suceso", p: "/n/nuestra-senora-del-buen-suceso/" }],
-        "2-3": [{ n: "San Blas", p: "/s/san-blas/" }],
-        "2-4": [{ n: "Juana de Valois", p: "/s/santa-juana-de-valois/" }],
-        "2-5": [{ n: "Santa Águeda", p: "/s/santa-agueda/" }],
-        "2-6": [{ n: "Dorotea de Cesarea", p: "/s/santa-dorotea/" }, { n: "San Pablo Miki y compañeros", p: "/s/san-pablo-miki-y-companeros/" }],
-        "2-8": [{ n: "San Jerónimo Emiliani", p: "/s/san-jeronimo-emiliani/" }, { n: "Josefina Bakhita", p: "/s/santa-josefina-bakhita/" }],
+        "2-1":  [{ n: "Santa Brígida de Irlanda", p: "/s/santa-brigida-de-irlanda/" }],
+        "2-2":  [{ n: "Nuestra Señora de la Candelaria de Copiapó", p: "/n/nuestra-senora-de-la-candelaria-de-copiapo/" }, { n: "Nuestra Señora del Buen Suceso", p: "/n/nuestra-senora-del-buen-suceso/" }],
+        "2-3":  [{ n: "San Blas", p: "/s/san-blas/" }],
+        "2-4":  [{ n: "Juana de Valois", p: "/s/santa-juana-de-valois/" }],
+        "2-5":  [{ n: "Santa Águeda", p: "/s/santa-agueda/" }],
+        "2-6":  [{ n: "Dorotea de Cesarea", p: "/s/santa-dorotea/" }, { n: "San Pablo Miki y compañeros", p: "/s/san-pablo-miki-y-companeros/" }],
+        "2-8":  [{ n: "San Jerónimo Emiliani", p: "/s/san-jeronimo-emiliani/" }, { n: "Josefina Bakhita", p: "/s/santa-josefina-bakhita/" }],
         "2-10": [{ n: "Santa Escolástica", p: "/s/santa-escolastica/" }],
         "2-12": [{ n: "Santa Eulalia", p: "/s/santa-eulalia/" }],
         "2-14": [{ n: "San Valentín", p: "/s/san-valentin/" }, { n: "San Cirilo", p: "/s/san-cirilo/" }, { n: "San Metodio", p: "/s/san-metodio/" }],
@@ -90,12 +88,12 @@
         "2-22": [{ n: "Cátedra de San Pedro", p: "/s/san-simon-pedro/" }],
         "2-23": [{ n: "Policarpo", p: "/s/san-policarpo/" }, { n: "Pedro Frelichowski", p: "/b/beato-pedro-frelichowski/" }],
         "2-27": [{ n: "San Leandro", p: "/s/san-leandro/" }, { n: "Mechtilde de Hackeborn", p: "/s/santa-mechtilde/" }],
-        "3-1": [{ n: "San David", p: "/s/san-david/" }, { n: "Félix III", p: "/p/papa-felix-iii-ii/" }],
-        "3-3": [{ n: "Katharine Drexel", p: "/s/santa-katherine-drexel/" }],
-        "3-4": [{ n: "Lucio I", p: "/p/papa-lucio-i/" }, { n: "San Casimiro", p: "/s/san-casimiro/" }],
-        "3-7": [{ n: "Santa Felicidad", p: "/s/santa-felicidad/" }, { n: "Perpetua", p: "/s/santa-perpetua/" }],
-        "3-8": [{ n: "San Juan de Dios", p: "/s/san-juan-de-dios/" }],
-        "3-9": [{ n: "Santa Francesca Romana", p: "/s/santa-francisca-romana/" }],
+        "3-1":  [{ n: "San David", p: "/s/san-david/" }, { n: "Félix III", p: "/p/papa-felix-iii-ii/" }],
+        "3-3":  [{ n: "Katharine Drexel", p: "/s/santa-katherine-drexel/" }],
+        "3-4":  [{ n: "Lucio I", p: "/p/papa-lucio-i/" }, { n: "San Casimiro", p: "/s/san-casimiro/" }],
+        "3-7":  [{ n: "Santa Felicidad", p: "/s/santa-felicidad/" }, { n: "Perpetua", p: "/s/santa-perpetua/" }],
+        "3-8":  [{ n: "San Juan de Dios", p: "/s/san-juan-de-dios/" }],
+        "3-9":  [{ n: "Santa Francesca Romana", p: "/s/santa-francisca-romana/" }],
         "3-15": [{ n: "San Clemente María Hofbauer", p: "/s/san-clemente-maria-hofbauer/" }, { n: "Luisa de Marillac", p: "/s/santa-luisa-de-marillac/" }],
         "3-17": [{ n: "San Patricio", p: "/s/san-patricio/" }],
         "3-18": [{ n: "San Eduardo", p: "/s/san-eduardo/" }, { n: "Cirilo de Jerusalén", p: "/s/san-cirilo-de-jerusalen/" }],
@@ -104,9 +102,9 @@
         "3-24": [{ n: "Óscar Romero", p: "/s/san-oscar-romero/" }],
         "3-25": [{ n: "Virgen de la Encarnación", p: "/v/virgen-de-la-encarnacion/" }],
         "3-28": [{ n: "Sixto III", p: "/p/papa-sixto-iii/" }],
-        "4-2": [{ n: "San Francisco de Paula", p: "/s/san-francisco-de-paula/" }],
-        "4-7": [{ n: "Juan Bautista de la Salle", p: "/s/san-juan-bautista-de-la-salle/" }],
-        "4-8": [{ n: "Julie Billiart", p: "/s/santa-julie-billiart/" }],
+        "4-2":  [{ n: "San Francisco de Paula", p: "/s/san-francisco-de-paula/" }],
+        "4-7":  [{ n: "Juan Bautista de la Salle", p: "/s/san-juan-bautista-de-la-salle/" }],
+        "4-8":  [{ n: "Julie Billiart", p: "/s/santa-julie-billiart/" }],
         "4-11": [{ n: "San Estanislao", p: "/s/san-estanislao/" }],
         "4-13": [{ n: "Martín I", p: "/p/papa-martin-i/" }],
         "4-15": [{ n: "San Damián de Molokai", p: "/s/san-damian-de-molokai/" }],
@@ -120,9 +118,9 @@
         "4-28": [{ n: "San Pedro Chanel", p: "/s/san-pedro-chanel/" }, { n: "San Luis Grignion de Montfort", p: "/s/san-luis-grignion-de-montfort/" }],
         "4-29": [{ n: "Santa Endelienta", p: "/s/santa-endelienta/" }, { n: "San Pedro mártir", p: "/s/san-pedro-martir/" }, { n: "Santa Catalina de Siena", p: "/s/santa-catalina-de-siena/" }],
         "4-30": [{ n: "Pío V", p: "/p/papa-pio-v/" }],
-        "5-1": [{ n: "San José Obrero", p: "/s/san-jose/" }],
-        "5-2": [{ n: "San Atanasio", p: "/s/san-atanasio/" }],
-        "5-3": [{ n: "Cruz de Caravaca", p: "/c/cruz-de-caravaca/" }, { n: "San Santiago el Menor", p: "/f/fiesta-de-san-santiago-el-menor/" }, { n: "San Felipe Apóstol", p: "/s/san-felipe/" }],
+        "5-1":  [{ n: "San José Obrero", p: "/s/san-jose/" }],
+        "5-2":  [{ n: "San Atanasio", p: "/s/san-atanasio/" }],
+        "5-3":  [{ n: "Cruz de Caravaca", p: "/c/cruz-de-caravaca/" }, { n: "San Santiago el Menor", p: "/f/fiesta-de-san-santiago-el-menor/" }, { n: "San Felipe Apóstol", p: "/s/san-felipe/" }],
         "5-10": [{ n: "San Juan de Ávila", p: "/s/san-juan-de-avila/" }],
         "5-13": [{ n: "Nuestra Señora de Fátima", p: "/n/nuestra-senora-de-fatima/" }],
         "5-14": [{ n: "San Matías", p: "/s/san-matias-apostol/" }],
@@ -137,12 +135,12 @@
         "5-26": [{ n: "Matías Maulumba Kalemba", p: "/s/san-matias-maulumba-kalemba/" }, { n: "San Felipe Neri", p: "/s/san-felipe-neri/" }],
         "5-27": [{ n: "San Agustín de Canterbury", p: "/s/san-agustin-de-cantorbery/" }],
         "5-30": [{ n: "Juana de Arco", p: "/s/santa-juana-de-arco/" }, { n: "Félix I", p: "/p/papa-felix-i/" }],
-        "6-1": [{ n: "Justino Mártir", p: "/s/san-justino-martir/" }],
-        "6-3": [{ n: "San Carlos Lwanga y compañeros", p: "/s/san-carlos-lwanga-y-companeros/" }],
-        "6-4": [{ n: "San Quirino de Siscia", p: "/s/san-quirino-de-sescia/" }],
-        "6-5": [{ n: "San Bonifacio", p: "/s/san-bonifacio/" }],
-        "6-6": [{ n: "Norberto", p: "/s/san-norberto/" }],
-        "6-9": [{ n: "San Efrén de Nísibe", p: "/s/san-efren-de-nisibe/" }],
+        "6-1":  [{ n: "Justino Mártir", p: "/s/san-justino-martir/" }],
+        "6-3":  [{ n: "San Carlos Lwanga y compañeros", p: "/s/san-carlos-lwanga-y-companeros/" }],
+        "6-4":  [{ n: "San Quirino de Siscia", p: "/s/san-quirino-de-sescia/" }],
+        "6-5":  [{ n: "San Bonifacio", p: "/s/san-bonifacio/" }],
+        "6-6":  [{ n: "Norberto", p: "/s/san-norberto/" }],
+        "6-9":  [{ n: "San Efrén de Nísibe", p: "/s/san-efren-de-nisibe/" }],
         "6-11": [{ n: "San Bernabé", p: "/s/san-bernabe/" }],
         "6-13": [{ n: "San Antonio de Padua", p: "/s/san-antonio-de-padua/" }],
         "6-15": [{ n: "San Bernardo de Menthon", p: "/s/san-bernardo-de-menthon/" }],
@@ -154,14 +152,14 @@
         "6-27": [{ n: "San Cirilo de Alejandría", p: "/s/san-cirilo-de-alejandria/" }],
         "6-28": [{ n: "San Ireneo de Lyon", p: "/s/san-ireneo-de-lyon/" }],
         "6-29": [{ n: "San Pedro", p: "/s/san-pedro/" }, { n: "San Pablo Apóstol", p: "/s/san-pablo-apostol/" }, { n: "Santos Protomártires de Roma", p: "/s/santos-protomartires-de-roma/" }],
-        "7-1": [{ n: "Sangre de Cristo", p: "/s/sangre-de-cristo/" }],
-        "7-3": [{ n: "Santo Tomás Apóstol", p: "/s/santo-tomas-apostol/" }],
-        "7-4": [{ n: "Pier Giorgio Frassati", p: "/s/san-pier-giorgio-frassati/" }, { n: "Isabel de Portugal", p: "/s/santa-isabel-de-portugal/" }],
-        "7-5": [{ n: "Antonio María Zaccaría", p: "/s/san-antonio-maria-zaccaria/" }],
-        "7-6": [{ n: "María Goretti", p: "/s/santa-maria-goretti/" }],
-        "7-7": [{ n: "Benedicto XI", p: "/p/papa-benedicto-xi/" }],
-        "7-8": [{ n: "San Kilian", p: "/s/san-kilian/" }],
-        "7-9": [{ n: "Estigmas de Santa Verónica Giuliani", p: "/e/estigmas-de-santa-veronica-giuliani/" }, { n: "San Agustín Zhao Rong y compañeros", p: "/s/san-agustin-zhao-rong-y-companeros/" }],
+        "7-1":  [{ n: "Sangre de Cristo", p: "/s/sangre-de-cristo/" }],
+        "7-3":  [{ n: "Santo Tomás Apóstol", p: "/s/santo-tomas-apostol/" }],
+        "7-4":  [{ n: "Pier Giorgio Frassati", p: "/s/san-pier-giorgio-frassati/" }, { n: "Isabel de Portugal", p: "/s/santa-isabel-de-portugal/" }],
+        "7-5":  [{ n: "Antonio María Zaccaría", p: "/s/san-antonio-maria-zaccaria/" }],
+        "7-6":  [{ n: "María Goretti", p: "/s/santa-maria-goretti/" }],
+        "7-7":  [{ n: "Benedicto XI", p: "/p/papa-benedicto-xi/" }],
+        "7-8":  [{ n: "San Kilian", p: "/s/san-kilian/" }],
+        "7-9":  [{ n: "Estigmas de Santa Verónica Giuliani", p: "/e/estigmas-de-santa-veronica-giuliani/" }, { n: "San Agustín Zhao Rong y compañeros", p: "/s/san-agustin-zhao-rong-y-companeros/" }],
         "7-11": [{ n: "San Benito de Nursia", p: "/s/san-benito-de-nursia/" }],
         "7-12": [{ n: "San Juan Gualberto", p: "/s/san-juan-gualberto/" }],
         "7-14": [{ n: "Camilo de Lellis", p: "/s/san-camilo-de-lelis/" }],
@@ -177,13 +175,13 @@
         "7-29": [{ n: "Marta", p: "/s/santa-marta/" }],
         "7-30": [{ n: "San Pedro Crisólogo", p: "/s/san-pedro-crisologo/" }],
         "7-31": [{ n: "San Ignacio de Loyola", p: "/s/san-inigo/" }, { n: "San Germán de Auxerre", p: "/s/san-german-de-auxerre/" }],
-        "8-1": [{ n: "Alfonso María de Ligorio", p: "/s/san-alfonso-maria-de-ligorio/" }],
-        "8-2": [{ n: "San Pedro Julián Eymard", p: "/s/san-pedro-julian-eymard/" }, { n: "San Eusebio de Vercelli", p: "/s/san-eusebio-de-vercelli/" }],
-        "8-4": [{ n: "San Juan María Vianney", p: "/s/san-juan-maria-vianney/" }],
-        "8-6": [{ n: "Nuestra Señora de Copacabana", p: "/n/nuestra-senora-de-copacabana/" }, { n: "Moisés", p: "/m/moises/" }],
-        "8-7": [{ n: "San Cayetano", p: "/s/san-cayetano/" }, { n: "San Sixto II", p: "/s/san-sixto-ii/" }],
-        "8-8": [{ n: "Domingo de Guzmán", p: "/s/santo-domingo-de-guzman/" }],
-        "8-9": [{ n: "Santa Teresa Benedicta de la Cruz", p: "/s/santa-teresa-benedicta-de-la-cruz/" }],
+        "8-1":  [{ n: "Alfonso María de Ligorio", p: "/s/san-alfonso-maria-de-ligorio/" }],
+        "8-2":  [{ n: "San Pedro Julián Eymard", p: "/s/san-pedro-julian-eymard/" }, { n: "San Eusebio de Vercelli", p: "/s/san-eusebio-de-vercelli/" }],
+        "8-4":  [{ n: "San Juan María Vianney", p: "/s/san-juan-maria-vianney/" }],
+        "8-6":  [{ n: "Nuestra Señora de Copacabana", p: "/n/nuestra-senora-de-copacabana/" }, { n: "Moisés", p: "/m/moises/" }],
+        "8-7":  [{ n: "San Cayetano", p: "/s/san-cayetano/" }, { n: "San Sixto II", p: "/s/san-sixto-ii/" }],
+        "8-8":  [{ n: "Domingo de Guzmán", p: "/s/santo-domingo-de-guzman/" }],
+        "8-9":  [{ n: "Santa Teresa Benedicta de la Cruz", p: "/s/santa-teresa-benedicta-de-la-cruz/" }],
         "8-10": [{ n: "San Lorenzo", p: "/s/san-lorenzo/" }],
         "8-11": [{ n: "Santa Clara de Asís", p: "/s/santa-clara-de-asis/" }],
         "8-12": [{ n: "Juana Francisca de Chantal", p: "/s/santa-juana-francisca-de-chantal/" }],
@@ -204,12 +202,12 @@
         "8-28": [{ n: "San Agustín de Hipona", p: "/s/san-agustin-de-hipona/" }],
         "8-29": [{ n: "Nuestra Señora de Atocha", p: "/n/nuestra-senora-de-atocha/" }],
         "8-31": [{ n: "San Raimundo Nonato", p: "/s/san-raimundo-nonato/" }],
-        "9-1": [{ n: "Milagro eucarístico de Daroca", p: "/m/milagro-eucaristico-de-daroca-espana/" }],
-        "9-2": [{ n: "San Emerico", p: "/s/san-emerico/" }],
-        "9-3": [{ n: "San Gregorio I Magno", p: "/s/san-gregorio-i-magno/" }],
-        "9-5": [{ n: "Santa Teresa de Calcuta", p: "/s/santa-teresa-de-calcuta/" }],
-        "9-8": [{ n: "Tomás de Villanueva", p: "/s/santo-tomas-de-villanueva/" }],
-        "9-9": [{ n: "Pedro Claver", p: "/s/san-pedro-claver/" }],
+        "9-1":  [{ n: "Milagro eucarístico de Daroca", p: "/m/milagro-eucaristico-de-daroca-espana/" }],
+        "9-2":  [{ n: "San Emerico", p: "/s/san-emerico/" }],
+        "9-3":  [{ n: "San Gregorio I Magno", p: "/s/san-gregorio-i-magno/" }],
+        "9-5":  [{ n: "Santa Teresa de Calcuta", p: "/s/santa-teresa-de-calcuta/" }],
+        "9-8":  [{ n: "Tomás de Villanueva", p: "/s/santo-tomas-de-villanueva/" }],
+        "9-9":  [{ n: "Pedro Claver", p: "/s/san-pedro-claver/" }],
         "9-10": [{ n: "Nicolás de Tolentino", p: "/s/san-nicolas-de-tolentino/" }],
         "9-13": [{ n: "Juan Crisóstomo", p: "/s/san-juan-crisostomo/" }],
         "9-15": [{ n: "María Santísima del Mayor Dolor", p: "/m/maria-santisima-del-mayor-dolor/" }, { n: "Catalina de Génova", p: "/s/santa-catalina-de-genova/" }, { n: "San Pedro de Arbués", p: "/s/san-pedro-de-arbues/" }],
@@ -220,68 +218,67 @@
         "9-21": [{ n: "San Mateo", p: "/s/san-mateo-apostol/" }],
         "9-22": [{ n: "San Mauricio", p: "/s/san-mauricio/" }],
         "9-23": [{ n: "San Pío de Pietrelcina", p: "/s/san-pio-de-pietrelcina/" }],
-        "9-26": [{ n: "Cosme y Damián", p: "/s/santos-cosme-y-damian/" }],
+        "9-26": [{ n: "Cosme y Damián", p: "/s/san-cosme-y-san-damian/" }],
         "9-27": [{ n: "San Vicente de Paúl", p: "/s/san-vicente-de-paul/" }],
         "9-28": [{ n: "San Wenceslao", p: "/s/san-wenceslao/" }, { n: "San Lorenzo Ruiz", p: "/s/san-lorenzo-ruiz/" }],
         "9-29": [{ n: "San Miguel Arcángel", p: "/s/san-miguel-arcangel/" }, { n: "San Gabriel Arcángel", p: "/s/san-gabriel-arcangel/" }, { n: "San Rafael Arcángel", p: "/s/san-rafael-arcangel/" }],
         "9-30": [{ n: "San Jerónimo", p: "/s/san-jeronimo/" }],
-        "10-1": [{ n: "Santa Teresita del Niño Jesús", p: "/s/santa-teresa-del-nino-jesus/" }],
+        "10-1": [{ n: "Santa Teresita del Niño Jesús", p: "/s/santa-teresita-del-nino-jesus/" }],
         "10-2": [{ n: "Ángel de la Guarda", p: "/a/angel-de-la-guarda/" }],
         "10-4": [{ n: "San Francisco de Asís", p: "/s/san-francisco-de-asis/" }],
-        "10-5": [{ n: "Santa Faustina Kowalska", p: "/s/santa-faustina-kowalska/" }],
+        "10-5": [{ n: "Santa Faustina Kowalska", p: "/s/santa-maria-faustina-kowalska/" }],
         "10-6": [{ n: "San Bruno", p: "/s/san-bruno/" }],
         "10-9": [{ n: "San Dionisio Areopagita", p: "/s/san-dionisio-areopagita/" }, { n: "San Juan Leonardi", p: "/s/san-juan-leonardi/" }],
-        "10-11": [{ n: "San Juan XXIII", p: "/s/san-juan-xxiii/" }],
-        "10-13": [{ n: "Milagro del Sol de Fátima", p: "/m/milagro-del-sol-de-fatima/" }],
-        "10-14": [{ n: "San Calixto I", p: "/p/papa-calixto-i/" }],
-        "10-15": [{ n: "Santa Teresa de Jesús", p: "/s/santa-teresa-de-jesus/" }],
-        "10-16": [{ n: "San Galo", p: "/s/san-galo/" }, { n: "Santa Margarita María de Alacoque", p: "/s/santa-margarita-maria-de-alacoque/" }],
-        "10-17": [{ n: "San Ignacio de Antioquía", p: "/s/san-ignacio-de-antioquía/" }],
-        "10-18": [{ n: "San Lucas Evangelista", p: "/s/san-lucas-evangelista/" }],
-        "10-19": [{ n: "San Juan de Brébeuf", p: "/s/san-juan-de-brebeuf/" }, { n: "San Isaac Jogues", p: "/s/san-isaac-jogues/" }],
-        "10-22": [{ n: "San Juan Pablo II", p: "/s/san-juan-pablo-ii/" }],
-        "10-23": [{ n: "San Juan de Capistrano", p: "/s/san-juan-de-capistrano/" }],
-        "10-24": [{ n: "San Antonio María Claret", p: "/s/san-antonio-maria-claret/" }],
-        "10-28": [{ n: "San Simón Apóstol", p: "/s/san-simon-apostol/" }, { n: "San Judas Tadeo", p: "/s/san-judas-tadeo/" }],
+        "10-11":[{ n: "San Juan XXIII", p: "/s/san-juan-xxiii/" }],
+        "10-13":[{ n: "Milagro del Sol de Fátima", p: "/m/milagro-del-sol-de-fatima-portugal/" }],
+        "10-14":[{ n: "San Calixto I", p: "/p/papa-calixto-i/" }],
+        "10-15":[{ n: "Santa Teresa de Jesús", p: "/s/santa-teresa-de-jesus/" }],
+        "10-16":[{ n: "San Galo", p: "/s/san-galo/" }, { n: "Santa Margarita María de Alacoque", p: "/s/santa-margarita-maria-de-alacoque/" }],
+        "10-17":[{ n: "San Ignacio de Antioquía", p: "/s/san-ignacio-de-antioquia/" }],
+        "10-18":[{ n: "San Lucas Evangelista", p: "/s/san-lucas-evangelista/" }],
+        "10-19":[{ n: "San Juan de Brébeuf", p: "/s/san-juan-de-brebeuf/" }, { n: "San Isaac Jogues", p: "/s/san-isaac-jogues/" }],
+        "10-22":[{ n: "San Juan Pablo II", p: "/s/san-juan-pablo-ii/" }],
+        "10-23":[{ n: "San Juan de Capistrano", p: "/s/san-juan-de-capistrano/" }],
+        "10-24":[{ n: "San Antonio María Claret", p: "/s/san-antonio-maria-claret/" }],
+        "10-28":[{ n: "San Simón Apóstol", p: "/s/san-simon-apostol/" }, { n: "San Judas Tadeo", p: "/s/san-judas-tadeo/" }],
         "11-3": [{ n: "San Martín de Porres", p: "/s/san-martin-de-porres/" }],
         "11-4": [{ n: "San Carlos Borromeo", p: "/s/san-carlos-borromeo/" }],
         "11-5": [{ n: "San Zacarías", p: "/s/san-zacarias/" }],
         "11-9": [{ n: "Dedicación de la Basílica de Letrán", p: "/b/basilica-de-san-juan-de-letran/" }],
-        "11-10": [{ n: "San León Magno", p: "/s/san-leon-i-magno/" }],
-        "11-11": [{ n: "San Martín de Tours", p: "/s/san-martin-de-tours/" }],
-        "11-12": [{ n: "San Josafat", p: "/s/san-josafat/" }],
-        "11-13": [{ n: "San Leandro", p: "/s/san-leandro/" }],
-        "11-15": [{ n: "San Alberto Magno", p: "/s/san-alberto-magno/" }],
-        "11-16": [{ n: "Santa Margarita de Escocia", p: "/s/santa-margarita-de-escocia/" }, { n: "Santa Gertrudis", p: "/s/santa-gertrudis/" }],
-        "11-17": [{ n: "Santa Isabel de Hungría", p: "/s/santa-isabel-de-hungria/" }],
-        "11-18": [{ n: "Dedicación de la Basílica de San Pedro", p: "/b/basilica-de-san-pedro-vaticano/" }],
-        "11-22": [{ n: "Santa Cecilia", p: "/s/santa-cecilia/" }],
-        "11-23": [{ n: "San Clemente I", p: "/p/papa-san-clemente-i/" }, { n: "San Columbano", p: "/s/san-columbano/" }],
-        "11-24": [{ n: "San Andrés Dung-Lac y compañeros", p: "/s/san-andres-dung-lac/" }],
-        "11-25": [{ n: "Santa Catalina de Alejandría", p: "/s/santa-catalina-de-alejandria/" }],
-        "11-26": [{ n: "San Silvestre Gozzolini", p: "/s/san-silvestre-gozzolini/" }],
-        "11-27": [{ n: "Nuestra Señora de la Medalla Milagrosa", p: "/n/nuestra-senora-de-la-medalla-milagrosa/" }],
-        "11-30": [{ n: "San Andrés", p: "/s/san-andres-apostol/" }],
+        "11-10":[{ n: "San León Magno", p: "/s/san-leon-i-magno/" }],
+        "11-11":[{ n: "San Martín de Tours", p: "/s/san-martin-de-tours/" }],
+        "11-12":[{ n: "San Josafat", p: "/s/san-josafat/" }],
+        "11-13":[{ n: "San Leandro", p: "/s/san-leandro/" }],
+        "11-15":[{ n: "San Alberto Magno", p: "/s/san-alberto-magno/" }],
+        "11-16":[{ n: "Santa Margarita de Escocia", p: "/s/santa-margarita-de-escocia/" }, { n: "Santa Gertrudis", p: "/s/santa-gertrudis-la-grande/" }],
+        "11-17":[{ n: "Santa Isabel de Hungría", p: "/s/santa-isabel-de-hungria/" }],
+        "11-18":[{ n: "Dedicación de la Basílica de San Pedro", p: "/b/basilica-de-san-pedro/" }],
+        "11-22":[{ n: "Santa Cecilia", p: "/s/santa-cecilia/" }],
+        "11-23":[{ n: "San Clemente I", p: "/p/papa-clemente-i/" }, { n: "San Columbano", p: "/s/san-columbano/" }],
+        "11-24":[{ n: "San Andrés Dung-Lac y compañeros", p: "/s/san-andres-dung-lac/" }],
+        "11-25":[{ n: "Santa Catalina de Alejandría", p: "/s/santa-catalina-de-alejandria/" }],
+        "11-26":[{ n: "San Silvestre Gozzolini", p: "/s/san-silvestre-gozzolini/" }],
+        "11-27":[{ n: "Nuestra Señora de la Medalla Milagrosa", p: "/n/nuestra-senora-de-la-medalla-milagrosa/" }],
+        "11-30":[{ n: "San Andrés", p: "/s/san-andres-apostol/" }],
         "12-3": [{ n: "San Francisco Javier", p: "/s/san-francisco-javier/" }],
         "12-4": [{ n: "Juan Damasceno", p: "/s/san-juan-damasceno/" }],
         "12-6": [{ n: "San Nicolás", p: "/p/papa-noel-san-nicolas/" }],
         "12-7": [{ n: "San Ambrosio de Milán", p: "/s/san-ambrosio-de-milan/" }],
         "12-8": [{ n: "Nuestra Señora de la Inmaculada Pureza", p: "/n/nuestra-senora-de-la-inmaculada-pureza/" }, { n: "Nuestra Señora de Andacollo", p: "/n/nuestra-senora-de-andacollo/" }, { n: "Narcisa de Jesús", p: "/s/santa-narcisa-de-jesus/" }, { n: "Purísima Virgen de Cotoca", p: "/p/purisima-virgen-de-cotoca/" }],
         "12-9": [{ n: "San Juan Diego Cuauhtlatoatzin", p: "/s/san-juan-diego-cuauhtlatoatzin/" }],
-        "12-10": [{ n: "Nuestra Señora de Loreto", p: "/n/nuestra-senora-de-loreto/" }],
-        "12-11": [{ n: "San Dámaso I", p: "/s/san-damaso-i/" }],
-        "12-13": [{ n: "Santa Lucía", p: "/s/santa-lucia/" }],
-        "12-14": [{ n: "San Juan de la Cruz", p: "/s/san-juan-de-la-cruz/" }],
-        "12-21": [{ n: "San Pedro Canisio", p: "/s/san-pedro-canisio/" }],
-        "12-26": [{ n: "San Esteban", p: "/s/san-esteban/" }],
-        "12-27": [{ n: "San Juan Apóstol", p: "/s/san-juan-evangelista/" }],
-        "12-28": [{ n: "Samuel", p: "/s/samuel-profeta/" }, { n: "Fiesta de los Santos Inocentes", p: "/f/fiesta-de-los-santos-inocentes/" }],
-        "12-29": [{ n: "Tomás Becket", p: "/s/santo-tomas-becket/" }],
-        "12-30": [{ n: "Virgen de la Nube", p: "/v/virgen-de-la-nube/" }],
-        "12-31": [{ n: "San Silvestre I", p: "/s/san-silvestre-i/" }]
+        "12-10":[{ n: "Nuestra Señora de Loreto", p: "/n/nuestra-senora-de-loreto/" }],
+        "12-11":[{ n: "San Dámaso I", p: "/s/san-damaso-i/" }],
+        "12-13":[{ n: "Santa Lucía", p: "/s/santa-lucia/" }],
+        "12-14":[{ n: "San Juan de la Cruz", p: "/s/san-juan-de-la-cruz/" }],
+        "12-21":[{ n: "San Pedro Canisio", p: "/s/san-pedro-canisio/" }],
+        "12-26":[{ n: "San Esteban", p: "/s/san-esteban/" }],
+        "12-27":[{ n: "San Juan Apóstol", p: "/s/san-juan-evangelista/" }],
+        "12-28":[{ n: "Samuel", p: "/s/samuel-profeta/" }, { n: "Fiesta de los Santos Inocentes", p: "/f/fiesta-de-los-santos-inocentes/" }],
+        "12-29":[{ n: "Tomás Becket", p: "/s/santo-tomas-becket/" }],
+        "12-30":[{ n: "Virgen de la Nube", p: "/v/virgen-de-la-nube/" }],
+        "12-31":[{ n: "San Silvestre I", p: "/s/san-silvestre-i/" }],
     };
 
-    /* Cache por año */
     const _yc = {};
     function ydata(y) {
         if (_yc[y]) return _yc[y];
@@ -295,17 +292,17 @@
             bap: baptism(y),
             dec25: new Date(y, 11, 25),
             mov: [
-                [addDays(adv, -7), { fiesta: 'Cristo Rey del Universo', ...T.ord, color: '#78350f', icono: '👑', p: '/c/cristo-rey/' }],
-                [addDays(E, -7), { fiesta: 'Domingo de Ramos', ...T.sem, p: '/d/domingo-de-ramos/' }],
-                [addDays(E, -3), { fiesta: 'Jueves Santo', ...T.tri, p: '/j/jueves-santo/' }],
-                [addDays(E, -2), { fiesta: 'Viernes Santo', ...T.tri, color: '#111827', p: '/v/viernes-santo/' }],
-                [addDays(E, -1), { fiesta: 'Sábado Santo', ...T.tri, p: '/s/sabado-santo/' }],
-                [E, { fiesta: 'Domingo de Resurrección', ...T.pas, icono: '✨', p: '/r/resurreccion/' }],
-                [addDays(E, 8), { fiesta: 'San Vicente Ferrer', ...T.pas, icono: '✝️', p: '/s/san-vicente-ferrer/' }],
-                [addDays(E, 39), { fiesta: 'Ascensión del Señor', ...T.pas, icono: '☁️', p: '/a/ascension/' }],
-                [addDays(E, 49), { fiesta: 'Pentecostés', ...T.pas, color: '#7f1d1d', icono: '🔥', p: '/p/pentecostes/' }],
-                [addDays(E, 56), { fiesta: 'Santísima Trinidad', ...T.ord, color: '#78350f', icono: '✝️', p: '/t/trinidad/' }],
-                [addDays(E, 60), { fiesta: 'Corpus Christi', ...T.ord, color: '#78350f', icono: '🍞', p: '/c/corpus-christi/' }],
+                [addDays(adv, -7), { fiesta: 'Cristo Rey del Universo', ...T.ord, color: '#78350f', icono: '👑', p: '/s/solemnidad-de-cristo-rey/' }],
+                [addDays(E, -7),   { fiesta: 'Domingo de Ramos',        ...T.sem, p: '/d/domingo-de-ramos/' }],
+                [addDays(E, -3),   { fiesta: 'Jueves Santo',            ...T.tri, p: '/j/jueves-santo/' }],
+                [addDays(E, -2),   { fiesta: 'Viernes Santo',           ...T.tri, color: '#111827', p: '/v/viernes-santo/' }],
+                [addDays(E, -1),   { fiesta: 'Sábado Santo',            ...T.tri, p: '/s/sabado-santo/' }],
+                [E,                { fiesta: 'Domingo de Resurrección', ...T.pas, icono: '✨', p: '/d/domingo-de-resurreccion/' }],
+                [addDays(E, 8),    { fiesta: 'San Vicente Ferrer',      ...T.pas, icono: '✝️', p: '/s/san-vicente-ferrer/' }],
+                [addDays(E, 39),   { fiesta: 'Ascensión del Señor',     ...T.pas, icono: '☁️', p: '/s/solemnidad-de-la-ascension/' }],
+                [addDays(E, 49),   { fiesta: 'Pentecostés',             ...T.pas, color: '#7f1d1d', icono: '🔥', p: '/s/solemnidad-de-pentecostes/' }],
+                [addDays(E, 56),   { fiesta: 'Santísima Trinidad',      ...T.ord, color: '#78350f', icono: '✝️', p: '/s/solemnidad-de-la-santisima-trinidad/' }],
+                [addDays(E, 60),   { fiesta: 'Corpus Christi',          ...T.ord, color: '#78350f', icono: '🍞', p: '/s/solemnidad-de-corpus-christi/' }],
             ],
         };
     }
@@ -339,11 +336,37 @@
         return T.ord;
     }
 
-    /* CSS con aislamiento máximo.
-       Host: #wikitolica-calendario o .wikitolica-calendario (ambos soportados).
-       Especificidades: reset * = (0,1,1); componentes .wt .clase = (0,2,0) > reset;
-       links .wt .wikitolica-calendario-a = (0,2,0) > host .sidebar a (0,1,1);
-       narrow [data-wt-narrow] = (0,3,0)/(0,2,1) > todo lo anterior. */
+    function makeICS(events) {
+        const pad = n => String(n).padStart(2, '0');
+        const fmt = d => `${d.getFullYear()}${pad(d.getMonth() + 1)}${pad(d.getDate())}`;
+        const esc = s => s.replace(/[\\;,]/g, c => '\\' + c);
+        const lines = [
+            'BEGIN:VCALENDAR',
+            'VERSION:2.0',
+            'PRODID:-//Wikitólica//Calendario Litúrgico//ES',
+            'X-WR-CALNAME:Calendario Litúrgico – Wikitólica',
+            'CALSCALE:GREGORIAN',
+            'METHOD:PUBLISH',
+        ];
+        for (const { date, items } of events) {
+            const dt = fmt(date), dtEnd = fmt(addDays(date, 1));
+            for (const item of items) {
+                lines.push(
+                    'BEGIN:VEVENT',
+                    `DTSTART;VALUE=DATE:${dt}`,
+                    `DTEND;VALUE=DATE:${dtEnd}`,
+                    `SUMMARY:${esc(item.n)}`,
+                    `URL:${BASE}${item.p}`,
+                    `DESCRIPTION:${BASE}${item.p}`,
+                    `UID:${dt}-${item.p.replace(/\//g, '')}@wikitolica.com`,
+                    'END:VEVENT'
+                );
+            }
+        }
+        lines.push('END:VCALENDAR');
+        return lines.join('\r\n');
+    }
+
     const CSS = `
 #wikitolica-calendario,.wikitolica-calendario{display:block;margin:0;padding:0;box-sizing:border-box}
 .wikitolica-calendario-wt{
@@ -374,6 +397,9 @@
 .wikitolica-calendario-wt .wikitolica-calendario-fiesta{font-size:.78em;color:var(--wt-lk);margin-top:.1em;display:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .wikitolica-calendario-wt .wikitolica-calendario-fiesta .wikitolica-calendario-a{color:inherit}
 .wikitolica-calendario-wt .wikitolica-calendario-icono{font-size:1.35em;line-height:1;flex-shrink:0}
+.wikitolica-calendario-wt .wikitolica-calendario-addcal{padding:.38em .85em;border-bottom:1px solid var(--wt-bd);text-align:center;font-size:.7em;color:var(--wt-mu);background:var(--wt-bg)}
+.wikitolica-calendario-wt .wikitolica-calendario-addcal .wikitolica-calendario-a{color:var(--wt-mu)}
+.wikitolica-calendario-wt .wikitolica-calendario-addcal .wikitolica-calendario-a:hover{color:var(--wt-lk)}
 .wikitolica-calendario-wt .wikitolica-calendario-lista{padding:.3em 0}
 .wikitolica-calendario-wt .wikitolica-calendario-row{display:grid;grid-template-columns:42px 1fr;gap:0 .65em;padding:.35em .85em;transition:background .1s;min-width:0}
 .wikitolica-calendario-wt .wikitolica-calendario-row:hover{background:var(--wt-bg-s)}
@@ -387,15 +413,15 @@
 .wikitolica-calendario-wt .wikitolica-calendario-foot .wikitolica-calendario-a{color:var(--wt-lk)}
 .wikitolica-calendario-wt .wikitolica-calendario-foot .wikitolica-calendario-a:hover{color:var(--wt-lkh);text-decoration:underline}
 .wikitolica-calendario-wt[data-wt-narrow] .wikitolica-calendario-hoy{padding:.55em .55em;gap:.55em}
+.wikitolica-calendario-wt[data-wt-narrow] .wikitolica-calendario-addcal{padding:.35em .55em}
 .wikitolica-calendario-wt[data-wt-narrow] .wikitolica-calendario-row{grid-template-columns:34px 1fr;gap:0 .35em;padding:.3em .55em}
 .wikitolica-calendario-wt[data-wt-narrow] .wikitolica-calendario-foot{padding:.4em .55em}
 `;
 
-    const MO = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
-    const MES = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
-    const DOW = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
+    const MO  = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
+    const MES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+    const DOW = ['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
 
-    // Target _blank en dominios de terceros; mismo tab en el propio dominio
     const SELF = /^(www\.)?wikitolica\.com$/.test(typeof location !== 'undefined' ? location.hostname : '');
     const TA = SELF ? '' : ' target="_blank" rel="noopener"';
     const a = (href, text) => `<a href="${href}"${TA} class="wikitolica-calendario-a">${text}</a>`;
@@ -407,7 +433,6 @@
         const raw = parseInt(host.dataset.days, 10);
         const days = Math.max(0, Math.min(365, isNaN(raw) ? 14 : raw));
 
-        // CSS: una sola inyección al <head>
         if (!document.getElementById('wikitolica-calendario-style')) {
             const s = document.createElement('style');
             s.id = 'wikitolica-calendario-style';
@@ -415,7 +440,6 @@
             document.head.appendChild(s);
         }
 
-        // Calcular todo antes de tocar el DOM
         const today = new Date(); today.setHours(0, 0, 0, 0);
         const lit = getLit(today);
         const bp = basePeriod(today);
@@ -430,7 +454,7 @@
             ? `<div class="wikitolica-calendario-fiesta" style="display:block">${fiestaItems.map(e => a(u(e.p), e.n)).join(' · ')}</div>`
             : `<div class="wikitolica-calendario-fiesta"></div>`;
 
-        const rows = [];
+        const rows = [], events = [];
         for (let i = 1; i <= days; i++) {
             const d = addDays(today, i);
             const m = d.getMonth() + 1, day = d.getDate();
@@ -444,6 +468,7 @@
             if (isMov) items.push({ n: dl.fiesta, p: dl.p });
             if (isSolem) items.push({ n: SOLEM[key].n, p: SOLEM[key].p });
             saints.forEach(s => items.push(s));
+            events.push({ date: d, items });
             rows.push(
                 `<div class="wikitolica-calendario-row">` +
                 `<div class="wikitolica-calendario-dt">${day} ${MO[m - 1]}<span class="wikitolica-calendario-dow">${DOW[d.getDay()]}</span></div>` +
@@ -452,7 +477,10 @@
             );
         }
 
-        // Una sola escritura al DOM
+        const addcalHTML = events.length
+            ? `<div class="wikitolica-calendario-addcal"><a href="#" class="wikitolica-calendario-a wikitolica-calendario-addcal-btn">📅 Añade todo a tu calendario personal</a></div>`
+            : '';
+
         host.innerHTML =
             `<div class="wikitolica-calendario-wt">` +
                 `<div class="wikitolica-calendario-hoy">` +
@@ -464,11 +492,25 @@
                     `</div>` +
                     `<div class="wikitolica-calendario-icono">${lit.icono}</div>` +
                 `</div>` +
+                addcalHTML +
                 `<div class="wikitolica-calendario-lista">${rows.join('')}</div>` +
                 `<div class="wikitolica-calendario-foot">${a(BASE, 'Wikitólica')} · ${a(`${BASE}/w/widget-calendario/`, 'Ponlo en tu web')}</div>` +
             `</div>`;
 
-        // ResizeObserver: responsive por ancho de elemento, no de viewport
+        const btn = host.querySelector('.wikitolica-calendario-addcal-btn');
+        if (btn) {
+            btn.addEventListener('click', e => {
+                e.preventDefault();
+                const blob = new Blob([makeICS(events)], { type: 'text/calendar;charset=utf-8' });
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = 'calendario-liturgico-wikitolica.ics';
+                link.click();
+                URL.revokeObjectURL(url);
+            });
+        }
+
         if (typeof ResizeObserver !== 'undefined') {
             const wt = host.firstElementChild;
             new ResizeObserver(([e]) => {
@@ -477,7 +519,6 @@
         }
     }
 
-    // Funciona en todos los casos: defer, async, inline, y carga post-onload
     function bootstrap() {
         document.querySelectorAll('#wikitolica-calendario,.wikitolica-calendario').forEach(init);
     }
@@ -488,7 +529,6 @@
         bootstrap();
     }
 
-    // Por si el script carga dinámicamente después del onload
     if (typeof window !== 'undefined') {
         window.WtCalendario = { init: bootstrap, initEl: init };
     }
