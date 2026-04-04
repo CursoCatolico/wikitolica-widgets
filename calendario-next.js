@@ -41,9 +41,9 @@
         '8-22': { n: 'Bienaventurada Virgen María Reina',     i: '👑', p: '/m/memoria-de-la-virgen-maria-reina/' },
         '9-8':  { n: 'Natividad de la Virgen María',          i: '🌸', p: '/n/natividad-de-maria/' },
         '9-14': { n: 'Exaltación de la Santa Cruz',           i: '✝️', p: '/f/fiesta-de-la-exaltacion-de-la-santa-cruz/' },
-        '10-7': { n: 'Nuestra Señora del Rosario',            i: '📿', p: '/n/nuestra-senora-del-rosario/' },
+        '10-7': { n: 'Nuestra Señora del Rosario',            i: '📿', p: '/r/rosario/' },
         '11-1': { n: 'Todos los Santos',                      i: '😇', p: '/t/todos-los-santos-festividad/' },
-        '11-2': { n: 'Fieles Difuntos',                       i: '🕯️', p: '/d/dia-de-los-fieles-difuntos/' },
+        '11-2': { n: 'Fieles Difuntos',                       i: '🕯️', p: '/p/purgatorio/' },
         '11-21':{ n: 'Presentación de María',                 i: '🕯️', p: '/p/presentacion-de-la-virgen-maria-en-el-templo/' },
         '12-8': { n: 'Inmaculada Concepción de la Virgen',    i: '🌙', p: '/d/dogma-de-la-inmaculada-concepcion-de-maria/' },
         '12-12':{ n: 'Nuestra Señora de Guadalupe',           i: '🌹', p: '/n/nuestra-senora-de-guadalupe/' },
@@ -296,7 +296,6 @@
                 [addDays(E, -7),   { fiesta: 'Domingo de Ramos',        ...T.sem, p: '/d/domingo-de-ramos/' }],
                 [addDays(E, -3),   { fiesta: 'Jueves Santo',            ...T.tri, p: '/j/jueves-santo/' }],
                 [addDays(E, -2),   { fiesta: 'Viernes Santo',           ...T.tri, color: '#111827', p: '/v/viernes-santo/' }],
-                [addDays(E, -2),   { fiesta: 'Las siete palabras de Cristo', ...T.tri, color: '#111827', p: '/l/las-siete-palabras-de-cristo-en-la-cruz/' }],
                 [addDays(E, -1),   { fiesta: 'Sábado Santo',            ...T.tri, p: '/s/sabado-santo/' }],
                 [E,                { fiesta: 'Domingo de Resurrección', ...T.pas, icono: '✨', p: '/d/domingo-de-resurreccion/' }],
                 [addDays(E, 8),    { fiesta: 'San Vicente Ferrer',      ...T.pas, icono: '✝️', p: '/s/san-vicente-ferrer/' }],
@@ -337,35 +336,126 @@
         return T.ord;
     }
 
-    function makeICS(events) {
-        const pad = n => String(n).padStart(2, '0');
-        const fmt = d => `${d.getFullYear()}${pad(d.getMonth() + 1)}${pad(d.getDate())}`;
-        const esc = s => s.replace(/[\\;,]/g, c => '\\' + c);
-        const lines = [
+    function descargarICS() {
+        const ahora = new Date();
+        const yActual = ahora.getFullYear();
+        const stamp = ahora.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
+        const seq = Math.floor(ahora.getTime() / 1000);
+        const pad = n => n.toString().padStart(2, '0');
+        const fDate = d => `${d.getFullYear()}${pad(d.getMonth() + 1)}${pad(d.getDate())}`;
+
+        const esc = str => {
+            if (!str) return '';
+            return str.replace(/<\/?[^>]+(>|$)/g, '')
+                      .replace(/\\/g, '\\\\')
+                      .replace(/;/g, '\\;')
+                      .replace(/,/g, '\\,')
+                      .replace(/\n/g, '\\n')
+                      .trim();
+        };
+
+        const generarUID = (prefix, texto) => {
+            const clean = texto.toLowerCase()
+                .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+                .replace(/[^a-z0-9]/g, '')
+                .substring(0, 40);
+            return `${prefix}-${clean}@wikitolica.com`;
+        };
+
+        const crearEvento = (id, fecha, titulo, desc, url, esFijo) => {
+            const dStart = fDate(fecha);
+            const dNext = new Date(fecha); dNext.setDate(dNext.getDate() + 1);
+            const dEnd = fDate(dNext);
+            const resumen = esc(titulo);
+            const ev = [
+                'BEGIN:VEVENT',
+                `UID:${id}`,
+                `DTSTAMP:${stamp}`,
+                `SEQUENCE:${seq}`,
+                `DTSTART;VALUE=DATE:${dStart}`,
+                `DTEND;VALUE=DATE:${dEnd}`,
+                'TRANSP:TRANSPARENT',
+                'CATEGORIES:Wikitólica',
+                `SUMMARY:${resumen}`,
+                `DESCRIPTION:${esc(desc)}`,
+                `URL;VALUE=URI:${url}`,
+            ];
+            if (esFijo) ev.splice(7, 0, 'RRULE:FREQ=YEARLY');
+            ev.push(
+                'BEGIN:VALARM',
+                'ACTION:DISPLAY',
+                `DESCRIPTION:Recordatorio: ${resumen}`,
+                'TRIGGER;VALUE=DURATION:PT10H',
+                'END:VALARM',
+                'END:VEVENT'
+            );
+            return ev;
+        };
+
+        const lineas = [
             'BEGIN:VCALENDAR',
             'VERSION:2.0',
-            'PRODID:-//Wikitólica//Calendario Litúrgico//ES',
-            'X-WR-CALNAME:Calendario Litúrgico – Wikitólica',
+            'PRODID:-//Wikitolica//Calendario Wikitólica//2026',
             'CALSCALE:GREGORIAN',
             'METHOD:PUBLISH',
+            'X-WR-CALNAME:Calendario Wikitólica',
+            'X-WR-CALDESC:Calendario Litúrgico Católico Romano (Rito Romano) - Wikitólica',
+            'X-WR-TIMEZONE:Europe/Madrid',
         ];
-        for (const { date, items } of events) {
-            const dt = fmt(date), dtEnd = fmt(addDays(date, 1));
-            for (const item of items) {
-                lines.push(
-                    'BEGIN:VEVENT',
-                    `DTSTART;VALUE=DATE:${dt}`,
-                    `DTEND;VALUE=DATE:${dtEnd}`,
-                    `SUMMARY:${esc(item.n)}`,
-                    `URL:${BASE}${item.p}`,
-                    `DESCRIPTION:${BASE}${item.p}`,
-                    `UID:${dt}-${item.p.replace(/\//g, '')}@wikitolica.com`,
-                    'END:VEVENT'
-                );
+
+        // 1. SOLEM fijas con RRULE:FREQ=YEARLY
+        for (const [key, s] of Object.entries(SOLEM)) {
+            const [m, d] = key.split('-').map(Number);
+            const link = BASE + s.p;
+            const id = generarUID(`fijo-${pad(m)}${pad(d)}`, s.n);
+            lineas.push(...crearEvento(id, new Date(2024, m - 1, d), s.n,
+                `Grado: Solemnidad\nMás info: ${link}`, link, true));
+        }
+
+        // 2. SAINTS fijos con RRULE:FREQ=YEARLY
+        for (const [key, saints] of Object.entries(SAINTS)) {
+            const [m, d] = key.split('-').map(Number);
+            for (const s of saints) {
+                const link = BASE + s.p;
+                const id = generarUID(`fijo-${pad(m)}${pad(d)}`, s.n);
+                lineas.push(...crearEvento(id, new Date(2024, m - 1, d), s.n,
+                    `Grado: Santoral\nMás info: ${link}`, link, true));
             }
         }
-        lines.push('END:VCALENDAR');
-        return lines.join('\r\n');
+
+        // 3. Móviles: año actual -1 hasta +9 (10 años vista + histórico reciente)
+        for (let y = yActual - 1; y < yActual + 10; y++) {
+            try {
+                const { mov } = ydata(y);
+                for (const [fecha, info] of mov) {
+                    const link = info.p ? (BASE + info.p) : BASE;
+                    const id = generarUID(`mov-${y}`, info.fiesta);
+                    lineas.push(...crearEvento(id, fecha, info.fiesta,
+                        `${info.tiempo || 'Liturgia'}\nMás info: ${link}`, link, false));
+                }
+            } catch (e) {
+                console.warn(`Error procesando año ${y}:`, e);
+            }
+        }
+
+        lineas.push('END:VCALENDAR');
+
+        try {
+            const blob = new Blob([lineas.join('\r\n')], { type: 'text/calendar;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const lnk = document.createElement('a');
+            lnk.href = url;
+            lnk.download = 'santoral_wikitolica.ics';
+            lnk.style.display = 'none';
+            document.body.appendChild(lnk);
+            lnk.click();
+            setTimeout(() => {
+                if (lnk.parentNode) document.body.removeChild(lnk);
+                URL.revokeObjectURL(url);
+            }, 1000);
+        } catch (err) {
+            console.error('Fallo en la descarga del ICS:', err);
+        }
     }
 
     const CSS = `
@@ -500,16 +590,7 @@
 
         const btn = host.querySelector('.wikitolica-calendario-addcal-btn');
         if (btn) {
-            btn.addEventListener('click', e => {
-                e.preventDefault();
-                const blob = new Blob([makeICS(events)], { type: 'text/calendar;charset=utf-8' });
-                const url = URL.createObjectURL(blob);
-                const link = document.createElement('a');
-                link.href = url;
-                link.download = 'calendario-liturgico-wikitolica.ics';
-                link.click();
-                URL.revokeObjectURL(url);
-            });
+            btn.addEventListener('click', e => { e.preventDefault(); descargarICS(); });
         }
 
         if (typeof ResizeObserver !== 'undefined') {
@@ -531,7 +612,10 @@
     }
 
     if (typeof window !== 'undefined') {
-        window.WtCalendario = { init: bootstrap, initEl: init };
+        window.WtCalendario = window.WtCalendario || {};
+        window.WtCalendario.init = bootstrap;
+        window.WtCalendario.initEl = init;
+        window.WtCalendario.descargarICS = descargarICS;
     }
 
 })();
