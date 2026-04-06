@@ -416,8 +416,10 @@
 }
 @media(prefers-color-scheme:dark){.wikitolica-concepto-wt{
   --wc-bg:#1a1a1a;--wc-bg-s:#2d2d2d;--wc-bd:#444;--wc-tx:#c0c0c0;--wc-mu:#888;--wc-lk:#4dabf7;--wc-lkh:#74c0fc;
+  --wc-cat-bg:rgba(255,255,255,.08);
   font-weight:300;letter-spacing:.01ch
 }}
+@media(prefers-color-scheme:dark){.wikitolica-concepto-wt .wikitolica-concepto-cat{filter:brightness(1.7)}}
 .wikitolica-concepto-wt *,.wikitolica-concepto-wt *::before,.wikitolica-concepto-wt *::after{
   box-sizing:border-box;margin:0;padding:0;
   font-family:inherit;font-size:inherit;font-weight:inherit;font-style:normal;
@@ -427,22 +429,19 @@
 .wikitolica-concepto-wt .wikitolica-concepto-a{color:var(--wc-lk);text-decoration:none;cursor:pointer}
 .wikitolica-concepto-wt .wikitolica-concepto-a:hover{text-decoration:underline;color:var(--wc-lkh)}
 .wikitolica-concepto-wt .wikitolica-concepto-stripe{height:4px;transition:background .3s}
-.wikitolica-concepto-wt .wikitolica-concepto-body{padding:.7em .85em .55em}
+.wikitolica-concepto-wt .wikitolica-concepto-body{padding:.7em .85em .6em}
 .wikitolica-concepto-wt .wikitolica-concepto-cat{
   display:inline-block;font-size:.62em;font-weight:700;letter-spacing:.07em;
-  text-transform:uppercase;padding:.15em .5em;border-radius:2px;margin-bottom:.4em;
-  color:#fff;background:var(--wc-cat-color,#555)
+  text-transform:uppercase;padding:.12em .45em;border-radius:3px;margin-bottom:.4em;
+  color:var(--wc-cat-color,#555);background:var(--wc-cat-bg,rgba(0,0,0,.06))
 }
 .wikitolica-concepto-wt .wikitolica-concepto-titulo{
   font-size:.97em;font-weight:700;line-height:1.25;color:var(--wc-tx);margin-bottom:.25em
 }
 .wikitolica-concepto-wt .wikitolica-concepto-titulo .wikitolica-concepto-a{color:inherit}
 .wikitolica-concepto-wt .wikitolica-concepto-titulo .wikitolica-concepto-a:hover{color:var(--wc-lk)}
-.wikitolica-concepto-wt .wikitolica-concepto-desc{font-size:.72em;line-height:1.4;color:var(--wc-mu)}
-.wikitolica-concepto-wt .wikitolica-concepto-foot{
-  padding:.45em .85em;border-top:1px solid var(--wc-bd);background:var(--wc-bg-s);
-  display:flex;align-items:center;justify-content:space-between
-}
+.wikitolica-concepto-wt .wikitolica-concepto-desc{font-size:.72em;line-height:1.4;color:var(--wc-mu);margin-bottom:.6em}
+.wikitolica-concepto-wt .wikitolica-concepto-meta{display:flex;align-items:center;justify-content:space-between;gap:.5em}
 .wikitolica-concepto-wt .wikitolica-concepto-label{font-size:.63em;color:var(--wc-mu);text-transform:uppercase;letter-spacing:.06em}
 .wikitolica-concepto-wt .wikitolica-concepto-leer{font-size:.78em;font-weight:600;color:var(--wc-lk)}
 .wikitolica-concepto-wt .wikitolica-concepto-leer:hover{color:var(--wc-lkh);text-decoration:underline}
@@ -479,10 +478,10 @@
                     `<span class="wikitolica-concepto-cat" style="--wc-cat-color:${cat.color}">${cat.emoji} ${cat.label}</span>` +
                     `<div class="wikitolica-concepto-titulo">${lnk(href, con.n, 'wikitolica-concepto-a')}</div>` +
                     `<div class="wikitolica-concepto-desc">${con.d}</div>` +
-                `</div>` +
-                `<div class="wikitolica-concepto-foot">` +
-                    `<span class="wikitolica-concepto-label">Concepto del día</span>` +
-                    lnk(href, 'Leer artículo →', 'wikitolica-concepto-leer wikitolica-concepto-a') +
+                    `<div class="wikitolica-concepto-meta">` +
+                        `<span class="wikitolica-concepto-label">Concepto del día</span>` +
+                        lnk(href, 'Leer artículo →', 'wikitolica-concepto-leer wikitolica-concepto-a') +
+                    `</div>` +
                 `</div>` +
                 `<div class="wikitolica-concepto-pie">${lnk(BASE, 'Wikitólica', 'wikitolica-concepto-a')} · ${lnk(`${BASE}/w/widget-concepto/`, 'Ponlo en tu web', 'wikitolica-concepto-a')}</div>` +
             `</div>`;
