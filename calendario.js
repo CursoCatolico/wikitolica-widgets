@@ -377,10 +377,13 @@
                 'TRANSP:TRANSPARENT',
                 'CATEGORIES:Wikitólica',
                 `SUMMARY:${resumen}`,
+                `ORGANIZER;CN="Wikitólica":mailto:contacto@wikitolica.com`,
                 `DESCRIPTION:${esc(desc)}`,
                 `URL;VALUE=URI:${url}`,
+                'STATUS:CONFIRMED',
+                'CLASS:PUBLIC'
             ];
-            if (esFijo) ev.splice(7, 0, 'RRULE:FREQ=YEARLY');
+            if (esFijo) ev.splice(8, 0, 'RRULE:FREQ=YEARLY');
             ev.push(
                 'BEGIN:VALARM',
                 'ACTION:DISPLAY',
