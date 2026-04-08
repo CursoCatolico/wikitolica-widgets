@@ -26,7 +26,7 @@ Para instalar el widget de calendario acude a: [Widget Calendario Litúrgico](ht
 
 El script está pensado para integrarse fácilmente en blogs y webs o proyectos estáticos, sin usar librerías de terceros. El propio código define su lógica de cálculo, estilos aislados y una API mínima de inicialización.
 
-Para instalar el widget de calendario acude a: [Widget Calendario Litúrgico](https://www.wikitolica.com/w/widget-concepto/)
+Para instalar el widget de calendario acude a: [Widget Concepto del día](https://www.wikitolica.com/w/widget-concepto/)
 
 ## 🙏 Sobre el proyecto
 
