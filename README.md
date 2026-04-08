@@ -6,7 +6,7 @@ Repositorio público de los widgets de la [Enciclopedia Católica Wikitólica](h
 
 Este proyecto se distribuye bajo la licencia [Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)](https://creativecommons.org/licenses/by-sa/4.0/deed.es). Eres libre de usar, modificar y redistribuir el código, siempre que cites la fuente y mantengas la misma licencia.
 
-## 📅 Calendario
+## 📅 Calendario Litúrgico
 
 `calendario.js` es un widget autocontenido que se inserta en una página HTML y renderiza un calendario litúrgico católico con:
 
@@ -16,9 +16,17 @@ Este proyecto se distribuye bajo la licencia [Creative Commons Attribution-Share
 - los santos asociados a cada fecha
 - una lista de los próximos días configurables
 
-El script está pensado para integrarse fácilmente en blogs y webs o proyectos estáticos, sin usar librerías de terceros. El propio código define su lógica de cálculo, estilos aislados mediante **Shadow DOM** y una API mínima de inicialización.
+El script está pensado para integrarse fácilmente en blogs y webs o proyectos estáticos, sin usar librerías de terceros. El propio código define su lógica de cálculo, estilos aislados y una API mínima de inicialización.
 
 Para instalar el widget de calendario acude a: [Widget Calendario Litúrgico](https://www.wikitolica.com/w/widget-calendario/)
+
+## 📅 Concepto del día
+
+`concepto.js` es un widget autocontenido que se inserta en una página HTML y renderiza un un concepto de día con una breve descripción.
+
+El script está pensado para integrarse fácilmente en blogs y webs o proyectos estáticos, sin usar librerías de terceros. El propio código define su lógica de cálculo, estilos aislados y una API mínima de inicialización.
+
+Para instalar el widget de calendario acude a: [Widget Calendario Litúrgico](https://www.wikitolica.com/w/widget-concepto/)
 
 ## 🙏 Sobre el proyecto
 
