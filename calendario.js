@@ -282,7 +282,8 @@
     const _yc = {};
     function ydata(y) {
         if (_yc[y]) return _yc[y];
-        const E = easter(y), adv = advent1(y);
+        const E = easter(y), adv = advent1(y), bap = baptism(y);
+        const ashWed = addDays(E, -46), dec25 = new Date(y, 11, 25);
         return _yc[y] = {
             E, adv,
             ashWed: addDays(E, -46),
@@ -308,7 +309,7 @@
                 [addDays(E, 8),    { fiesta: 'San Vicente Ferrer',      ...T.pas, icono: '✝️', p: '/s/san-vicente-ferrer/' }],
                 [addDays(E, 21),   { fiesta: 'Domingo del Buen Pastor', ...T.pas, icono: '🐑', p: '/d/domingo-del-buen-pastor/' }],
                 [addDays(E, 39),   { fiesta: 'Ascensión del Señor',     ...T.pas, icono: '☁️', p: '/s/solemnidad-de-la-ascension/' }],
-                [pent,             { fiesta: 'Pentecostés',             ...T.pas, color: '#7f1d1d', icono: '🔥', p: '/s/solemnidad-de-pentecostes/' }],
+                [addDays(E, 49),   { fiesta: 'Pentecostés',             ...T.pas, color: '#7f1d1d', icono: '🔥', p: '/s/solemnidad-de-pentecostes/' }],
                 [addDays(E, 56),   { fiesta: 'Santísima Trinidad',      ...T.ord, color: '#78350f', icono: '✝️', p: '/s/solemnidad-de-la-santisima-trinidad/' }],
                 [addDays(E, 60),   { fiesta: 'Corpus Christi',          ...T.ord, color: '#78350f', icono: '🍞', p: '/s/solemnidad-de-corpus-christi/' }],
             ],
