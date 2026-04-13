@@ -8,7 +8,7 @@
     const CURHOST = typeof location !== 'undefined'
         ? location.hostname.replace(/^www\./, '') : '';
     const SELF = CURHOST === 'wikitolica.com';
-    const TA   = SELF ? '' : ' target="_blank" rel="noopener"';
+    const TA   = SELF ? '' : ' target="_blank" rel="noopener external"';
     const a    = (href, txt) => `<a href="${href}"${TA} class="wt-es-a">${txt}</a>`;
     const esc  = s => String(s)
         .replace(/&/g,'&amp;').replace(/</g,'&lt;')
@@ -72,7 +72,6 @@
 .wt-es-wt .wt-es-head-name .wt-es-a:hover{text-decoration:underline}
 /* blog blocks */
 .wt-es-wt .wt-es-blog{display:block}
-.wt-es-wt .wt-es-blog + .wt-es-blog .wt-es-bh{border-top:1px solid var(--wt-bd)}
 /* blog header */
 .wt-es-wt .wt-es-bh{
   background:var(--wt-bg);padding:.18em .75em 0;
@@ -167,10 +166,9 @@
         const fav = blog.favicon
             ? `<img src="${esc(blog.favicon)}" width="14" height="14" alt="" aria-hidden="true" class="wt-es-fav" onerror="this.style.display='none'">`
             : '';
-        return `<div class="wt-es-blog">` +
-            `<div class="wt-es-bh">` +
-                fav +
-                `<div class="wt-es-bh-name">${a(blog.url || ESFERA, esc(blog.name || ''))}</div>` +
+        const bh = `<div class="wt-es-blog"><div class="wt-es-bh">${fav}<div class="wt-es-bh-name">${a(blog.url || ESFERA, esc(blog.name || ''))}</div>`;
+        if (!posts.length) return bh + `</div></div>`;
+        return bh +
                 (rest.length
                     ? `<span role="button" tabindex="0" class="wt-es-toggle" aria-expanded="false" aria-controls="${id}">ver más</span>`
                     : '') +
@@ -283,7 +281,7 @@
 
     /* ── bootstrap ──────────────────────────────────────────── */
     function bootstrap() {
-        document.querySelectorAll('.wikitolica-esferacatolica').forEach(init);
+        document.querySelectorAll('.wikitolica-esferacatolica, #wikitolica-esferacatolica').forEach(init);
     }
 
     if (document.readyState === 'loading') {
