@@ -7,9 +7,15 @@
 
     const CURHOST = typeof location !== 'undefined'
         ? location.hostname.replace(/^www\./, '') : '';
-    const SELF = CURHOST === 'wikitolica.com';
-    const TA   = SELF ? '' : ' target="_blank" rel="noopener external"';
-    const a    = (href, txt) => `<a href="${href}"${TA} class="wt-es-a">${txt}</a>`;
+    const a = (href, txt) => {
+        let ta = '';
+        try {
+            if (new URL(href).hostname.replace(/^www\./, '') !== CURHOST) {
+                ta = ' target="_blank" rel="noopener external"';
+            }
+        } catch {}
+        return `<a href="${href}"${ta} class="wt-es-a">${txt}</a>`;
+    };
     const esc  = s => String(s)
         .replace(/&/g,'&amp;').replace(/</g,'&lt;')
         .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
