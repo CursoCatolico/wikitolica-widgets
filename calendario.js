@@ -574,7 +574,7 @@
             events.push({ date: d, items });
             rows.push(
                 `<div class="wikitolica-calendario-row">` +
-                `<div class="wikitolica-calendario-dt">${day} ${MO[m - 1]}<span class="wikitolica-calendario-dow">${DOW[d.getDay()]}</span></div>` +
+                `<div class="wikitolica-calendario-dt">${day}&nbsp;${MO[m - 1]}<span class="wikitolica-calendario-dow">${DOW[d.getDay()]}</span></div>` +
                 `<div class="wikitolica-calendario-cel">${items.map(e => `<div class="wikitolica-calendario-en">${a(u(e.p), e.n)}</div>`).join('')}</div>` +
                 `</div>`
             );
