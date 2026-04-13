@@ -80,7 +80,7 @@
 .wt-es-wt .wt-es-blog{display:block}
 /* blog header */
 .wt-es-wt .wt-es-bh{
-  background:var(--wt-bg);padding:.18em .75em 0;
+  background:var(--wt-bg);padding:.23em .75em 0;
   display:flex;align-items:center;gap:.35em;min-width:0
 }
 /* favicon */
@@ -89,7 +89,7 @@
   border-radius:2px;flex-shrink:0;display:block
 }
 .wt-es-wt .wt-es-bh-name{
-  font-size:.75em;font-weight:700;color:var(--wt-tx);
+  font-size:.75em;font-weight:600;color:var(--wt-tx);
   flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block
 }
 .wt-es-wt .wt-es-bh-name .wt-es-a{color:inherit}
@@ -97,10 +97,10 @@
 /* toggle */
 .wt-es-wt .wt-es-toggle{
   cursor:pointer;font-size:.62em;color:var(--wt-lk);flex-shrink:0;
-  line-height:1;text-decoration:underline;text-underline-offset:2px;
+  line-height:1;text-decoration:none;text-underline-offset:2px;
   white-space:nowrap;display:inline-block;user-select:none
 }
-.wt-es-wt .wt-es-toggle:hover{color:var(--wt-lkh)}
+.wt-es-wt .wt-es-toggle:hover{color:var(--wt-lkh);text-decoration:underline;}
 /* post rows — sin hover de fondo ni color */
 .wt-es-wt .wt-es-post{display:block;padding:0 .75em;overflow:hidden}
 .wt-es-wt .wt-es-extra .wt-es-post:last-child,
