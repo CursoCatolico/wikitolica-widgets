@@ -4,7 +4,6 @@
     const BASE     = 'https://www.wikitolica.com';
     const FEED_URL = 'https://cdn.jsdelivr.net/gh/CursoCatolico/esferacatolica@main/lastposts.json';
     const ESFERA   = BASE + '/e/esfera-catolica/';
-    const WIDGET   = BASE + '/w/widget-esfera/';
 
     const CURHOST = typeof location !== 'undefined'
         ? location.hostname.replace(/^www\./, '') : '';
@@ -30,7 +29,7 @@
         catch { return ''; }
     }
 
-    /* ── CSS — misma paleta que wt-calendario ──────────────────── */
+    /* ── CSS ────────────────────────────────────────────────── */
     const CSS = `
 .wikitolica-esferacatolica{display:block;margin:0;padding:0;box-sizing:border-box}
 .wt-es-wt{
@@ -45,7 +44,7 @@
   --wt-bg:#1a1a1a;--wt-bg-s:#1a1a1a;--wt-bg-h:#262626;--wt-bd:#444;
   --wt-tx:#c0c0c0;--wt-mu:#888;--wt-sub:#666;--wt-lk:#4dabf7;--wt-lkh:#74c0fc
 }}
-/* reset total — aislamiento del host */
+/* reset total */
 .wt-es-wt *,.wt-es-wt *::before,.wt-es-wt *::after{
   box-sizing:border-box;margin:0;padding:0;
   font-family:inherit;font-size:inherit;font-weight:inherit;font-style:normal;
@@ -56,17 +55,21 @@
   max-width:none;min-width:0;width:auto;height:auto;
   opacity:1;visibility:visible;cursor:auto
 }
+/* links — solo subrayado en hover, sin cambio de color */
 .wt-es-wt .wt-es-a{color:var(--wt-lk);cursor:pointer}
-.wt-es-wt .wt-es-a:hover{text-decoration:underline;color:var(--wt-lkh)}
-/* widget header */
+.wt-es-wt .wt-es-a:hover{text-decoration:underline}
+/* widget header — mismo fondo que la lista */
 .wt-es-wt .wt-es-head{
-  background:var(--wt-bg-s);border-bottom:1px solid var(--wt-bd);
+  background:var(--wt-bg);border-bottom:1px solid var(--wt-bd);
   padding:.38em .75em;display:flex;gap:.55em;align-items:center;min-width:0
 }
 .wt-es-wt .wt-es-head-icon{font-size:1.1em;line-height:1;flex-shrink:0}
 .wt-es-wt .wt-es-head-body{flex:1;min-width:0;overflow:hidden}
 .wt-es-wt .wt-es-head-sup{font-size:.6em;color:var(--wt-mu);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block}
 .wt-es-wt .wt-es-head-name{font-size:.9em;font-weight:700;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block}
+/* título "Esfera Católica" en color de texto (negro/claro según tema) */
+.wt-es-wt .wt-es-head-name .wt-es-a{color:var(--wt-tx)}
+.wt-es-wt .wt-es-head-name .wt-es-a:hover{text-decoration:underline}
 /* blog blocks */
 .wt-es-wt .wt-es-blog{display:block}
 .wt-es-wt .wt-es-blog + .wt-es-blog .wt-es-bh{border-top:1px solid var(--wt-bd)}
@@ -75,30 +78,35 @@
   background:var(--wt-bg);padding:.18em .75em 0;
   display:flex;align-items:center;gap:.35em;min-width:0
 }
+/* favicon */
+.wt-es-wt .wt-es-fav{
+  width:14px;height:14px;object-fit:contain;
+  border-radius:2px;flex-shrink:0;display:block
+}
 .wt-es-wt .wt-es-bh-name{
   font-size:.75em;font-weight:700;color:var(--wt-tx);
   flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block
 }
 .wt-es-wt .wt-es-bh-name .wt-es-a{color:inherit}
-.wt-es-wt .wt-es-bh-name .wt-es-a:hover{color:var(--wt-lk)}
-/* toggle — span evita estilos button del host */
+.wt-es-wt .wt-es-bh-name .wt-es-a:hover{text-decoration:underline}
+/* toggle */
 .wt-es-wt .wt-es-toggle{
   cursor:pointer;font-size:.62em;color:var(--wt-lk);flex-shrink:0;
   line-height:1;text-decoration:underline;text-underline-offset:2px;
   white-space:nowrap;display:inline-block;user-select:none
 }
 .wt-es-wt .wt-es-toggle:hover{color:var(--wt-lkh)}
-/* post rows */
-.wt-es-wt .wt-es-post{display:block;padding:0 .75em;transition:background .1s;overflow:hidden}
+/* post rows — sin hover de fondo ni color */
+.wt-es-wt .wt-es-post{display:block;padding:0 .75em;overflow:hidden}
 .wt-es-wt .wt-es-extra .wt-es-post:last-child,
 .wt-es-wt .wt-es-blog > .wt-es-post{padding-bottom:.1em}
-.wt-es-wt .wt-es-post:hover{background:var(--wt-bg-h)}
+/* títulos de noticias — sin negrita */
 .wt-es-wt .wt-es-pt{
-  font-size:.73em;font-weight:600;line-height:1.3;
+  font-size:.73em;font-weight:normal;line-height:1.3;
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block
 }
 .wt-es-wt .wt-es-pt .wt-es-a{color:var(--wt-lk)}
-.wt-es-wt .wt-es-pt .wt-es-a:hover{color:var(--wt-lkh)}
+.wt-es-wt .wt-es-pt .wt-es-a:hover{text-decoration:underline}
 .wt-es-wt .wt-es-pd{font-size:.64em;color:var(--wt-sub);display:block}
 /* extra colapsado */
 .wt-es-wt .wt-es-extra{display:none}
@@ -131,16 +139,17 @@
 .wt-es-wt .wt-es-more-btn:hover{color:var(--wt-lkh)}
 /* msg / footer */
 .wt-es-wt .wt-es-msg{padding:.75em;font-size:.75em;color:var(--wt-mu);text-align:center;display:block}
+/* pie — mismo fondo que la lista */
 .wt-es-wt .wt-es-foot{
   padding:.3em .75em;border-top:1px solid var(--wt-bd);
   text-align:center;font-size:.65em;color:var(--wt-mu);
-  background:var(--wt-bg-s);white-space:nowrap;overflow:hidden;display:block
+  background:var(--wt-bg);white-space:nowrap;overflow:hidden;display:block
 }
 .wt-es-wt .wt-es-foot .wt-es-a{color:var(--wt-lk)}
-.wt-es-wt .wt-es-foot .wt-es-a:hover{color:var(--wt-lkh);text-decoration:underline}
+.wt-es-wt .wt-es-foot .wt-es-a:hover{text-decoration:underline}
 `;
 
-    /* ── render ──────────────────────────────────────────────── */
+    /* ── render ─────────────────────────────────────────────── */
     function buildPost(p) {
         const date = fmtDate(p.date);
         return `<div class="wt-es-post">` +
@@ -154,9 +163,13 @@
         const posts = (blog.lastPosts || []).filter(p => p.title && p.url);
         if (!posts.length) return '';
         const [first, ...rest] = posts;
-        const id = 'wt-ex-' + (++_uid);
+        const id  = 'wt-ex-' + (++_uid);
+        const fav = blog.favicon
+            ? `<img src="${esc(blog.favicon)}" width="14" height="14" alt="" aria-hidden="true" class="wt-es-fav" onerror="this.style.display='none'">`
+            : '';
         return `<div class="wt-es-blog">` +
             `<div class="wt-es-bh">` +
+                fav +
                 `<div class="wt-es-bh-name">${a(blog.url || ESFERA, esc(blog.name || ''))}</div>` +
                 (rest.length
                     ? `<span role="button" tabindex="0" class="wt-es-toggle" aria-expanded="false" aria-controls="${id}">ver más</span>`
@@ -169,7 +182,7 @@
         `</div>`;
     }
 
-    /* ── init ────────────────────────────────────────────────── */
+    /* ── init ───────────────────────────────────────────────── */
     function init(host) {
         if (host.dataset.loaded) return;
         host.dataset.loaded = '1';
@@ -194,14 +207,14 @@
                     `</div>` +
                 `</div>` +
                 `<div class="wt-es-msg">Cargando…</div>` +
-                `<div class="wt-es-foot">${a(BASE,'Wikitólica')} · ${a(ESFERA,'Esfera Católica')} · ${a(WIDGET,'Ponlo en tu web')}</div>` +
+                `<div class="wt-es-foot">${a(BASE,'Wikitólica')} · ${a(ESFERA,'¿Quieres aparecer aquí?')}</div>` +
             `</div>`;
 
         const wt   = host.firstElementChild;
         const msg  = wt.querySelector('.wt-es-msg');
         const foot = wt.querySelector('.wt-es-foot');
 
-        /* delegación: click + keydown sobre toggles, cubre también los añadidos con "ver más fuentes" */
+        /* delegación: click + keydown sobre toggles */
         const onToggle = e => {
             const btn = e.target.closest('.wt-es-toggle');
             if (!btn) return;
@@ -246,7 +259,6 @@
                     btn.setAttribute('tabindex', '0');
                     btn.className = 'wt-es-more-btn';
                     btn.textContent = `Ver ${hidden.length} fuente${hidden.length > 1 ? 's' : ''} más`;
-                    /* guard contra doble disparo click+keydown */
                     let _done = false;
                     const doMore = () => {
                         if (_done) return;
@@ -269,7 +281,7 @@
             });
     }
 
-    /* ── bootstrap ───────────────────────────────────────────── */
+    /* ── bootstrap ──────────────────────────────────────────── */
     function bootstrap() {
         document.querySelectorAll('.wikitolica-esferacatolica').forEach(init);
     }
