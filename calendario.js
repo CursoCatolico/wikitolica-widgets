@@ -554,7 +554,7 @@
         (SAINTS[todayKey] || []).forEach(s => fiestaItems.push(s));
 
         const fiestaHTML = fiestaItems.length
-            ? `<div class="wikitolica-calendario-fiesta" style="display:block">${fiestaItems.map(e => a(u(e.p), e.n)).join(' · ')}</div>`
+            ? `<div class="wikitolica-calendario-fiesta" style="display:block">${fiestaItems.map(e => a(u(e.p), e.n)).join('<br>')}</div>`
             : `<div class="wikitolica-calendario-fiesta"></div>`;
 
         const rows = [], events = [];
