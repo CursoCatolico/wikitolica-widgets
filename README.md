@@ -24,6 +24,14 @@ El script está pensado para integrarse fácilmente en blogs y webs o proyectos 
 
 Para instalar el widget de calendario acude a: [Widget Concepto del día](https://www.wikitolica.com/w/widget-concepto/)
 
+## 🌐 Esfera Católica
+
+`esferacatolica.js` es el widget de la comunidad Esfera Católica.
+
+Esfera Católica es una comunidad de colaboración caritativa entre sitios y blogs católicos en internet. Funciona mediante un widget que permite el descubrimiento mutuo: cuando pones el widget en tu web, tus visitantes descubren otras páginas católicas de calidad, y tras una breve validación, tu sitio aparece automáticamente en el widget de todos los demás participantes.
+
+Para instalar el widget de Esfera Católica acude a: [Widget Esfera Católica](https://www.wikitolica.com/e/esfera-catolica/)
+ 
 ## 🙏 Sobre el proyecto
 
 La [Enciclopedia Católica Wikitólica](https://www.wikitolica.com/) Wikitólica busca acercar la riqueza de la tradición litúrgica de la Iglesia a la web moderna, manteniendo fidelidad, claridad y accesibilidad.
