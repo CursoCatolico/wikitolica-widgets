@@ -134,14 +134,14 @@
 }
 /* ver más fuentes */
 .wt-es-wt .wt-es-more{
-  border-top:1px solid var(--wt-bd);padding:.22em .75em;
+  padding:.22em .75em;
   text-align:center;font-size:.65em;background:var(--wt-bg);display:block
 }
 .wt-es-wt .wt-es-more-btn{
-  cursor:pointer;color:var(--wt-lk);font-weight:600;
-  text-decoration:underline;text-underline-offset:2px;display:inline-block;user-select:none
+  cursor:pointer;color:var(--wt-lk);font-weight:400;
+  text-decoration:none;display:inline-block;user-select:none
 }
-.wt-es-wt .wt-es-more-btn:hover{color:var(--wt-lkh)}
+.wt-es-wt .wt-es-more-btn:hover{color:var(--wt-lkh);text-decoration:underline}
 /* msg / footer */
 .wt-es-wt .wt-es-msg{padding:.75em;font-size:.75em;color:var(--wt-mu);text-align:center;display:block}
 /* pie — mismo fondo que la lista */
