@@ -123,7 +123,7 @@
   .wt-es-wt .wt-es-pd{flex-shrink:0}
 }
 /* narrow (<280px): 2 líneas máx, sin fechas */
-@container (max-width:279px){
+@container (max-width:321px){
   .wt-es-wt .wt-es-pt{
     white-space:normal;
     display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden
