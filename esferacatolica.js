@@ -110,15 +110,14 @@
   font-size:.73em;font-weight:normal;line-height:1.3;
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block
 }
-.wt-es-wt .wt-es-pt .wt-es-a{color:var(--wt-lk)}
 .wt-es-wt .wt-es-pt .wt-es-a:hover{text-decoration:underline}
 .wt-es-wt .wt-es-pd{font-size:.55em;color:var(--wt-sub);display:block}
 /* blue links */
 .wt-es-wt .wt-es-pt .wt-es-a{ color:#0d6efd }
-.wt-es-wt .wt-es-hidden-list .wt-es-blog:nth-child(even) .wt-es-pt .wt-es-a{ color:#0a9396 }
+.wt-es-wt .wt-es-extra .wt-es-post:nth-child(even) .wt-es-pt .wt-es-a{ color:#0a9396 }
 @media (prefers-color-scheme:dark){
   .wt-es-wt .wt-es-pt .wt-es-a{ color:#4dabf7 }
-  .wt-es-wt .wt-es-hidden-list .wt-es-blog:nth-child(even) .wt-es-pt .wt-es-a{ color:#38b2ac }
+  .wt-es-wt .wt-es-extra .wt-es-post:nth-child(even) .wt-es-pt .wt-es-a{ color:#38b2ac }
 }
 /* extra colapsado */
 .wt-es-wt .wt-es-extra{display:none}
@@ -273,7 +272,7 @@
                     const doMore = () => {
                         if (_done) return;
                         _done = true;
-                        wrap.insertAdjacentHTML('beforeend', `<div class="wt-es-hidden-list">${hidden.map(buildBlog).join('')}</div>`);
+                        wrap.insertAdjacentHTML('beforeend', hidden.map(buildBlog).join(''));
                         bar.remove();
                     };
                     btn.addEventListener('click', doMore);
