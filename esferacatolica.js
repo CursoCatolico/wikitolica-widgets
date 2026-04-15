@@ -112,13 +112,13 @@
 }
 .wt-es-wt .wt-es-pt .wt-es-a{color:var(--wt-lk)}
 .wt-es-wt .wt-es-pt .wt-es-a:hover{text-decoration:underline}
-.wt-es-wt .wt-es-pd{font-size:.64em;color:var(--wt-sub);display:block}
+.wt-es-wt .wt-es-pd{font-size:.55em;color:var(--wt-sub);display:block}
 /* blue links */
-.wt-es-wt .wt-es-blog:nth-child(odd)  .wt-es-pt .wt-es-a{ color:#0d6efd }
-.wt-es-wt .wt-es-blog:nth-child(even) .wt-es-pt .wt-es-a{ color:#0a9396 }
+.wt-es-wt .wt-es-pt .wt-es-a{ color:#0d6efd }
+.wt-es-wt .wt-es-hidden-list .wt-es-blog:nth-child(even) .wt-es-pt .wt-es-a{ color:#0a9396 }
 @media (prefers-color-scheme:dark){
-  .wt-es-wt .wt-es-blog:nth-child(odd)  .wt-es-pt .wt-es-a{ color:#4dabf7 }
-  .wt-es-wt .wt-es-blog:nth-child(even) .wt-es-pt .wt-es-a{ color:#38b2ac }
+  .wt-es-wt .wt-es-pt .wt-es-a{ color:#4dabf7 }
+  .wt-es-wt .wt-es-hidden-list .wt-es-blog:nth-child(even) .wt-es-pt .wt-es-a{ color:#38b2ac }
 }
 /* extra colapsado */
 .wt-es-wt .wt-es-extra{display:none}
@@ -240,7 +240,7 @@
         wt.addEventListener('click', onToggle);
         wt.addEventListener('keydown', onToggle);
 
-        fetch(FEED_URL, { cache: 'default' })
+        fetch(FEED_URL, { cache: 'no-cache' })
             .then(r => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json(); })
             .then(data => {
                 const all = (data.blogs || []).filter(b =>
@@ -273,7 +273,7 @@
                     const doMore = () => {
                         if (_done) return;
                         _done = true;
-                        wrap.insertAdjacentHTML('beforeend', hidden.map(buildBlog).join(''));
+                        wrap.insertAdjacentHTML('beforeend', `<div class="wt-es-hidden-list">${hidden.map(buildBlog).join('')}</div>`);
                         bar.remove();
                     };
                     btn.addEventListener('click', doMore);
