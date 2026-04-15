@@ -114,10 +114,10 @@
 .wt-es-wt .wt-es-pd{font-size:.55em;color:var(--wt-sub);display:block}
 /* blue links */
 .wt-es-wt .wt-es-pt .wt-es-a{ color:#0d6efd }
-.wt-es-wt .wt-es-extra .wt-es-post:nth-child(even) .wt-es-pt .wt-es-a{ color:#0a9396 }
+.wt-es-wt .wt-es-extra .wt-es-post:nth-child(odd) .wt-es-pt .wt-es-a{ color:#0a9396 }
 @media (prefers-color-scheme:dark){
   .wt-es-wt .wt-es-pt .wt-es-a{ color:#4dabf7 }
-  .wt-es-wt .wt-es-extra .wt-es-post:nth-child(even) .wt-es-pt .wt-es-a{ color:#38b2ac }
+  .wt-es-wt .wt-es-extra .wt-es-post:nth-child(odd) .wt-es-pt .wt-es-a{ color:#38b2ac }
 }
 /* extra colapsado */
 .wt-es-wt .wt-es-extra{display:none}
