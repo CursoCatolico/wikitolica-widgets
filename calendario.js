@@ -597,7 +597,7 @@
                 `</div>` +
                 addcalHTML +
                 `<div class="wikitolica-calendario-lista">${rows.join('')}</div>` +
-                `<div class="wikitolica-calendario-foot">${a(BASE, 'Wikitólica')} · ${a(`${BASE}/w/widget-calendario/`, 'Ponlo en tu web')}</div>` +
+                `<div class="wikitolica-calendario-foot">${a(BASE, 'Wikitólica')} · ${a(`${BASE}/n/nuestros-widgets/`, 'Ponlo en tu web')}</div>` +
             `</div>`;
 
         const btn = host.querySelector('.wikitolica-calendario-addcal-btn');
