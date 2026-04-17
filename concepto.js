@@ -483,7 +483,7 @@
                         lnk(href, 'Leer artículo →', 'wikitolica-concepto-leer wikitolica-concepto-a') +
                     `</div>` +
                 `</div>` +
-                `<div class="wikitolica-concepto-pie">${lnk(BASE, 'Wikitólica', 'wikitolica-concepto-a')} · ${lnk(`${BASE}/w/widget-concepto/`, 'Ponlo en tu web', 'wikitolica-concepto-a')}</div>` +
+                `<div class="wikitolica-concepto-pie">${lnk(BASE, 'Wikitólica', 'wikitolica-concepto-a')} · ${lnk(`${BASE}/n/nuestros-widgets/`, 'Ponlo en tu web', 'wikitolica-concepto-a')}</div>` +
             `</div>`;
     }
 
