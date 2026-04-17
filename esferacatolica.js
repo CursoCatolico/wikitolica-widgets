@@ -151,7 +151,7 @@
 .wt-es-wt .wt-es-msg{padding:.75em;font-size:.75em;color:var(--wt-mu);text-align:center;display:block}
 /* pie — mismo fondo que la lista */
 .wt-es-wt .wt-es-foot{
-  padding:.3em .75em;border-top:1px solid var(--wt-bd);
+  padding:.3em .75em;border-top:1px solid var(--wt-bd);margin-top:3px;
   text-align:center;font-size:.65em;color:var(--wt-mu);
   background:var(--wt-bg);white-space:nowrap;overflow:hidden;display:block
 }
