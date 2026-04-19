@@ -165,7 +165,7 @@
         return `<div class="wt-es-post">` +
         /*  `<div class="wt-es-pt">${a(p.url, esc(p.title))}</div>` +   */
             `<div class="wt-es-pt">${esc(p.title)}</div>` + 
-            (date ? `<div class="wt-es-pd">${date}</div>` : '') +
+        /*  (date ? `<div class="wt-es-pd">${date}</div>` : '') +   */
         `</div>`;
     }
 
@@ -181,14 +181,14 @@
         const bh = `<div class="wt-es-blog"><div class="wt-es-bh">${fav}<div class="wt-es-bh-name">${a(blog.url || ESFERA, esc(blog.name || ''))}</div>`;
         if (!posts.length) return bh + `</div></div>`;
         return bh +
-                (rest.length
+            /*   (rest.length
                     ? `<span role="button" tabindex="0" class="wt-es-toggle" aria-expanded="false" aria-controls="${id}">ver más</span>`
-                    : '') +
+                    : '') +   */
             `</div>` +
             buildPost(first) +
-            (rest.length
+        /*  (rest.length
                 ? `<div class="wt-es-extra" id="${id}">${rest.map(buildPost).join('')}</div>`
-                : '') +
+                : '') +   */
         `</div>`;
     }
 
