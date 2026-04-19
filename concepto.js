@@ -451,7 +451,7 @@
 `;
 
     const SELF = /^(www\.)?wikitolica\.com$/.test(typeof location !== 'undefined' ? location.hostname : '');
-    const TA = SELF ? '' : ' target="_blank" rel="noopener"';
+    const TA = SELF ? '' : ' target="_blank" rel="nofollow external noopener"';
     const lnk = (href, text, cls) => `<a href="${href}"${TA} class="${cls}">${text}</a>`;
 
     function init(host) {
@@ -483,7 +483,6 @@
                         lnk(href, 'Leer artículo →', 'wikitolica-concepto-leer wikitolica-concepto-a') +
                     `</div>` +
                 `</div>` +
-/*              `<div class="wikitolica-concepto-pie">${lnk(BASE, 'Wikitólica', 'wikitolica-concepto-a')} · ${lnk(`${BASE}/n/nuestros-widgets/`, 'Ponlo en tu web', 'wikitolica-concepto-a')}</div>` +   */
             `</div>`;
     }
 
