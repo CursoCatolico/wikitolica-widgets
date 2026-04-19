@@ -110,7 +110,7 @@
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block
 }
 .wt-es-wt .wt-es-pt .wt-es-a:hover{text-decoration:underline;font-weight: normal;}
-.wt-es-wt .wt-es-pd{font-size:.55em;color:var(--wt-sub);}
+.wt-es-wt .wt-es-pd{font-size:.7em;color:var(--wt-sub);vertical-align: middle;}
 /* blue links */
 .wt-es-wt .wt-es-pt .wt-es-a{ color:#0d6efd }
 .wt-es-wt .wt-es-extra .wt-es-post:nth-child(odd) .wt-es-pt .wt-es-a{ color:#0a9396 }
