@@ -172,16 +172,7 @@
             : '';
         const bh = `<div class="wt-es-blog"><div class="wt-es-bh">${fav}<div class="wt-es-bh-name">${a(blog.url || ESFERA, esc(blog.name || ''))}</div>`;
         if (!posts.length) return bh + `</div></div>`;
-        return bh +
-            /*   (rest.length
-                    ? `<span role="button" tabindex="0" class="wt-es-toggle" aria-expanded="false" aria-controls="${id}">ver más</span>`
-                    : '') +   */
-            `</div>` +
-            buildPost(first) +
-        /*  (rest.length
-                ? `<div class="wt-es-extra" id="${id}">${rest.map(buildPost).join('')}</div>`
-                : '') +   */
-        `</div>`;
+        return bh + buildPost(first) + `</div>`;
     }
 
     /* ── init ───────────────────────────────────────────────── */
@@ -205,11 +196,10 @@
                     `<div class="wt-es-head-icon">🌐</div>` +
                     `<div class="wt-es-head-body">` +
                         `<div class="wt-es-head-name">${a(ESFERA, 'Esfera Católica')}</div>` +
-                        `<div class="wt-es-head-sup">de la <a href="${BASE}" class="wt-es-a">Enciclopedia Católica</a></div>` +
+                        `<div class="wt-es-head-sup">de la ${a(BASE,'Enciclopedia Católica')}</div>` +
                     `</div>` +
                 `</div>` +
                 `<div class="wt-es-msg">Cargando…</div>` +
-/*              `<div class="wt-es-foot">${a(BASE,'Wikitólica')} · ${a(ESFERA,'¿Quieres aparecer aquí?')}</div>` +    */
             `</div>`;
 
         const wt   = host.firstElementChild;
