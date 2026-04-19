@@ -163,7 +163,8 @@
     function buildPost(p) {
         const date = fmtDate(p.date);
         return `<div class="wt-es-post">` +
-            `<div class="wt-es-pt">${a(p.url, esc(p.title))}</div>` +
+        /*  `<div class="wt-es-pt">${a(p.url, esc(p.title))}</div>` +   */
+            `<div class="wt-es-pt">${esc(p.title)}</div>` + 
             (date ? `<div class="wt-es-pd">${date}</div>` : '') +
         `</div>`;
     }
