@@ -526,7 +526,7 @@
     const DOW = ['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
 
     const SELF = /^(www\.)?wikitolica\.com$/.test(typeof location !== 'undefined' ? location.hostname : '');
-    const TA = SELF ? '' : ' target="_blank" rel="noopener"';
+    const TA = SELF ? '' : ' target="_blank" rel="nofollow external noopener"';
     const a = (href, text) => `<a href="${href}"${TA} class="wikitolica-calendario-a">${text}</a>`;
 
     function init(host) {
@@ -597,7 +597,6 @@
                 `</div>` +
                 addcalHTML +
                 `<div class="wikitolica-calendario-lista">${rows.join('')}</div>` +
-/*              `<div class="wikitolica-calendario-foot">${a(BASE, 'Wikitólica')} · ${a(`${BASE}/n/nuestros-widgets/`, 'Ponlo en tu web')}</div>` +     */
             `</div>`;
 
         const btn = host.querySelector('.wikitolica-calendario-addcal-btn');
