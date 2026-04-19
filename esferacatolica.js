@@ -110,7 +110,7 @@
   font-size:.73em;font-weight:normal;line-height:1.3;
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block
 }
-.wt-es-wt .wt-es-pt .wt-es-a:hover{text-decoration:underline}
+.wt-es-wt .wt-es-pt .wt-es-a:hover{text-decoration:underline;font-weight: normal;}
 .wt-es-wt .wt-es-pd{font-size:.55em;color:var(--wt-sub);display:block}
 /* blue links */
 .wt-es-wt .wt-es-pt .wt-es-a{ color:#0d6efd }
@@ -155,7 +155,7 @@
   text-align:center;font-size:.65em;color:var(--wt-mu);
   background:var(--wt-bg);white-space:nowrap;overflow:hidden;display:block
 }
-.wt-es-wt .wt-es-foot .wt-es-a{color:var(--wt-lk)}
+.wt-es-wt .wt-es-foot .wt-es-a{color:var(--wt-lk);font-weight: normal;}
 .wt-es-wt .wt-es-foot .wt-es-a:hover{text-decoration:underline}
 `;
 
