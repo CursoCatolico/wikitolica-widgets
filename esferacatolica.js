@@ -11,7 +11,7 @@
         let ta = '';
         try {
             if (new URL(href).hostname.replace(/^www\./, '') !== CURHOST) {
-                ta = ' target="_blank" rel="noopener external"';
+                ta = ' target="_blank" rel="nofollow noopener external"';
             }
         } catch {}
         return `<a href="${href}"${ta} class="wt-es-a">${txt}</a>`;
@@ -211,12 +211,12 @@
                 `<div class="wt-es-head">` +
                     `<div class="wt-es-head-icon">🌐</div>` +
                     `<div class="wt-es-head-body">` +
-                        `<div class="wt-es-head-sup">Últimas publicaciones</div>` +
                         `<div class="wt-es-head-name">${a(ESFERA, 'Esfera Católica')}</div>` +
+                        `<div class="wt-es-head-sup">de la <a href="${BASE}" class="wt-es-a">Enciclopedia Católica</a></div>` +
                     `</div>` +
                 `</div>` +
                 `<div class="wt-es-msg">Cargando…</div>` +
-                `<div class="wt-es-foot">${a(BASE,'Wikitólica')} · ${a(ESFERA,'¿Quieres aparecer aquí?')}</div>` +
+/*              `<div class="wt-es-foot">${a(BASE,'Wikitólica')} · ${a(ESFERA,'¿Quieres aparecer aquí?')}</div>` +    */
             `</div>`;
 
         const wt   = host.firstElementChild;
