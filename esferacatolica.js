@@ -86,7 +86,7 @@
 .wt-es-wt .wt-es-bh:last-child{padding-bottom:0.23em;}
 /* favicon */
 .wt-es-wt .wt-es-fav{
-  width:16px;height:16px;object-fit:contain;border-radius:2px;display:inline;vertical-align:middle;margin-right:5px;
+  width:14px;height:14px;object-fit:contain;border-radius:2px;display:inline;vertical-align:middle;margin-right:5px;
 }
 .wt-es-wt .wt-es-bh-name{
   font-size:.75em;font-weight:600;color:var(--wt-tx);
@@ -107,7 +107,8 @@
 /* títulos de noticias — sin negrita */
 .wt-es-wt .wt-es-pt{
   font-size:.73em;font-weight:normal;line-height:1.3;margin-left:7px;
-  white-space:normal;overflow:visible;display:block;
+  white-space:normal;display:block;display:-webkit-box;-webkit-line-clamp:3;
+  -webkit-box-orient:vertical;overflow:hidden;text-overflow:ellipsis;
 }
 .wt-es-wt .wt-es-pt .wt-es-a:hover{text-decoration:underline;font-weight: normal;}
 .wt-es-wt .wt-es-pd{font-size:.7em;color:var(--wt-sub);vertical-align: middle;}
