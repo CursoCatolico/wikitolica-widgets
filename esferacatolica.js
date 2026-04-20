@@ -81,12 +81,11 @@
 /* blog header */
 .wt-es-wt .wt-es-bh{
   background:var(--wt-bg);padding:.23em .75em 0;
-  display:flex;align-items:center;gap:.35em;min-width:0
+  display:flex;gap:.35em;min-width:0;flex-direction:column;align-items:flex-start;
 }
 /* favicon */
 .wt-es-wt .wt-es-fav{
-  width:14px;height:14px;object-fit:contain;
-  border-radius:2px;flex-shrink:0;display:block
+  width:16px;height:16px;object-fit:contain;border-radius:2px;display:inline;vertical-align:middle;margin-right:5px;
 }
 .wt-es-wt .wt-es-bh-name{
   font-size:.75em;font-weight:600;color:var(--wt-tx);
@@ -170,7 +169,7 @@
         const fav = blog.favicon
             ? `<img src="${esc(blog.favicon)}" width="14" height="14" alt="" aria-hidden="true" class="wt-es-fav" onerror="this.style.display='none'">`
             : '';
-        const bh = `<div class="wt-es-blog"><div class="wt-es-bh">${fav}<div class="wt-es-bh-name">${a(blog.url || ESFERA, esc(blog.name || ''))}</div>`;
+        const bh = `<div class="wt-es-blog"><div class="wt-es-bh"><div class="wt-es-bh-name">${fav} ${a(blog.url || ESFERA, esc(blog.name || ''))}</div>`;
         if (!posts.length) return bh + `</div></div>`;
         return bh + buildPost(first) + `</div>`;
     }
