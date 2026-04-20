@@ -81,8 +81,9 @@
 /* blog header */
 .wt-es-wt .wt-es-bh{
   background:var(--wt-bg);padding:.23em .75em 0;
-  display:flex;gap:.35em;min-width:0;flex-direction:column;align-items:flex-start;
+  display:flex;gap:0px;min-width:0;flex-direction:column;align-items:flex-start;
 }
+.wt-es-wt .wt-es-bh:last-child{padding-bottom:0.23em;}
 /* favicon */
 .wt-es-wt .wt-es-fav{
   width:16px;height:16px;object-fit:contain;border-radius:2px;display:inline;vertical-align:middle;margin-right:5px;
@@ -169,8 +170,8 @@
         const fav = blog.favicon
             ? `<img src="${esc(blog.favicon)}" width="14" height="14" alt="" aria-hidden="true" class="wt-es-fav" onerror="this.style.display='none'">`
             : '';
-        const bh = `<div class="wt-es-blog"><div class="wt-es-bh"><div class="wt-es-bh-name">${fav} ${a(blog.url || ESFERA, esc(blog.name || ''))}</div>`;
-        if (!posts.length) return bh + `</div></div>`;
+        const bh = `<div class="wt-es-blog"><div class="wt-es-bh"><div class="wt-es-bh-name">${fav} ${a(blog.url || ESFERA, esc(blog.name || ''))}</div></div>`;
+        if (!posts.length) return bh + `</div>`;
         return bh + buildPost(first) + `</div>`;
     }
 
