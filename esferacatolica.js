@@ -83,7 +83,7 @@
   background:var(--wt-bg);padding:.23em .75em 0;
   display:flex;gap:0px;min-width:0;flex-direction:column;align-items:flex-start;
 }
-.wt-es-wt .wt-es-bh:last-child{padding-bottom:0.23em;}
+.wt-es-wt .wt-es-blog:last-child{padding-bottom:0.23em;}
 /* favicon */
 .wt-es-wt .wt-es-fav{
   width:14px;height:14px;object-fit:contain;border-radius:2px;display:inline;vertical-align:middle;margin-right:5px;
