@@ -111,7 +111,7 @@
         "4-18": [{ n: "San Apolonio", p: "/s/san-apolonio/" }],
         "4-21": [{ n: "San Anselmo de Canterbury", p: "/s/san-anselmo-de-canterbury/" }],
         "4-23": [{ n: "San Jorge", p: "/s/san-jorge/" }],
-        "4-24": [{ n: "San Francisco Coll", p: "/s/san-francisco-coll/" }, { n: "Fidelis de Sigmaringen", p: "/s/san-fidelis-de-sigmaringen/" }],
+        "5-19": [{ n: "San Francisco Coll", p: "/s/san-francisco-coll/" }, { n: "Fidelis de Sigmaringen", p: "/s/san-fidelis-de-sigmaringen/" }],
         "4-25": [{ n: "San Marcos Evangelista", p: "/s/san-marcos-evangelista/" }],
         "4-26": [{ n: "San Marcelino", p: "/s/san-marcelino/" }],
         "4-27": [{ n: "Nuestra Señora de Montserrat", p: "/n/nuestra-senora-de-monserrat/" }],
