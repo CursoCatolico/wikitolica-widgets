@@ -197,7 +197,7 @@
                     `<div class="wt-es-head-icon">🌐</div>` +
                     `<div class="wt-es-head-body">` +
                         `<div class="wt-es-head-name">${a(ESFERA, 'Esfera Católica')}</div>` +
-                        `<div class="wt-es-head-sup">de la ${a(BASE,'Enciclopedia Católica')}</div>` +
+                        `<div class="wt-es-head-sup">${a(ESFERA, '¡Únete con tu web!')}</div>` +
                     `</div>` +
                 `</div>` +
                 `<div class="wt-es-msg">Cargando…</div>` +
