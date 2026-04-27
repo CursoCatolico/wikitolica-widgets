@@ -118,7 +118,7 @@
         "4-28": [{ n: "San Pedro Chanel", p: "/s/san-pedro-chanel/" }, { n: "San Luis Grignion de Montfort", p: "/s/san-luis-grignion-de-montfort/" }],
         "4-29": [{ n: "Santa Endelienta", p: "/s/santa-endelienta/" }, { n: "San Pedro mártir", p: "/s/san-pedro-martir/" }, { n: "Santa Catalina de Siena", p: "/s/santa-catalina-de-siena/" }],
         "4-30": [{ n: "Pío V", p: "/p/papa-pio-v/" }],
-        "5-1":  [{ n: "San José Obrero", p: "/s/san-jose/" }],
+        "5-1":  [{ n: "San José Obrero", p: "/s/san-jose-obrero/" }],
         "5-2":  [{ n: "San Atanasio", p: "/s/san-atanasio/" }],
         "5-3":  [{ n: "Cruz de Caravaca", p: "/c/cruz-de-caravaca/" }, { n: "San Santiago el Menor", p: "/f/fiesta-de-san-santiago-el-menor/" }, { n: "San Felipe Apóstol", p: "/s/san-felipe/" }],
         "5-10": [{ n: "San Juan de Ávila", p: "/s/san-juan-de-avila/" }],
