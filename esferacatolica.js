@@ -44,7 +44,7 @@
   font-size:17px;line-height:1.5;-webkit-text-size-adjust:100%;text-size-adjust:100%;
   color:var(--wt-tx);background:var(--wt-bg);border:1px solid var(--wt-bd);border-radius:4px;overflow:hidden;width:100%;
   --wt-bg:#fafafa;--wt-bg-s:#f3f4f6;--wt-bg-h:#eceef0;--wt-bd:#ddd;
-  --wt-tx:#333;--wt-mu:#666;--wt-sub:#999;--wt-lk:#0d6efd;--wt-lkh:#0a58ca
+  --wt-tx:#33--wt-mu:#666;--wt-sub:#999;--wt-lk:#0d6efd;--wt-lkh:#0a58ca
 }
 @media (prefers-color-scheme:dark){.wt-es-wt{
   --wt-bg:#1a1a1a;--wt-bg-s:#1a1a1a;--wt-bg-h:#262626;--wt-bd:#444;
@@ -106,8 +106,8 @@
 .wt-es-wt .wt-es-blog > .wt-es-post{padding-bottom:.1em}
 /* títulos de noticias — sin negrita */
 .wt-es-wt .wt-es-pt{
-  font-size:.73em;font-weight:normal;line-height:1.3;margin-left:7px;
-  white-space:normal;display:block;display:-webkit-box;-webkit-line-clamp:3;
+  font-size:.73em;font-weight:normal;line-height:1.margin-left:7px;
+  white-space:normal;display:block;display:-webkit-box;-webkit-line-clamp:2;
   -webkit-box-orient:vertical;overflow:hidden;text-overflow:ellipsis;
 }
 .wt-es-wt .wt-es-pt .wt-es-a:hover{text-decoration:underline;font-weight: normal;}
