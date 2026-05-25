@@ -15,6 +15,7 @@
     }
     const advent1 = y => { const n = new Date(y, 10, 27); return addDays(n, (7 - n.getDay()) % 7); };
     const baptism = y => { const j = new Date(y, 0, 6); return j.getDay() === 0 ? new Date(y, 0, 13) : addDays(j, 7 - j.getDay()); };
+    const holyFamily = y => { const d = new Date(y, 11, 25); return d.getDay() === 0 ? new Date(y, 11, 30) : addDays(d, 7 - d.getDay()); };
 
     const T = {
         ord: { tiempo: 'Tiempo Ordinario', color: '#2d6a4f', icono: '📖', p: '/t/tiempo-ordinario/' },
@@ -227,7 +228,7 @@
         "7-28": [{ n: "Víctor I", p: "/p/papa-victor-i/" }, { n: "Santos Nazario y Celso", p: "/s/santos-nazario-y-celso/" }],
         "7-29": [{ n: "Marta", p: "/s/santa-marta/" }],
         "7-30": [{ n: "San Pedro Crisólogo", p: "/s/san-pedro-crisologo/" }],
-        "7-31": [{ n: "San Ignacio de Loyola", p: "/s/san-inigo/" }, { n: "San Germán de Auxerre", p: "/s/san-german-de-auxerre/" }, { n: "San Justino de Jacobis", p: "/s/san-justino-de-jacobis/" }],
+        "7-31": [{ n: "San Ignacio de Loyola", p: "/s/san-ignacio-de-loyola/" }, { n: "San Germán de Auxerre", p: "/s/san-german-de-auxerre/" }, { n: "San Justino de Jacobis", p: "/s/san-justino-de-jacobis/" }],
         "8-1":  [{ n: "Alfonso María de Ligorio", p: "/s/san-alfonso-maria-de-ligorio/" }],
         "8-2":  [{ n: "San Pedro Julián Eymard", p: "/s/san-pedro-julian-eymard/" }, { n: "San Eusebio de Vercelli", p: "/s/san-eusebio-de-vercelli/" }],
         "8-3":  [{ n: "Santa Lidia", p: "/s/santa-lidia/" }],
@@ -370,11 +371,10 @@
             mov: [
                 [addDays(adv, -7), { fiesta: 'Cristo Rey del Universo', ...T.ord, color: '#78350f', icono: '👑', p: '/s/solemnidad-de-cristo-rey/' }],
                 [addDays(adv, 14), { fiesta: 'Domingo de Gaudete',      ...T.adv, color: '#e11d48', icono: '🌹', p: '/d/domingo-de-gaudete/' }],
-                [addDays(dec25, (7 - dec25.getDay() + 7) % 7), 
-                       { fiesta: 'Fiesta de la Sagrada Familia',   ...T.nav, color: '#78350f', icono: '👨‍👩‍👧', p: '/f/fiesta-de-la-sagrada-familia/' }],
+                [holyFamily(y),    { fiesta: 'La Sagrada Familia',      ...T.nav, color: '#78350f', icono: '👨‍👩‍👧', p: '/f/fiesta-de-la-sagrada-familia/' }],
                 [bap,              { fiesta: 'Bautismo del Señor',      ...T.ord, color: '#78350f', icono: '💧', p: '/s/solemnidad-del-bautismo-del-senor/' }],
                 [ashWed,           { fiesta: 'Miércoles de Ceniza',     ...T.cua, color: '#1f2937', icono: '⚱️', p: '/m/miercoles-de-ceniza/' }],
-                [addDays(ashWed, 28),{ fiesta: 'Domingo Laetare',       ...T.cua, color: '#e11d48', icono: '🌹', p: '/d/domingo-laetare/' }],
+                [addDays(ashWed, 25),{ fiesta: 'Domingo Laetare',       ...T.cua, color: '#e11d48', icono: '🌹', p: '/d/domingo-laetare/' }],
                 [addDays(E, -7),   { fiesta: 'Domingo de Ramos',        ...T.sem, p: '/d/domingo-de-ramos/' }],
                 [addDays(E, -3),   { fiesta: 'Jueves Santo',            ...T.tri, p: '/j/jueves-santo/' }],
                 [addDays(E, -2),   { fiesta: 'Viernes Santo',           ...T.tri, color: '#111827', p: '/v/viernes-santo/' }],
@@ -385,9 +385,13 @@
                 [addDays(E, 21),   { fiesta: 'Domingo del Buen Pastor', ...T.pas, icono: '🐑', p: '/d/domingo-del-buen-pastor/' }],
                 [addDays(E, 39),   { fiesta: 'Ascensión del Señor',     ...T.pas, icono: '☁️', p: '/s/solemnidad-de-la-ascension/' }],
                 [addDays(E, 49),   { fiesta: 'Pentecostés',             ...T.pas, color: '#7f1d1d', icono: '🔥', p: '/s/solemnidad-de-pentecostes/' }],
+                [addDays(E, 50),   { fiesta: 'María Madre de la Iglesia', ...T.ord, color:'#b91c1c', icono:'👑', p:'/m/madre-de-la-iglesia/' }],
                 [addDays(E, 53),   { fiesta: 'Jesucristo Sumo y Eterno Sacerdote', ...T.ord, color: '#78350f', icono: '👑', p: '/j/jesucristo-sumo-y-eterno-sacerdote/' }],
                 [addDays(E, 56),   { fiesta: 'Santísima Trinidad',      ...T.ord, color: '#78350f', icono: '✝️', p: '/s/solemnidad-de-la-santisima-trinidad/' }],
-                [addDays(E, 60),   { fiesta: 'Corpus Christi',          ...T.ord, color: '#78350f', icono: '🍞', p: '/s/solemnidad-de-corpus-christi/' }],
+                [addDays(E, 63),   { fiesta: 'Corpus Christi',          ...T.ord, color: '#78350f', icono: '🍞', p: '/s/solemnidad-de-corpus-christi/' }],
+                [addDays(E, 68), { fiesta: 'Sagrado Corazón de Jesús', ...T.ord, color:'#b91c1c', icono:'❤️', p:'/s/sagrado-corazon-de-jesus/' }],
+                [addDays(E, 69), { fiesta: 'Inmaculado Corazón de María', ...T.ord, color:'#b91c1c', icono:'💗', p:'/i/inmaculado-corazon-de-maria/' }],
+                
             ],
         };
     }
