@@ -388,7 +388,7 @@
                 [addDays(E, 21),   { fiesta: 'Domingo del Buen Pastor', ...T.pas, icono: '🐑', p: '/d/domingo-del-buen-pastor/' }],
                 [addDays(E, 39),   { fiesta: 'Ascensión del Señor',     ...T.pas, icono: '☁️', p: '/s/solemnidad-de-la-ascension/' }],
                 [addDays(E, 49),   { fiesta: 'Pentecostés',             ...T.pas, color: '#7f1d1d', icono: '🔥', p: '/s/solemnidad-de-pentecostes/' }],
-                [addDays(E, 50),   { fiesta: 'María Madre de la Iglesia', ...T.ord, color:'#b91c1c', icono:'👑', p:'/m/madre-de-la-iglesia/' }],
+                [addDays(E, 50),   { fiesta: 'María Madre de la Iglesia', ...T.ord, color:'#b91c1c', icono:'👑', p:'/m/maria-madre-de-la-iglesia/' }],
                 [addDays(E, 53),   { fiesta: 'Jesucristo Sumo y Eterno Sacerdote', ...T.ord, color: '#78350f', icono: '👑', p: '/j/jesucristo-sumo-y-eterno-sacerdote/' }],
                 [addDays(E, 56),   { fiesta: 'Santísima Trinidad',      ...T.ord, color: '#78350f', icono: '✝️', p: '/s/solemnidad-de-la-santisima-trinidad/' }],
                 [addDays(E, 63),   { fiesta: 'Corpus Christi',          ...T.ord, color: '#78350f', icono: '🍞', p: '/s/solemnidad-de-corpus-christi/' }],
