@@ -172,7 +172,7 @@
         "5-25": [{ n: "Beda", p: "/s/san-beda-el-venerable/" }, { n: "Gregorio VII", p: "/s/san-gregorio-vii/" }],
         "5-26": [{ n: "Matías Maulumba Kalemba", p: "/s/san-matias-maulumba-kalemba/" }, { n: "San Felipe Neri", p: "/s/san-felipe-neri/" }, { n: "Santa Mariana de Jesús Paredes", p: "/s/santa-mariana-de-jesus-paredes/" }],
         "5-27": [{ n: "San Agustín de Canterbury", p: "/s/san-agustin-de-cantorbery/" }],
-        "5-29": [{ n: "San Maximino de Tréveris", p: "/s/san-maximino-de-treveres/" }],
+        "5-29": [{ n: "San Maximino de Tréveris", p: "/s/san-maximino-de-treveris/" }],
         "5-30": [{ n: "Juana de Arco", p: "/s/santa-juana-de-arco/" }, { n: "Félix I", p: "/p/papa-felix-i/" }, { n: "San Fernando III", p: "/s/san-fernando-iii-el-santo/" }],
         "6-1":  [{ n: "Justino Mártir", p: "/s/san-justino-martir/" }],
         "6-2":  [{ n: "San Erasmo", p: "/s/san-erasmo/" }],
