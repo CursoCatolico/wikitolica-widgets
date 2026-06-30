@@ -202,7 +202,7 @@
         "6-28": [{ n: "San Ireneo de Lyon", p: "/s/san-ireneo-de-lyon/" }, { n: "San Plutarco y compañeros", p: "/s/san-plutarco-y-companeros/" }, { n: "San John Southworth", p: "/s/san-john-southworth/" }],
         "6-29": [{ n: "San Pedro", p: "/s/san-pedro/" }, { n: "San Pablo Apóstol", p: "/s/san-pablo-apostol/" }, { n: "Santa Ema", p: "/s/santa-ema/" }],
         "6-30": [{ n: "Santos Protomártires de Roma", p: "/s/santos-protomartires-de-roma/" }, { n: "San Ladislao de Hungría", p: "/s/san-ladislao-de-hungria/" }, { n: "San Otón de Bamberg", p: "/s/san-oton-de-bamberg/" }],
-        "7-1":  [{ n: "Sangre de Cristo", p: "/s/sangre-de-cristo/" }, { n: "San Aarón", p: "/s/san-aaron/" }],
+        "7-1":  [{ n: "Preciosísima Sangre de Cristo", p: "/s/solemnidad-de-la-preciosisima-sangre-de-cristo/" }, { n: "San Aarón", p: "/s/san-aaron/" }],
         "7-2":  [{ n: "San Bernardino Realino", p: "/s/san-bernardino-realino/" }, { n: "Nuestra Señora de Budslau", p: "/n/nuestra-senora-de-budslau/" }],
         "7-3":  [{ n: "Santo Tomás Apóstol", p: "/s/santo-tomas-apostol/" }],
         "7-4":  [{ n: "Pier Giorgio Frassati", p: "/s/san-pier-giorgio-frassati/" }, { n: "Isabel de Portugal", p: "/s/santa-isabel-de-portugal/" }],
