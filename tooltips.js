@@ -45,7 +45,7 @@
         '[role="dialog"],[role="alertdialog"],[role="tooltip"],[role="tablist"],' +
         '.menu,.nav,.navbar,.sidebar,.widget,.comments,.comment,.cookie,.cookies,' +
         '.modal,.popup,.breadcrumb,.pagination,.share,.social,.ads,.advertisement,' +
-        '.related-box,.toc';
+        '.related-box,.toc,.cmtarea';
 
     const u = p => BASE + p;
     const SELF = /^(www\.)?wikitolica\.com$/.test(typeof location !== 'undefined' ? location.hostname : '');
