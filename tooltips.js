@@ -354,19 +354,6 @@
     }
 
     function attachEvents() {
-        // focusin/focusout: independiente de isTouch, un teclado puede coexistir
-        // con cualquier dispositivo. Sin delay (el foco ya es una acción deliberada,
-        // no hay "hover de paso" que proteger) y sin gracia al perderlo (no hay
-        // forma de "mover el puntero dentro del popup" navegando por teclado).
-        document.body.addEventListener('focusin', e => {
-            const a = e.target.closest('a[href]');
-            const slug = a && slugFromLink(a);
-            if (slug && index.bySlug.has(slug)) scheduleShow(a, slug, 0);
-        });
-        document.body.addEventListener('focusout', e => {
-            if (active && e.target.closest('a[href]') === active.el) hide();
-        });
-
         if (!isTouch) {
             document.body.addEventListener('mouseover', e => {
                 const a = e.target.closest('a[href]');
