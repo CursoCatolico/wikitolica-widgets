@@ -1,34 +1,27 @@
 /**
- * tooltips.js — Wikitólica
- * ─────────────────────────────────────────────────────────────────────────
- * Plugin embebible pensado para ejecutarse en webs de TERCEROS: detecta
- * conceptos de Wikitólica en el texto de la página, los enlaza (máx.
- * MAX_PER_TERM por término, sin tocar enlaces ya existentes) y muestra un
- * popup de preview al pasar el ratón / tocar / enfocar por teclado. Ningún
- * dato del host se lee ni se modifica fuera de document.body; toda la
- * apariencia va aislada en Shadow DOM salvo un wrapper mínimo para poder
- * usar position:fixed. Un MutationObserver reescanea solo cuando el body
- * cambia (AJAX, infinite scroll, SPA): no hace falta llamar a nada a mano.
- *
- * Fuente de datos: contextdata.json.zst en jsDelivr (CDN sobre el repo de
- * GitHub CursoCatolico/wikitolica-widgets) — zstd crudo, se descomprime en
- * el propio navegador con fzstd (JS puro, sin WASM) incrustado más abajo.
- * jsDelivr ya sirve con Access-Control-Allow-Origin: *, así que no hace
- * falta CORS aparte. Referenciar @main trae la última versión con caché de
- * horas, no instantánea; si hace falta forzar refresco, la propia jsDelivr
- * tiene un endpoint de purge (https://www.jsdelivr.com/tools/purge).
- *
- * Formato de los datos: s = lista de títulos; p/q/i = slug -> descripción
- * (string directo, sin imagen), repartidos entre los tres sin solapes —
- * buildIndex() los combina probándolos en orden.
- *
- * Si el CDN llegara a responder con Content-Encoding: zstd transparente,
- * el navegador ya lo habría descomprimido antes de llegar aquí y el
- * decompress() de abajo fallaría; tiene que servirse como blob binario.
- *
+ * tooltips.js - Enciclopedia Wikitólica
  * Incluye fzstd (https://github.com/101arrowz/fzstd) de Arjun Barrett,
- * MIT License — Copyright (c) 2020 Arjun Barrett.
- */
+ * 
+ * MIT License
+ * Copyright (c) 2020 Arjun Barrett
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ **/
 (function () {
     'use strict';
     if (typeof window === 'undefined' || typeof document === 'undefined') return; // solo tiene sentido en un navegador
