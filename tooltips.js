@@ -38,7 +38,7 @@
         'A', 'SCRIPT', 'STYLE', 'NOSCRIPT', 'TEMPLATE', 'TEXTAREA', 'INPUT',
         'SELECT', 'OPTION', 'BUTTON', 'SVG', 'MATH', 'CODE', 'PRE', 'IFRAME',
         'NAV', 'HEADER', 'FOOTER', 'ASIDE', 'FORM', 'LABEL', 'DIALOG', 'H1',
-        'H2', 'H3', 'H4', 'H5', 'H6', 'DETAILS', 'DIALOG'
+        'H2', 'H3', 'H4', 'H5', 'H6', 'DETAILS', 'UL', 'OL'
     ]);
     // Selectores adicionales (roles ARIA + clases habituales de menú/sidebar/etc.)
     const EXCLUDE_SEL = '[role="navigation"],[role="banner"],[role="contentinfo"],' +
