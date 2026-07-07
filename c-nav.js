@@ -41,7 +41,7 @@
     const root = el.attachShadow({ mode: 'closed' });
 
     root.innerHTML = `<style>
-:host{all:initial;contain:layout style;--cn-bg:#141414;--cn-hover:#3a3a3a;position:fixed;bottom:calc(9px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);display:flex;gap:8px;padding:10px 12px;background:var(--cn-bg);border-radius:16px;z-index:2147483647;font:16px system-ui,sans-serif;width:85vw;max-width:740px;flex-wrap:wrap;justify-content:center;border:solid 1px rgba(255,255,255,.08);outline:0 !important}
+:host{all:initial;contain:layout style;--cn-bg:#141414;--cn-hover:#3a3a3a;position:fixed;bottom:calc(9px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);display:flex;gap:8px;padding:10px 12px;background:var(--cn-bg);border-radius:16px;z-index:990;font:16px system-ui,sans-serif;width:85vw;max-width:740px;flex-wrap:wrap;justify-content:center;border:solid 1px rgba(255,255,255,.08);outline:0 !important}
 @media(prefers-color-scheme:dark){:host{--cn-bg:#262626;--cn-hover:#454545;border-color:rgba(255,255,255,.14)}}
 *{box-sizing:border-box;outline:0 !important;font-family:system-ui,sans-serif;font-weight:400}
 a{display:flex;align-items:center;justify-content:center;gap:8px;padding:8px 12px;border-radius:12px;flex:1 1 auto;min-width:0;max-width:150px;color:#fff;text-decoration:none;transition:.2s ease}
