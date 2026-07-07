@@ -83,6 +83,7 @@
     const escRe = s => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
     function currentSlug() {
+        if (typeof location === 'undefined') return null;
         const m = location.pathname.match(/^\/[a-z0-9]\/([a-z0-9-]+)\/$/i);
         return m ? m[1].toLowerCase() : null;
     }
@@ -117,7 +118,7 @@
     // ── Autoenlazado de document.body ────────────────────────────────────
     function eligible(el) {
         while (el && el !== document.body) {
-            if (EXCLUDE_TAGS.has(el.tagName) || el.isContentEditable) return false;
+            if (EXCLUDE_TAGS.has(el.tagName) || (el.isContentEditable !== false && el.isContentEditable !== 'false')) return false;
             if (el.matches(EXCLUDE_SEL)) return false;
             el = el.parentElement;
         }
@@ -192,6 +193,7 @@
     function relink() {
         clearTimeout(relinkTimer);
         if (mutationObserver) mutationObserver.disconnect();
+        linkCounts.clear();
         try { linkify(index); } catch (err) { console.error('WtTooltips: fallo autoenlazando', err); }
         if (mutationObserver) mutationObserver.observe(document.body, { childList: true, subtree: true });
     }
@@ -327,7 +329,7 @@
 
     function show(el, slug) {
         const info = index.bySlug.get(slug);
-        if (!info) return;
+        if (!info) { active = null; return; }
         content.textContent = info.desc;
         reveal(el, slug);
     }
@@ -380,7 +382,7 @@
                 if (active && active.slug === slug) { hide(); return; }
                 e.preventDefault();
                 scheduleShow(a, slug, 0);
-            });
+            }, true);
         }
     }
 
