@@ -31,7 +31,21 @@ Para instalar el widget de calendario acude a: [Widget Concepto del día](https:
 Esfera Católica es una comunidad de colaboración caritativa entre sitios y blogs católicos en internet. Funciona mediante un widget que permite el descubrimiento mutuo: cuando pones el widget en tu web, tus visitantes descubren otras páginas católicas de calidad, y tras una breve validación, tu sitio aparece automáticamente en el widget de todos los demás participantes.
 
 Para instalar el widget de Esfera Católica acude a: [Widget Esfera Católica](https://www.wikitolica.com/e/esfera-catolica/)
- 
+
+## 💡 Tooltips Enciclopédicos
+
+`tooltips.js` es un widget autocontenido que enriquece cualquier página web con tooltips de la Enciclopedia Wikitólica:
+
+- detecta automáticamente los términos enciclopédicos que existen en tu web y los convierte en tooltips
+- al pasar el ratón (escritorio) o tocar (móvil) muestra una ventana flotante con una breve descripción
+- se adapta visualmente al sitio anfitrión: hereda el color del texto, usa subrayado punteado y estilos aislados en Shadow DOM
+- soporta modo oscuro y prefiere animaciones reducidas si el sistema lo indica
+- funciona tanto en la propia Wikitólica como en cualquier sitio externo, abriendo los artículos en pestaña nueva
+- El script se carga con un único `<script>` y no requiere dependencias externas.
+- Los datos de la enciclopedia se descargan bajo demanda en formato comprimido y se mantienen en caché.
+
+Para instalar el widget de tooltips acude a: [Widget Tooltips Enciclopédicos](https://www.wikitolica.com/w/widget-tooltips/)
+
 ## 🙏 Sobre el proyecto
 
 La [Enciclopedia Católica Wikitólica](https://www.wikitolica.com/) Wikitólica busca acercar la riqueza de la tradición litúrgica de la Iglesia a la web moderna, manteniendo fidelidad, claridad y accesibilidad.
