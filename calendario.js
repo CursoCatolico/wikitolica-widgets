@@ -212,7 +212,7 @@
         "7-8":  [{ n: "San Kilian", p: "/s/san-kilian/" }, { n: "San Procopio", p: "/s/san-procopio/" }],
         "7-9":  [{ n: "Estigmas de Santa Verónica Giuliani", p: "/e/estigmas-de-santa-veronica-giuliani/" }, { n: "San Agustín Zhao Rong y compañeros", p: "/s/san-agustin-zhao-rong-y-companeros/" }, { n: "Santa Paulina del Corazón de Jesús", p: "/s/santa-paulina-del-corazon-de-jesus/" }, { n: "San Nicolás Pick y compañeros", p: "/s/san-nicolas-pick-y-companeros/" }],
         "7-11": [{ n: "San Benito de Nursia", p: "/s/san-benito-de-nursia/" }, { n: "San Sigisberto", p: "/s/san-sigisberto/" }],
-        "7-12": [{ n: "San Juan Gualberto", p: "/s/san-juan-gualberto/" }, { n: "Santos Narbor y Félix", p: "/s/santos-narbor-y-felix/" }],
+        "7-12": [{ n: "San Juan Gualberto", p: "/s/san-juan-gualberto/" }, { n: "Santos Narbor y Félix", p: "/s/santos-narbor-y-felix/" }, { n: "Santos Luis Martin y Celia Guérin", p: "/s/santos-luis-martin-y-celia-guerin/" } ],
         "7-13": [{ n: "San Silas", p: "/s/san-silas/" }],
         "7-14": [{ n: "Camilo de Lellis", p: "/s/san-camilo-de-lelis/" }, { n: "San Francisco Solano", p: "/s/san-francisco-solano/" }],
         "7-15": [{ n: "San Buenaventura", p: "/s/san-buenaventura/" }],
