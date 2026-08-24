@@ -560,7 +560,7 @@
   all:initial;display:block;box-sizing:border-box;container-type:inline-size;
   font-family:system-ui,-apple-system,"Segoe UI",Roboto,Ubuntu,Cantarell,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
   font-size:16px;line-height:1.5;-webkit-text-size-adjust:100%;text-size-adjust:100%;
-  color:var(--wt-tx);background:var(--wt-bg);border:1px solid var(--wt-bd);border-radius:4px;overflow:hidden;width:100%;
+  color:var(--wt-tx);background:var(--wt-bg);border:1px solid var(--wt-bd);border-radius:0px;overflow:hidden;width:100%;
   --wt-bg:#fafafa;--wt-bg-s:#f8f9fa;--wt-bd:#ddd;--wt-tx:#333;--wt-mu:#666;--wt-dow:#999;--wt-lk:#0d6efd;--wt-lkh:#0a58ca
 }
 @media(prefers-color-scheme:dark){.wikitolica-calendario-wt{
