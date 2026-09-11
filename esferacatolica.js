@@ -14,11 +14,12 @@
                 ta = ' target="_blank" rel="nofollow noopener external"';
             }
         } catch {}
-        return `<a href="${href}"${ta} class="wt-es-a">${txt}</a>`;
+        return `<a href="${esc(href)}"${ta} class="wt-es-a">${txt}</a>`;
     };
     const esc  = s => String(s)
         .replace(/&/g,'&amp;').replace(/</g,'&lt;')
-        .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+        .replace(/>/g,'&gt;').replace(/"/g,'&quot;')
+        .replace(/'/g,'&#39;');
 
     function fmtDate(r) {
         if (!r) return '';
@@ -26,8 +27,8 @@
         const m = /^(\d{1,2})\/(\d{1,2})\/(\d{4})$/.exec(r);
         if (m) return `${p(m[1])}/${p(m[2])}/${m[3].slice(2)}`;
         const d = new Date(r);
-        if (isNaN(d)) return '';
-        return `${p(d.getDate())}/${p(d.getMonth() + 1)}/${String(d.getFullYear()).slice(2)}`;
+        if (isNaN(d.getTime())) return '';
+        return `${p(d.getUTCDate())}/${p(d.getUTCMonth() + 1)}/${String(d.getUTCFullYear()).slice(2)}`;
     }
 
     function blogHost(url) {
@@ -44,7 +45,7 @@
   font-size:17px;line-height:1.5;-webkit-text-size-adjust:100%;text-size-adjust:100%;
   color:var(--wt-tx);background:var(--wt-bg);border:1px solid var(--wt-bd);border-radius:4px;overflow:hidden;width:100%;
   --wt-bg:#fafafa;--wt-bg-s:#f3f4f6;--wt-bg-h:#eceef0;--wt-bd:#ddd;
-  --wt-tx:#33--wt-mu:#666;--wt-sub:#999;--wt-lk:#0d6efd;--wt-lkh:#0a58ca
+  --wt-tx:#333;--wt-mu:#666;--wt-sub:#999;--wt-lk:#0d6efd;--wt-lkh:#0a58ca
 }
 @media (prefers-color-scheme:dark){.wt-es-wt{
   --wt-bg:#1a1a1a;--wt-bg-s:#1a1a1a;--wt-bg-h:#262626;--wt-bd:#444;
@@ -106,7 +107,7 @@
 .wt-es-wt .wt-es-blog > .wt-es-post{padding-bottom:.1em}
 /* títulos de noticias — sin negrita */
 .wt-es-wt .wt-es-pt{
-  font-size:.73em;font-weight:normal;line-height:1.margin-left:7px;
+  font-size:.73em;font-weight:normal;line-height:1.4;margin-left:7px;
   white-space:normal;display:block;display:-webkit-box;-webkit-line-clamp:2;
   -webkit-box-orient:vertical;overflow:hidden;text-overflow:ellipsis;
 }
@@ -158,22 +159,18 @@
     function buildPost(p) {
         const date = fmtDate(p.date);
         return `<div class="wt-es-post">` +
-            `<div class="wt-es-pt">${esc(p.title)} <span class="wt-es-pd">(${date})</span></div>` + 
+            `<div class="wt-es-pt">${esc(p.title)} <span class="wt-es-pd">(${date})</span></div>` +
         `</div>`;
     }
 
-    let _uid = 0;
     function buildBlog(blog) {
         const posts = (blog.lastPosts || []).filter(p => p.title && p.url);
         if (!posts.length) return '';
-        const [first, ...rest] = posts;
-        const id  = 'wt-ex-' + (++_uid);
         const fav = blog.favicon
             ? `<img src="${esc(blog.favicon)}" width="14" height="14" alt="" aria-hidden="true" class="wt-es-fav" onerror="this.style.display='none'">`
             : '';
         const bh = `<div class="wt-es-blog"><div class="wt-es-bh"><div class="wt-es-bh-name">${fav} ${a(blog.url || ESFERA, esc(blog.name || ''))}</div></div>`;
-        if (!posts.length) return bh + `</div>`;
-        return bh + buildPost(first) + `</div>`;
+        return bh + buildPost(posts[0]) + `</div>`;
     }
 
     /* ── init ───────────────────────────────────────────────── */
@@ -181,7 +178,7 @@
         if (host.dataset.loaded) return;
         host.dataset.loaded = '1';
 
-        const raw = parseInt(host.dataset.maxlasts, 10);
+        const raw = parseInt(host.dataset.maxlasts ?? host.dataset.maxLasts, 10);
         const def = isNaN(raw) || raw < 1 ? 10 : raw;
 
         if (!document.getElementById('wt-es-style')) {
@@ -205,7 +202,6 @@
 
         const wt   = host.firstElementChild;
         const msg  = wt.querySelector('.wt-es-msg');
-        const foot = wt.querySelector('.wt-es-foot');
 
         /* delegación: click + keydown sobre toggles */
         const onToggle = e => {
@@ -244,6 +240,8 @@
                 const wrap = document.createElement('div');
                 wrap.innerHTML = visible.map(buildBlog).join('');
 
+                msg.replaceWith(wrap);
+
                 if (hidden.length) {
                     const bar = document.createElement('div');
                     bar.className = 'wt-es-more';
@@ -264,13 +262,19 @@
                         if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); doMore(); }
                     });
                     bar.appendChild(btn);
-                    foot.before(bar);
+                    wrap.after(bar);
                 }
-
-                msg.replaceWith(wrap);
             })
             .catch(() => {
-                msg.innerHTML = `No se pudieron cargar las publicaciones. ${a(ESFERA,'Ver Esfera Católica')}.`;
+                const html = `No se pudieron cargar las publicaciones. ${a(ESFERA,'Ver Esfera Católica')}.`;
+                if (msg.isConnected) {
+                    msg.innerHTML = html;
+                } else {
+                    const err = document.createElement('div');
+                    err.className = 'wt-es-msg';
+                    err.innerHTML = html;
+                    wt.appendChild(err);
+                }
             });
     }
 
