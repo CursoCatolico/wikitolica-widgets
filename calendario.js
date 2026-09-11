@@ -273,7 +273,7 @@
 "9-8":  [{ n: "Virgen de Covadonga", p: "/v/virgen-de-covadonga/" }],
         "9-9":  [{ n: "San Pedro Claver", p: "/s/san-pedro-claver/" }],
         "9-10": [{ n: "San Nicolás de Tolentino", p: "/s/san-nicolas-de-tolentino/" }],
-        "9-11": [{ n: "San Juan Gabriel Perboyre", p: "/s/san-juan-gabriel-perboyre/" }],
+        "9-11": [{ n: "Nuestra Señora de Coromoto", p: "/n/nuestra-senora-de-coromoto/" }, { n: "San Juan Gabriel Perboyre", p: "/s/san-juan-gabriel-perboyre/" }],
         "9-12": [{ n: "Virgen de Lluc", p: "/v/virgen-de-lluc/" }],
         "9-13": [{ n: "San Juan Crisóstomo", p: "/s/san-juan-crisostomo/" }, { n: "San Marcelino de Cartago", p: "/s/san-marcelino-de-cartago/" }],
         "9-14": [{ n: "San Pedro de Tarantesia", p: "/s/san-pedro-de-tarantesia/" }],
