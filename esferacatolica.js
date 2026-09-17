@@ -63,7 +63,7 @@
   opacity:1;visibility:visible;cursor:auto
 }
 /* links — solo subrayado en hover, sin cambio de color */
-.wt-es-wt .wt-es-a{color:var(--wt-lk);cursor:pointer}
+.wt-es-wt .wt-es-a{color:var(--wt-lk);cursor:pointer;text-decoration:none}
 .wt-es-wt .wt-es-a:hover{text-decoration:underline}
 /* widget header — mismo fondo que la lista */
 .wt-es-wt .wt-es-head{
@@ -72,10 +72,10 @@
 }
 .wt-es-wt .wt-es-head-icon{font-size:1.1em;line-height:1;flex-shrink:0}
 .wt-es-wt .wt-es-head-body{flex:1;min-width:0;overflow:hidden}
-.wt-es-wt .wt-es-head-sup{font-size:.6em;color:var(--wt-mu);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block}
+.wt-es-wt .wt-es-head-sup{font-size:11px;color:var(--wt-mu);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block}
 .wt-es-wt .wt-es-head-name{font-size:.9em;font-weight:700;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block}
 /* título "Esfera Católica" en color de texto (negro/claro según tema) */
-.wt-es-wt .wt-es-head-name .wt-es-a{color:var(--wt-tx)}
+.wt-es-wt .wt-es-head-name .wt-es-a{color:var(--wt-tx);text-decoration:none}
 .wt-es-wt .wt-es-head-name .wt-es-a:hover{text-decoration:underline}
 /* blog blocks */
 .wt-es-wt .wt-es-blog{display:block}
@@ -87,7 +87,7 @@
 .wt-es-wt .wt-es-blog:last-child{padding-bottom:0.23em;}
 /* favicon */
 .wt-es-wt .wt-es-fav{
-  width:14px;height:14px;object-fit:contain;border-radius:2px;display:inline;vertical-align:middle;margin-right:5px;
+  width:14px;height:14px;object-fit:contain;border-radius:2px;display:inline;vertical-align:middle;padding:0;margin:0 5px 0 0;
 }
 .wt-es-wt .wt-es-bh-name{
   font-size:.75em;font-weight:600;color:var(--wt-tx);
