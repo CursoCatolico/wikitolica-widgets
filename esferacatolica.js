@@ -2,15 +2,16 @@
     'use strict';
 
     const BASE     = 'https://www.wikitolica.com';
-    const FEED_URL = 'https://cdn.jsdelivr.net/gh/CursoCatolico/esferacatolica@main/lastposts.json';
+    const FEED_BASE = 'https://cdn.jsdelivr.net/gh/CursoCatolico/esferacatolica@main/';
+    const FEED_URL  = FEED_BASE + 'lastposts.json';
     const ESFERA   = BASE + '/e/esfera-catolica/';
 
-    const CURHOST = typeof location !== 'undefined'
-        ? location.hostname.replace(/^www\./, '') : '';
+    const normHost = h => String(h || '').toLowerCase().replace(/^www\./, '');
+    const CURHOST = typeof location !== 'undefined' ? normHost(location.hostname) : '';
     const a = (href, txt) => {
         let ta = '';
         try {
-            if (new URL(href).hostname.replace(/^www\./, '') !== CURHOST) {
+            if (normHost(new URL(href).hostname) !== CURHOST) {
                 ta = ' target="_blank" rel="nofollow noopener external"';
             }
         } catch {}
@@ -32,7 +33,7 @@
     }
 
     function blogHost(url) {
-        try { return new URL(url).hostname.replace(/^www\./, ''); }
+        try { return normHost(new URL(url).hostname); }
         catch { return ''; }
     }
 
@@ -219,8 +220,14 @@
         wt.addEventListener('click', onToggle);
         wt.addEventListener('keydown', onToggle);
 
-        fetch(FEED_URL, { cache: 'no-cache' })
-            .then(r => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json(); })
+        const feedUrl = CURHOST ? FEED_BASE + 'lastposts-' + CURHOST + '.json' : FEED_URL;
+        const loadFeed = url =>
+            fetch(url, { cache: 'no-cache' })
+                .then(r => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json(); });
+        // Fichero del propio dominio, con fallback al global si no existe todavía
+        const feedP = feedUrl === FEED_URL ? loadFeed(FEED_URL) : loadFeed(feedUrl).catch(() => loadFeed(FEED_URL));
+
+        feedP
             .then(data => {
                 const all = (data.blogs || []).filter(b =>
                     (b.lastPosts || []).some(p => p.title && p.url)
