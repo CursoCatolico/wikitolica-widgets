@@ -4,7 +4,11 @@
     const BASE     = 'https://www.wikitolica.com';
     const FEED_BASE = 'https://cdn.jsdelivr.net/gh/CursoCatolico/esferacatolica@main/';
     const FEED_URL  = FEED_BASE + 'lastposts.json';
+    const ALL_URL   = FEED_BASE + 'allposts.json';
     const ESFERA   = BASE + '/e/esfera-catolica/';
+
+    /* promesa cacheada: una sola descarga de allposts aunque haya varios widgets */
+    let allP = null;
 
     const normHost = h => String(h || '').toLowerCase().replace(/^www\./, '');
     const CURHOST = typeof location !== 'undefined' ? normHost(location.hostname) : '';
@@ -249,28 +253,47 @@
 
                 msg.replaceWith(wrap);
 
-                if (hidden.length) {
-                    const bar = document.createElement('div');
-                    bar.className = 'wt-es-more';
-                    const btn = document.createElement('span');
-                    btn.setAttribute('role', 'button');
-                    btn.setAttribute('tabindex', '0');
-                    btn.className = 'wt-es-more-btn';
-                    btn.textContent = `Ver ${hidden.length} web${hidden.length > 1 ? 's' : ''} más`;
-                    let _done = false;
-                    const doMore = () => {
-                        if (_done) return;
-                        _done = true;
+                /* "Ver más": visible siempre; revela lo oculto y descarga
+                   allposts.json bajo demanda para añadir lo no cargado */
+                const shownUrls = new Set(visible.map(b => b.url));
+                const getAll = () => allP ||
+                    (allP = loadFeed(ALL_URL).catch(e => { allP = null; throw e; }));
+                const bar = document.createElement('div');
+                bar.className = 'wt-es-more';
+                const btn = document.createElement('span');
+                btn.setAttribute('role', 'button');
+                btn.setAttribute('tabindex', '0');
+                btn.className = 'wt-es-more-btn';
+                btn.textContent = 'Ver más webs';
+                let _hiddenDone = !hidden.length;
+                let _busy = false;
+                const doMore = () => {
+                    if (_busy) return;
+                    if (!_hiddenDone) {
+                        _hiddenDone = true;
                         wrap.insertAdjacentHTML('beforeend', hidden.map(buildBlog).join(''));
+                        for (const b of hidden) shownUrls.add(b.url);
+                    }
+                    _busy = true;
+                    btn.textContent = 'Cargando…';
+                    getAll().then(allData => {
+                        const fresh = (allData.blogs || []).filter(b =>
+                            (b.lastPosts || []).some(p => p.title && p.url) &&
+                            !shownUrls.has(b.url));
+                        for (const b of fresh) shownUrls.add(b.url);
+                        if (fresh.length) wrap.insertAdjacentHTML('beforeend', fresh.map(buildBlog).join(''));
                         bar.remove();
-                    };
-                    btn.addEventListener('click', doMore);
-                    btn.addEventListener('keydown', e => {
-                        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); doMore(); }
+                    }).catch(() => {
+                        _busy = false;
+                        btn.textContent = 'No se pudo cargar. Reintentar';
                     });
-                    bar.appendChild(btn);
-                    wrap.after(bar);
-                }
+                };
+                btn.addEventListener('click', doMore);
+                btn.addEventListener('keydown', e => {
+                    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); doMore(); }
+                });
+                bar.appendChild(btn);
+                wrap.after(bar);
             })
             .catch(() => {
                 const html = `No se pudieron cargar las publicaciones. ${a(ESFERA,'Ver Esfera Católica')}.`;
