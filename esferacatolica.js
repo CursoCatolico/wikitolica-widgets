@@ -7,11 +7,99 @@
     const ALL_URL   = FEED_BASE + 'allposts.json';
     const ESFERA   = BASE + '/e/esfera-catolica/';
 
+    /* Siempre 5 enlaces iniciales; el resto llega vía allposts.json al pulsar "Ver más webs" */
+    const VISIBLE_N = 5;
+
     /* promesa cacheada: una sola descarga de allposts aunque haya varios widgets */
     let allP = null;
 
     const normHost = h => String(h || '').toLowerCase().replace(/^www\./, '');
     const CURHOST = typeof location !== 'undefined' ? normHost(location.hostname) : '';
+
+    /* ── caché local (cache-first puro: hit válido = 0 fetch) ─────────── */
+    const CACHE_VER = 'v1';
+    const CACHE_TTL = 12 * 3600 * 1000; /* el agregador regenera 2×/día */
+    const CACHE_KEY = 'wt-es:' + CACHE_VER + ':' + (CURHOST || 'global');
+
+    function readCache() {
+        try {
+            if (typeof localStorage === 'undefined') return null;
+            const rawS = localStorage.getItem(CACHE_KEY);
+            if (!rawS) return null;
+            let o = null;
+            try {
+                o = JSON.parse(rawS);
+            } catch {
+                try { localStorage.removeItem(CACHE_KEY); } catch {}
+                return null;
+            }
+            if (!o || typeof o.t !== 'number' || !Array.isArray(o.blogs)) {
+                try { localStorage.removeItem(CACHE_KEY); } catch {}
+                return null;
+            }
+            const now = Date.now();
+            if (o.t > now + 60000 || now - o.t > CACHE_TTL) {
+                try { localStorage.removeItem(CACHE_KEY); } catch {}
+                return null;
+            }
+            const ok = o.blogs.some(b => b && (b.lastPosts || []).some(p => p && p.title && p.url));
+            if (!ok) {
+                try { localStorage.removeItem(CACHE_KEY); } catch {}
+                return null;
+            }
+            return o;
+        } catch { return null; }
+    }
+
+    function writeCache(data) {
+        try {
+            if (typeof localStorage === 'undefined') return;
+            const blogs = data && data.blogs;
+            if (!Array.isArray(blogs)) return;
+            localStorage.setItem(CACHE_KEY, JSON.stringify({
+                t: Date.now(),
+                updated: (data && data.updated) || '',
+                blogs: blogs.slice(0, 25)
+            }));
+        } catch {}
+    }
+
+    const loadFeed = url => {
+        let opts = { cache: 'no-cache' };
+        try {
+            if (typeof AbortSignal !== 'undefined' && typeof AbortSignal.timeout === 'function') {
+                opts.signal = AbortSignal.timeout(10000);
+            }
+        } catch {}
+        return fetch(url, opts)
+            .then(r => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json(); });
+    };
+
+    const FEED_URL_HOST = CURHOST ? FEED_BASE + 'lastposts-' + CURHOST + '.json' : FEED_URL;
+
+    /* lectura síncrona de caché: con hit válido no se hace ningún fetch */
+    let cachedData = null;
+    try { cachedData = readCache(); } catch { cachedData = null; }
+
+    /* arranque especulativo en miss: el fetch viaja en paralelo al parseo HTML */
+    const HAS_PROMISE = typeof Promise !== 'undefined';
+    let feedP = null;
+    try {
+        if (cachedData && HAS_PROMISE) {
+            feedP = Promise.resolve(cachedData);
+        } else if (!HAS_PROMISE || typeof fetch === 'undefined') {
+            feedP = null;
+        } else {
+            // Fichero del propio dominio, con fallback al global si no existe todavía
+            const first = FEED_URL_HOST === FEED_URL
+                ? loadFeed(FEED_URL)
+                : loadFeed(FEED_URL_HOST).catch(() => loadFeed(FEED_URL));
+            feedP = first.then(data => { try { writeCache(data); } catch {} return data; });
+        }
+    } catch (e) {
+        try { feedP = HAS_PROMISE ? Promise.reject(e) : null; } catch { feedP = null; }
+    }
+
     const a = (href, txt) => {
         let ta = '';
         try {
@@ -160,6 +248,37 @@
 .wt-es-wt .wt-es-foot .wt-es-a:hover{text-decoration:underline}
 `;
 
+    /* Inyección inmediata (en cuanto se evalúa el script): el primer
+       pintado ya tiene estilos, sin esperar al DOM ni al fetch */
+    function ensureStyle() {
+        try {
+            if (typeof document === 'undefined') return;
+            if (document.getElementById('wt-es-style')) return;
+            const s = document.createElement('style');
+            s.id = 'wt-es-style';
+            s.textContent = CSS;
+            (document.head || document.documentElement).appendChild(s);
+        } catch {}
+    }
+
+    /* Calienta la conexión para el fallback per-dominio→global y el
+       allposts.json bajo demanda (no bloquea el pintado inicial) */
+    function ensurePreconnect() {
+        try {
+            if (typeof document === 'undefined') return;
+            if (document.getElementById('wt-es-pre')) return;
+            const l = document.createElement('link');
+            l.id = 'wt-es-pre';
+            l.rel = 'preconnect';
+            l.href = 'https://cdn.jsdelivr.net';
+            try { l.crossOrigin = 'anonymous'; } catch {}
+            (document.head || document.documentElement).appendChild(l);
+        } catch {}
+    }
+
+    try { ensureStyle(); } catch {}
+    try { ensurePreconnect(); } catch {}
+
     /* ── render ─────────────────────────────────────────────── */
     function buildPost(p) {
         const date = fmtDate(p.date);
@@ -178,37 +297,115 @@
         return bh + buildPost(posts[0]) + `</div>`;
     }
 
+    /* ── selección y pintado ────────────────────────────────── */
+    function selectVisible(data) {
+        const list = ((data && data.blogs) || []).filter(b =>
+            b && (b.lastPosts || []).some(p => p && p.title && p.url)
+        );
+        if (!list.length) return null;
+        /* blog del dominio actual → primero */
+        const sorted = list.slice();
+        if (CURHOST) {
+            const idx = sorted.findIndex(b => blogHost(b.url) === CURHOST);
+            if (idx > 0) sorted.unshift(sorted.splice(idx, 1)[0]);
+        }
+        return { visible: sorted.slice(0, VISIBLE_N) };
+    }
+
+    function showError(wt, msg) {
+        const html = `No se pudieron cargar las publicaciones. ${a(ESFERA,'Ver Esfera Católica')}.`;
+        try {
+            if (msg && msg.isConnected) {
+                msg.innerHTML = html;
+            } else if (wt) {
+                const err = document.createElement('div');
+                err.className = 'wt-es-msg';
+                err.innerHTML = html;
+                wt.appendChild(err);
+            }
+        } catch {}
+    }
+
+    /* "Ver más webs": solo al clic descarga allposts.json (lazy total) */
+    function setupMore(wt, wrap, visible) {
+        try {
+            const shownUrls = new Set((visible || []).map(b => b.url));
+            const getAll = () => allP ||
+                (allP = loadFeed(ALL_URL).catch(e => { allP = null; throw e; }));
+            const bar = document.createElement('div');
+            bar.className = 'wt-es-more';
+            const btn = document.createElement('span');
+            btn.setAttribute('role', 'button');
+            btn.setAttribute('tabindex', '0');
+            btn.className = 'wt-es-more-btn';
+            btn.textContent = 'Ver más webs';
+            let _busy = false;
+            const doMore = () => {
+                if (_busy) return;
+                _busy = true;
+                btn.textContent = 'Cargando…';
+                getAll().then(allData => {
+                    const fresh = ((allData && allData.blogs) || []).filter(b =>
+                        b && (b.lastPosts || []).some(p => p && p.title && p.url) &&
+                        !shownUrls.has(b.url));
+                    for (const b of fresh) shownUrls.add(b.url);
+                    if (fresh.length) {
+                        try { wrap.insertAdjacentHTML('beforeend', fresh.map(buildBlog).join('')); } catch {}
+                    }
+                    bar.remove();
+                }).catch(() => {
+                    _busy = false;
+                    btn.textContent = 'No se pudo cargar. Reintentar';
+                });
+            };
+            btn.addEventListener('click', doMore);
+            btn.addEventListener('keydown', e => {
+                if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); doMore(); }
+            });
+            bar.appendChild(btn);
+            if (wrap.isConnected) wrap.after(bar);
+            else wt.appendChild(bar);
+        } catch {}
+    }
+
+    function paintBlogs(wt, msg, sel) {
+        const wrap = document.createElement('div');
+        wrap.innerHTML = sel.visible.map(buildBlog).join('');
+        msg.replaceWith(wrap);
+        setupMore(wt, wrap, sel.visible);
+    }
+
     /* ── init ───────────────────────────────────────────────── */
     function init(host) {
-        if (host.dataset.loaded) return;
-        host.dataset.loaded = '1';
+        try {
+            if (!host || !host.dataset) return;
+            if (host.dataset.loaded) return;
+            host.dataset.loaded = '1';
+        } catch { return; }
 
-        const raw = parseInt(host.dataset.maxlasts ?? host.dataset.maxLasts, 10);
-        const def = isNaN(raw) || raw < 1 ? 10 : raw;
+        try { ensureStyle(); } catch {}
 
-        if (!document.getElementById('wt-es-style')) {
-            const s = document.createElement('style');
-            s.id = 'wt-es-style';
-            s.textContent = CSS;
-            document.head.appendChild(s);
-        }
-
-        host.innerHTML =
-            `<div class="wt-es-wt">` +
-                `<div class="wt-es-head">` +
-                    `<div class="wt-es-head-icon">🌐</div>` +
-                    `<div class="wt-es-head-body">` +
-                        `<div class="wt-es-head-name">${a(ESFERA, 'Esfera Católica')}</div>` +
-                        `<div class="wt-es-head-sup">Últimas novedades católicas</div>` +
+        let wt = null;
+        let msg = null;
+        try {
+            host.innerHTML =
+                `<div class="wt-es-wt">` +
+                    `<div class="wt-es-head">` +
+                        `<div class="wt-es-head-icon">🌐</div>` +
+                        `<div class="wt-es-head-body">` +
+                            `<div class="wt-es-head-name">${a(ESFERA, 'Esfera Católica')}</div>` +
+                            `<div class="wt-es-head-sup">Últimas novedades católicas</div>` +
+                        `</div>` +
                     `</div>` +
-                `</div>` +
-                `<div class="wt-es-msg">Cargando…</div>` +
-            `</div>`;
+                    `<div class="wt-es-msg">Cargando…</div>` +
+                `</div>`;
+            wt = host.firstElementChild;
+            if (!wt) return;
+            msg = wt.querySelector('.wt-es-msg');
+            if (!msg) return;
+        } catch { return; }
 
-        const wt   = host.firstElementChild;
-        const msg  = wt.querySelector('.wt-es-msg');
-
-        /* delegación: click + keydown sobre toggles */
+        /* delegación: click + keydown sobre toggles (compat con HTML previo) */
         const onToggle = e => {
             const btn = e.target.closest('.wt-es-toggle');
             if (!btn) return;
@@ -221,102 +418,86 @@
             btn.textContent = expanded ? 'ver más' : 'ver menos';
             extra.classList.toggle('open', !expanded);
         };
-        wt.addEventListener('click', onToggle);
-        wt.addEventListener('keydown', onToggle);
+        try {
+            wt.addEventListener('click', onToggle);
+            wt.addEventListener('keydown', onToggle);
+        } catch {}
 
-        const feedUrl = CURHOST ? FEED_BASE + 'lastposts-' + CURHOST + '.json' : FEED_URL;
-        const loadFeed = url =>
-            fetch(url, { cache: 'no-cache' })
-                .then(r => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json(); });
-        // Fichero del propio dominio, con fallback al global si no existe todavía
-        const feedP = feedUrl === FEED_URL ? loadFeed(FEED_URL) : loadFeed(feedUrl).catch(() => loadFeed(FEED_URL));
+        /* hit de caché: pintado síncrono, 0 fetch */
+        if (cachedData) {
+            let sel = null;
+            try { sel = selectVisible(cachedData); } catch { sel = null; }
+            if (!sel) {
+                try { msg.textContent = 'No hay publicaciones disponibles.'; } catch {}
+                return;
+            }
+            try { paintBlogs(wt, msg, sel); } catch { showError(wt, msg); }
+            return;
+        }
 
-        feedP
-            .then(data => {
-                const all = (data.blogs || []).filter(b =>
-                    (b.lastPosts || []).some(p => p.title && p.url)
-                );
-                if (!all.length) { msg.textContent = 'No hay publicaciones disponibles.'; return; }
-
-                /* blog del dominio actual → primero */
-                const sorted = all.slice();
-                if (CURHOST) {
-                    const idx = sorted.findIndex(b => blogHost(b.url) === CURHOST);
-                    if (idx > 0) sorted.unshift(sorted.splice(idx, 1)[0]);
+        /* miss: consume el fetch especulativo ya en vuelo desde el eval */
+        if (!feedP || typeof feedP.then !== 'function') {
+            showError(wt, msg);
+            return;
+        }
+        feedP.then(
+            data => {
+                let sel = null;
+                try { sel = selectVisible(data); } catch { sel = null; }
+                if (!sel) {
+                    try { msg.textContent = 'No hay publicaciones disponibles.'; } catch {}
+                    return;
                 }
-
-                const visible = sorted.slice(0, def);
-                const hidden  = sorted.slice(def);
-
-                const wrap = document.createElement('div');
-                wrap.innerHTML = visible.map(buildBlog).join('');
-
-                msg.replaceWith(wrap);
-
-                /* "Ver más": visible siempre; revela lo oculto y descarga
-                   allposts.json bajo demanda para añadir lo no cargado */
-                const shownUrls = new Set(visible.map(b => b.url));
-                const getAll = () => allP ||
-                    (allP = loadFeed(ALL_URL).catch(e => { allP = null; throw e; }));
-                const bar = document.createElement('div');
-                bar.className = 'wt-es-more';
-                const btn = document.createElement('span');
-                btn.setAttribute('role', 'button');
-                btn.setAttribute('tabindex', '0');
-                btn.className = 'wt-es-more-btn';
-                btn.textContent = 'Ver más webs';
-                let _hiddenDone = !hidden.length;
-                let _busy = false;
-                const doMore = () => {
-                    if (_busy) return;
-                    if (!_hiddenDone) {
-                        _hiddenDone = true;
-                        wrap.insertAdjacentHTML('beforeend', hidden.map(buildBlog).join(''));
-                        for (const b of hidden) shownUrls.add(b.url);
-                    }
-                    _busy = true;
-                    btn.textContent = 'Cargando…';
-                    getAll().then(allData => {
-                        const fresh = (allData.blogs || []).filter(b =>
-                            (b.lastPosts || []).some(p => p.title && p.url) &&
-                            !shownUrls.has(b.url));
-                        for (const b of fresh) shownUrls.add(b.url);
-                        if (fresh.length) wrap.insertAdjacentHTML('beforeend', fresh.map(buildBlog).join(''));
-                        bar.remove();
-                    }).catch(() => {
-                        _busy = false;
-                        btn.textContent = 'No se pudo cargar. Reintentar';
-                    });
-                };
-                btn.addEventListener('click', doMore);
-                btn.addEventListener('keydown', e => {
-                    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); doMore(); }
-                });
-                bar.appendChild(btn);
-                wrap.after(bar);
-            })
-            .catch(() => {
-                const html = `No se pudieron cargar las publicaciones. ${a(ESFERA,'Ver Esfera Católica')}.`;
-                if (msg.isConnected) {
-                    msg.innerHTML = html;
-                } else {
-                    const err = document.createElement('div');
-                    err.className = 'wt-es-msg';
-                    err.innerHTML = html;
-                    wt.appendChild(err);
-                }
-            });
+                try { paintBlogs(wt, msg, sel); } catch { showError(wt, msg); }
+            },
+            () => { showError(wt, msg); }
+        );
     }
 
-    /* ── bootstrap ──────────────────────────────────────────── */
+    /* ── bootstrap: inicializa en cuanto existe el div, sin esperar a
+       DOMContentLoaded (el fetch ya va en vuelo desde el eval) ── */
     function bootstrap() {
-        document.querySelectorAll('.wikitolica-esferacatolica, #wikitolica-esferacatolica').forEach(init);
+        try {
+            if (typeof document === 'undefined' || !document.querySelectorAll) return;
+            document.querySelectorAll('.wikitolica-esferacatolica, #wikitolica-esferacatolica').forEach(el => {
+                try { init(el); } catch {}
+            });
+        } catch {}
     }
 
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', bootstrap);
-    } else {
-        bootstrap();
+    try { bootstrap(); } catch {}
+
+    if (typeof document !== 'undefined' && document.readyState === 'loading') {
+        try {
+            let obs = null;
+            if (typeof MutationObserver !== 'undefined' && document.documentElement) {
+                obs = new MutationObserver(muts => {
+                    for (const m of (muts || [])) {
+                        const added = (m && m.addedNodes) || [];
+                        for (const n of added) {
+                            try {
+                                if (!n || n.nodeType !== 1) continue;
+                                if (n.matches && n.matches('.wikitolica-esferacatolica, #wikitolica-esferacatolica')) {
+                                    try { init(n); } catch {}
+                                }
+                                if (n.querySelectorAll) {
+                                    n.querySelectorAll('.wikitolica-esferacatolica, #wikitolica-esferacatolica').forEach(el => {
+                                        try { init(el); } catch {}
+                                    });
+                                }
+                            } catch {}
+                        }
+                    }
+                });
+                try { obs.observe(document.documentElement, { childList: true, subtree: true }); } catch { obs = null; }
+            }
+            if (document.addEventListener) {
+                document.addEventListener('DOMContentLoaded', () => {
+                    try { bootstrap(); } catch {}
+                    try { if (obs) obs.disconnect(); } catch {}
+                });
+            }
+        } catch {}
     }
 
     if (typeof window !== 'undefined') {
