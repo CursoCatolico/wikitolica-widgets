@@ -177,7 +177,7 @@
         { n:'Concilio Vaticano I',          p:'/c/concilio-vaticano-i/',                             c:'con', d:'Vaticano I (1869-1870): definió la infalibilidad y el primado pontificio universal.' },
         { n:'Concilio Vaticano II',         p:'/c/concilio-vaticano-ii/',                            c:'con', d:'Vaticano II (1962-1965): renovó liturgia, eclesiología y diálogo con el mundo moderno.' },
         { n:'Concilio de Toledo III',       p:'/c/concilio-de-toledo-iii/',                          c:'con', d:'Toledo (589): conversión de los visigodos e inserción del Filioque en Occidente.' },
-        { n:'Concilio Quinisexto',          p:'/c/conclave-de-trullo-quinisexto/',                   c:'con', d:'Trullo (692): disciplina solo reconocida por Oriente; diverge de la práctica latina.' },
+        { n:'Concilio Quinisexto',          p:'/c/concilio-de-trullo-quinisexto/',                   c:'con', d:'Trullo (692): disciplina solo reconocida por Oriente; diverge de la práctica latina.' },
         { n:'Sínodo',                       p:'/s/sinodo/',                                          c:'con', d:'Asamblea de obispos para tratar asuntos de fe, disciplina o pastoral de la Iglesia.' },
         { n:'Concilio de Clermont',         p:'/c/concilio-de-clermont/',                            c:'con', d:'Clermont (1095): Urbano II proclamó la Primera Cruzada para liberar Tierra Santa.' },
         { n:'Concilio de Orange I',         p:'/c/concilio-de-orange-i/',                            c:'con', d:'Orange I (441): reguló la penitencia pública y las relaciones clero-laicos en la Galia.' },
