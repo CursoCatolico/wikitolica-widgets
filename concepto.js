@@ -4,19 +4,20 @@
     const BASE = 'https://www.wikitolica.com';
     const u = p => BASE + p;
 
+    // dark: texto en modo oscuro; brightness(1.7) lo multiplica, así que se ve 1,7 veces más claro.
     const CAT = {
-        dog: { label: 'Dogma',          color: '#7f1d1d', emoji: '🏛️' },
-        teo: { label: 'Teología',       color: '#1e3a5f', emoji: '✝️' },
-        her: { label: 'Herejía',        color: '#4a044e', emoji: '⚔️' },
-        sac: { label: 'Sacramento',     color: '#14532d', emoji: '💧' },
-        con: { label: 'Concilio',       color: '#451a03', emoji: '📜' },
-        dev: { label: 'Devoción',       color: '#713f12', emoji: '🙏' },
-        mor: { label: 'Moral',          color: '#1e3a5f', emoji: '⚖️' },
-        his: { label: 'Historia',       color: '#1c1917', emoji: '📖' },
-        lit: { label: 'Liturgia',       color: '#3b0764', emoji: '🕯️' },
-        esp: { label: 'Espiritualidad', color: '#0c4a6e', emoji: '🌿' },
-        bib: { label: 'Biblia',         color: '#7c2d12', emoji: '📕' },
-        fil: { label: 'Filosofía',      color: '#064e3b', emoji: '💡' },
+        dog: { label: 'Dogma',          color: '#7f1d1d', dark: '#946161', emoji: '🏛️' },
+        teo: { label: 'Teología',       color: '#1e3a5f', dark: '#567495', emoji: '✝️' },
+        her: { label: 'Herejía',        color: '#4a044e', dark: '#8d6594', emoji: '⚔️' },
+        sac: { label: 'Sacramento',     color: '#14532d', dark: '#4f8d65', emoji: '💧' },
+        con: { label: 'Concilio',       color: '#451a03', dark: '#947c2d', emoji: '📜' },
+        dev: { label: 'Devoción',       color: '#713f12', dark: '#95842a', emoji: '🙏' },
+        mor: { label: 'Moral',          color: '#1e3a5f', dark: '#567495', emoji: '⚖️' },
+        his: { label: 'Historia',       color: '#1c1917', dark: '#7e7c7b', emoji: '📖' },
+        lit: { label: 'Liturgia',       color: '#3b0764', dark: '#7f6a95', emoji: '🕯️' },
+        esp: { label: 'Espiritualidad', color: '#0c4a6e', dark: '#4a7c94', emoji: '🌿' },
+        bib: { label: 'Biblia',         color: '#7c2d12', dark: '#956d44', emoji: '📕' },
+        fil: { label: 'Filosofía',      color: '#064e3b', dark: '#41886c', emoji: '💡' },
     };
 
     /* 366 conceptos — ciclo anual completo (29-feb cubierto).
@@ -416,7 +417,7 @@
 }
 @media(prefers-color-scheme:dark){.wikitolica-concepto-wt{
   --wc-bg:#1a1a1a;--wc-bg-s:#2d2d2d;--wc-bd:#444;--wc-tx:#c0c0c0;--wc-mu:#888;--wc-lk:#4dabf7;--wc-lkh:#74c0fc;
-  --wc-cat-bg:rgba(255,255,255,.08);
+  --wc-cat-bg:#1e1e1e;
   font-weight:300;letter-spacing:.01ch
 }}
 @media(prefers-color-scheme:dark){.wikitolica-concepto-wt .wikitolica-concepto-cat{filter:brightness(1.7)}}
@@ -435,6 +436,7 @@
   text-transform:uppercase;padding:.12em .45em;border-radius:3px;margin-bottom:.4em;
   color:var(--wc-cat-color,#555);background:var(--wc-cat-bg,rgba(0,0,0,.06))
 }
+@media(prefers-color-scheme:dark){.wikitolica-concepto-wt .wikitolica-concepto-cat{color:var(--wc-cat-dark)}}
 .wikitolica-concepto-wt .wikitolica-concepto-titulo{
   font-size:.97em;font-weight:700;line-height:1.25;color:var(--wc-tx);margin-bottom:.25em
 }
@@ -475,7 +477,7 @@
             `<div class="wikitolica-concepto-wt">` +
                 `<div class="wikitolica-concepto-stripe" style="background:${cat.color}"></div>` +
                 `<div class="wikitolica-concepto-body">` +
-                    `<span class="wikitolica-concepto-cat" style="--wc-cat-color:${cat.color}">${cat.emoji} ${cat.label}</span>` +
+                    `<span class="wikitolica-concepto-cat" style="--wc-cat-color:${cat.color};--wc-cat-dark:${cat.dark}">${cat.emoji} ${cat.label}</span>` +
                     `<div class="wikitolica-concepto-titulo">${lnk(href, con.n, 'wikitolica-concepto-a')}</div>` +
                     `<div class="wikitolica-concepto-desc">${con.d}</div>` +
                     `<div class="wikitolica-concepto-meta">` +
