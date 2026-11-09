@@ -892,15 +892,15 @@ ${R} .${P}-stripe{display:block;width:3px;border-radius:2px;flex:0 0 auto;transi
 ${R} .${P}-body{display:block;flex:1 1 auto;min-width:0;overflow:hidden}
 ${R} .${P}-fecha{display:block;font-size:.67em;line-height:1.5;height:1.5em;color:var(--wl-mu);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 ${R} .${P}-dia{display:block;font-size:.9em;font-weight:700;line-height:1.35;height:1.35em;color:var(--wl-tx);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-${R} .${P}-lista{display:block;font-size:.82em;line-height:1.65;height:calc(4 * 1.65em + .5em);padding:.25em 0;overflow-x:hidden;overflow-y:auto;scrollbar-width:thin;overscroll-behavior:contain}
+${R} .${P}-lista{--wl-hueco:calc((4 - var(--wl-filas, 4)) * 1.65em / (var(--wl-filas, 4) + 1));display:block;font-size:.82em;line-height:1.65;height:calc(4 * 1.65em + .5em);padding:.25em 0;overflow-x:hidden;overflow-y:auto;scrollbar-width:thin;overscroll-behavior:contain}
 ${R} .${P}-lista::-webkit-scrollbar{display:block;width:6px;background:transparent}
 ${R} .${P}-lista::-webkit-scrollbar-thumb{display:block;background:var(--wl-bd);border-radius:3px}
-${R} .${P}-row{display:grid;grid-template-columns:2.4em minmax(0,1fr);gap:0 .65em;align-items:start;height:1.65em;padding:0 1.05em;transition:background .1s}
+${R} .${P}-row{display:grid;grid-template-columns:2.4em minmax(0,1fr);gap:0 .65em;align-items:start;height:1.65em;margin-top:var(--wl-hueco);padding:0 1.05em;transition:background .1s}
 ${R} .${P}-row:hover{background:var(--wl-bg-s)}
 ${R} .${P}-k{display:block;font-size:.85em;line-height:1.94;color:var(--wl-mu);font-style:italic;text-align:right;white-space:nowrap;overflow:hidden}
 ${R} .${P}-v{display:block;font-weight:600;color:var(--wl-tx);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 ${R} .${P}-o{display:inline;font-weight:400;font-style:italic;color:var(--wl-mu)}
-${R} .${P}-sec{display:block;height:1.65em;padding:0 1.05em;color:var(--wl-mu);font-style:italic;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;border-top:1px dashed var(--wl-bd)}
+${R} .${P}-sec{display:block;height:1.65em;margin-top:var(--wl-hueco);padding:0 1.05em;color:var(--wl-mu);font-style:italic;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;border-top:1px dashed var(--wl-bd)}
 ${R} .${P}-vacio{border-top:0}
 ${R} .${P}-foot{display:flex;align-items:center;justify-content:space-between;gap:.5em;height:2.2em;padding:0 .6em;border-top:1px solid var(--wl-bd);background:var(--wl-bg-s);font-size:.67em;line-height:1.4;color:var(--wl-mu);white-space:nowrap}
 ${R} .${P}-lbl{display:flex;align-items:center;justify-content:center;flex:1 1 auto;min-width:0;overflow:hidden}
@@ -927,7 +927,7 @@ ${R}[data-wl-mini] .${P}-row{grid-template-columns:1.9em minmax(0,1fr);gap:0 .35
 ${R}[data-wl-ancho] .${P}-body{display:flex;align-items:baseline;gap:.6em}
 ${R}[data-wl-ancho] .${P}-fecha{flex:0 0 auto;order:2}
 ${R}[data-wl-ancho] .${P}-dia{flex:0 1 auto;min-width:0;order:1}
-${R}[data-wl-ancho] .${P}-lista{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:1.65em;align-content:start;height:calc(2 * 1.65em + .5em)}
+${R}[data-wl-ancho] .${P}-lista{--wl-hueco:0px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:1.65em;align-content:start;height:calc(2 * 1.65em + .5em)}
 ${R}[data-wl-ancho] .${P}-sec{grid-column:1/-1}
 `;
     // Añade !important a cada declaración (menos a las variables y a las que ya lo llevan).
@@ -1072,6 +1072,8 @@ ${R}[data-wl-ancho] .${P}-sec{grid-column:1/-1}
                 html = rowsHTML(M.lecturasCEE(cur));
             } catch (e) { /* sin lecturas para esta fecha */ }
             lista.innerHTML = html || `<div class="${P}-sec ${P}-vacio">Sin lecturas para este día</div>`;
+            // Con menos de cuatro filas, el hueco se reparte entre ellas: el cuadro no cambia y no queda línea vacía.
+            lista.style.setProperty('--wl-filas', String(Math.min(4, Math.max(1, lista.children.length))));
             lista.scrollTop = 0;
         }
         function mover(n) {
