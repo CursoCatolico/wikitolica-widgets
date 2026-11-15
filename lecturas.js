@@ -2,7 +2,8 @@
  * lecturas.js — Lecturas del día · Wikitólica (https://www.wikitolica.com/)
  * Muestra las citas bíblicas de la Misa del día (calendario litúrgico de la CEE, España)
  * y enlaza cada una a su capítulo en la Biblia publicada por la Santa Sede (vatican.va).
- * Solo referencias bíblicas: no incluye ni reproduce el texto de las lecturas.
+ * Al pulsar una cita muestra su texto según la Biblia de Félix Torres Amat (1836, dominio público),
+ * que se descarga aparte (lecturas-textos.json.zst, comprimido con zstd) solo cuando hace falta.
  *
  * Uso: <script src="…/lecturas.js" defer></script>  <div class="wikitolica-lecturas"></div>
  *
@@ -22,6 +23,9 @@
  * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ * Incluye fzstd v0.1.1 (https://github.com/101arrowz/fzstd) para descomprimir el texto,
+ * MIT License — Copyright (c) 2020 Arjun Barrett (mismas condiciones que arriba).
  */
 (function () {
     'use strict';
@@ -859,9 +863,10 @@
          adaptar los colores (p. ej. «body .wikitolica-lecturas-wt{--wl-bg:…}»). */
     const P = 'wikitolica-lecturas';
     const R = `.${P}-wt:not(#${P}-x)`;
+    const D = `dialog.${P}-dlg:not(#${P}-x)`;
     const VARS = `
-.${P}-wt{--wl-bg:#fafafa;--wl-bg-s:#f8f9fa;--wl-bd:#ddd;--wl-tx:#333;--wl-mu:#666;--wl-lk:#0d6efd;--wl-lkh:#0a58ca}
-@media(prefers-color-scheme:dark){.${P}-wt{--wl-bg:#1a1a1a;--wl-bg-s:#2d2d2d;--wl-bd:#444;--wl-tx:#c0c0c0;--wl-mu:#888;--wl-lk:#4dabf7;--wl-lkh:#74c0fc}}
+.${P}-wt,.${P}-dlg{--wl-bg:#fafafa;--wl-bg-s:#f8f9fa;--wl-bd:#ddd;--wl-tx:#333;--wl-mu:#666;--wl-lk:#0d6efd;--wl-lkh:#0a58ca}
+@media(prefers-color-scheme:dark){.${P}-wt,.${P}-dlg{--wl-bg:#1a1a1a;--wl-bg-s:#2d2d2d;--wl-bd:#444;--wl-tx:#c0c0c0;--wl-mu:#888;--wl-lk:#4dabf7;--wl-lkh:#74c0fc}}
 #${P},.${P}{margin:0}
 `;
     const CSS = `
@@ -929,6 +934,34 @@ ${R}[data-wl-ancho] .${P}-fecha{flex:0 0 auto;order:2}
 ${R}[data-wl-ancho] .${P}-dia{flex:0 1 auto;min-width:0;order:1}
 ${R}[data-wl-ancho] .${P}-lista{--wl-hueco:0px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:1.65em;align-content:start;height:calc(2 * 1.65em + .5em)}
 ${R}[data-wl-ancho] .${P}-sec{grid-column:1/-1}
+${D}{
+  all:initial;display:flex;flex-direction:column;box-sizing:border-box;position:fixed;inset:0;width:min(44em,calc(100vw - 2em));max-width:none;height:fit-content;max-height:min(42em,calc(100dvh - 2em));margin:auto;padding:0;
+  font-family:system-ui,-apple-system,"Segoe UI",Roboto,Ubuntu,Cantarell,"Noto Sans",sans-serif;font-size:16px;line-height:1.5;font-weight:400;text-align:left;direction:ltr;
+  color:var(--wl-tx);background:var(--wl-bg);border:1px solid var(--wl-bd);border-radius:6px;box-shadow:0 10px 40px rgba(0,0,0,.25);overflow:hidden;opacity:1;visibility:visible;z-index:2147483000
+}
+${D}:not([open]){display:none}
+${D}::backdrop{background:rgba(0,0,0,.45)}
+${D} *,${D} *::before,${D} *::after{
+  box-sizing:border-box;margin:0;padding:0;border:0;border-radius:0;background:none;outline:0;font-family:inherit;font-size:inherit;font-weight:inherit;font-style:normal;
+  line-height:inherit;letter-spacing:normal;text-align:inherit;text-transform:none;text-decoration:none;text-shadow:none;text-indent:0;color:inherit;
+  float:none;position:static;width:auto;height:auto;min-width:0;max-width:none;overflow:visible;box-shadow:none;opacity:1;transform:none;transition:none;list-style:none
+}
+${D} .${P}-dcab{display:flex;align-items:flex-start;gap:.75em;flex:0 0 auto;padding:.7em .7em .6em 1.1em;background:var(--wl-bg-s);border-bottom:1px solid var(--wl-bd)}
+${D} .${P}-dstripe{display:block;align-self:stretch;width:3px;border-radius:2px;flex:0 0 auto;background:#2d6a4f}
+${D} .${P}-dtit{display:block;flex:1 1 auto;min-width:0}
+${D} .${P}-dk{display:block;font-size:.75em;line-height:1.5;color:var(--wl-mu);font-style:italic}
+${D} .${P}-dt{display:block;font-size:1.05em;font-weight:700;line-height:1.35;color:var(--wl-tx)}
+${D} .${P}-dx{-webkit-appearance:none;appearance:none;display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto;width:1.6em;height:1.6em;font:400 1.5em/1 system-ui,sans-serif;color:var(--wl-mu);background:transparent;border-radius:3px;cursor:pointer}
+@media(hover:hover){${D} .${P}-dx:hover{color:var(--wl-lkh);background:var(--wl-bg)}}
+${D} .${P}-dx:focus-visible{outline:2px solid var(--wl-lk);outline-offset:1px}
+${D} .${P}-dtexto{display:block;flex:1 1 auto;min-height:0;overflow-y:auto;overscroll-behavior:contain;padding:1em 1.3em 1.2em;font-family:Georgia,"Times New Roman",Times,serif;font-size:1.06em;line-height:1.65;color:var(--wl-tx);scrollbar-width:thin}
+${D} .${P}-dtexto p{display:block;margin:0 0 .75em}
+${D} .${P}-dtexto p:last-child{margin-bottom:0}
+${D} .${P}-dr{color:var(--wl-mu);font-style:italic}
+${D} .${P}-drl{font-style:normal;font-weight:700;color:var(--wl-lk)}
+${D} .${P}-dpie{display:block;flex:0 0 auto;padding:.55em 1em;border-top:1px solid var(--wl-bd);background:var(--wl-bg-s);font-size:.68em;line-height:1.45;color:var(--wl-mu)}
+${D} .${P}-dpie a{color:var(--wl-lk);text-decoration:none;white-space:nowrap}
+${D} .${P}-dpie a:hover{text-decoration:underline;color:var(--wl-lkh)}
 `;
     // Añade !important a cada declaración (menos a las variables y a las que ya lo llevan).
     const imp = css => css.replace(/\{([^{}]*)\}/g, (_, body) => '{' + body.split(';').map(d => {
@@ -955,12 +988,12 @@ ${R}[data-wl-ancho] .${P}-sec{grid-column:1/-1}
         const breve = v && typeof v === 'object' && v.forma_breve ? ` · Forma breve: ${v.forma_breve}` : '';
         const href = bibliaHref(cita);
         if (!href) return `<span title="${esc(cita + breve)}">${esc(txt)}</span>`;
-        return `<a href="${href}" target="_blank" rel="nofollow external noopener" class="${P}-a" title="${esc(`Leer ${cita} en la Biblia (vatican.va)${breve}`)}">${esc(txt)}</a>`;
+        return `<a href="${href}" target="_blank" rel="nofollow external noopener" class="${P}-a" data-cita="${esc(cita)}" title="${esc(`Leer ${cita}${breve}`)}">${esc(txt)}</a>`;
     }
     function rowHTML(k, vals, sep) {
         const parts = vals.filter(Boolean).map(v => citaHTML(v, k === 'Sal')).filter(Boolean);
         if (!parts.length) return '';
-        return `<div class="${P}-row"><span class="${P}-k">${esc(k)}</span><span class="${P}-v">${parts.join(`<span class="${P}-o">${sep}</span>`)}</span></div>`;
+        return `<div class="${P}-row" data-k="${esc(k)}"><span class="${P}-k">${esc(k)}</span><span class="${P}-v">${parts.join(`<span class="${P}-o">${sep}</span>`)}</span></div>`;
     }
     function rowsHTML(t) {
         if (typeof t === 'string') return rowHTML('', [t], '');
@@ -1007,6 +1040,61 @@ ${R}[data-wl-ancho] .${P}-sec{grid-column:1/-1}
         const color = Object.keys(COLOR).find(k => c.startsWith(k));
         return { corto, completo, conDia, color: COLOR[color] || COLOR.verde };
     }
+    /* ══════════ Texto de las lecturas (Torres Amat) ══════════
+       El texto va en lecturas-textos.json.zst (en jsDelivr, o donde diga data-textos): se descarga
+       y se descomprime la primera vez que se pulsa una cita. Con Ctrl/Mayús o la rueda, el enlace
+       sigue llevando a vatican.va. */
+    const NOMBRE_K = { '1.ª': 'Primera lectura', 'Sal': 'Salmo responsorial', '2.ª': 'Segunda lectura', 'Ev': 'Evangelio', 'Proc.': 'Procesión', 'Ep': 'Epístola' };
+    const TEXTOS_URL = 'https://cdn.jsdelivr.net/gh/CursoCatolico/wikitolica-widgets@main/lecturas-textos.json.zst';
+
+    // ── fzstd v0.1.1 incrustado (el mismo bloque que tooltips.js: build UMD oficial sin el wrapper
+    // de detección de módulo, como const local). Código de librería sin modificar; no tocar.
+    // https://github.com/101arrowz/fzstd — MIT License, © 2020 Arjun Barrett.
+    const ZSTD = (function () { var _e = {}; "use strict"; var r = ArrayBuffer, t = Uint8Array, e = Uint16Array, n = Int16Array, a = Uint32Array, s = Int32Array, i = function (r, e, n) { if (t.prototype.slice) return t.prototype.slice.call(r, e, n); (null == e || e < 0) && (e = 0), (null == n || n > r.length) && (n = r.length); var a = new t(n - e); return a.set(r.subarray(e, n)), a }, o = function (r, e, n, a) { if (t.prototype.fill) return t.prototype.fill.call(r, e, n, a); for ((null == n || n < 0) && (n = 0), (null == a || a > r.length) && (a = r.length); n < a; ++n)r[n] = e; return r }, u = function (r, e, n, a) { if (t.prototype.copyWithin) return t.prototype.copyWithin.call(r, e, n, a); for ((null == n || n < 0) && (n = 0), (null == a || a > r.length) && (a = r.length); n < a;)r[e++] = r[n++] }; _e.ZstdErrorCode = { InvalidData: 0, WindowSizeTooLarge: 1, InvalidBlockType: 2, FSEAccuracyTooHigh: 3, DistanceTooFarBack: 4, UnexpectedEOF: 5 }; var h = ["invalid zstd data", "window size too large (>2046MB)", "invalid block type", "FSE accuracy too high", "match distance too far back", "unexpected EOF"], f = function (r, t, e) { var n = Error(t || h[r]); if (n.code = r, Error.captureStackTrace && Error.captureStackTrace(n, f), !e) throw n; return n }, l = function (r, t, e) { for (var n = 0, a = 0; n < e; ++n)a |= r[t++] << (n << 3); return a }, v = function (r, t) { return (r[t] | r[t + 1] << 8 | r[t + 2] << 16 | r[t + 3] << 24) >>> 0 }, c = function (r, e) { var n = r[0] | r[1] << 8 | r[2] << 16; if (3126568 == n && 253 == r[3]) { var a = r[4], i = a >> 5 & 1, o = a >> 2 & 1, u = 3 & a, h = a >> 6; 8 & a && f(0); var c = 6 - i, b = 3 == u ? 4 : u, y = l(r, c, b), p = h ? 1 << h : i, w = l(r, c += b, p) + (1 == h && 256), g = w; if (!i) { var d = 1 << 10 + (r[5] >> 3); g = d + (d >> 3) * (7 & r[5]) } g > 2145386496 && f(1); var m = new t((1 == e ? w || g : e ? 0 : g) + 12); return m[0] = 1, m[4] = 4, m[8] = 8, { b: c + p, y: 0, l: 0, d: y, w: e && 1 != e ? e : m.subarray(12), e: g, o: new s(m.buffer, 0, 3), u: w, c: o, m: Math.min(131072, g) } } if (25481893 == (n >> 4 | r[3] << 20)) return v(r, 4) + 8; f(0) }, b = function (r) { for (var t = 0; 1 << t <= r; ++t); return t - 1 }, y = function (a, s, i) { var o = 4 + (s << 3), u = 5 + (15 & a[s]); u > i && f(3); for (var h = 1 << u, l = h, v = -1, c = -1, y = -1, p = h, w = new r(512 + (h << 2)), g = new n(w, 0, 256), d = new e(w, 0, 256), m = new e(w, 512, h), z = 512 + (h << 1), E = new t(w, z, h), k = new t(w, z + h); v < 255 && l > 0;) { var A = b(l + 1), T = o >> 3, x = (1 << A + 1) - 1, F = (a[T] | a[T + 1] << 8 | a[T + 2] << 16) >> (7 & o) & x, S = (1 << A) - 1, B = x - l - 1, I = F & S; if (I < B ? (o += A, F = I) : (o += A + 1, F > S && (F -= B)), g[++v] = --F, -1 == F ? (l += F, E[--p] = v) : l -= F, !F) do { var U = o >> 3; c = (a[U] | a[U + 1] << 8) >> (7 & o) & 3, o += 2, v += c } while (3 == c) } (v > 255 || l) && f(0); for (var D = 0, M = (h >> 1) + (h >> 3) + 3, W = h - 1, O = 0; O <= v; ++O) { var j = g[O]; if (j < 1) d[O] = -j; else for (y = 0; y < j; ++y) { E[D] = O; do { D = D + M & W } while (D >= p) } } for (D && f(0), y = 0; y < h; ++y) { var C = d[E[y]]++, H = k[y] = u - b(C); m[y] = (C << H) - h } return [o + 7 >> 3, { b: u, s: E, n: k, t: m }] }, p = function (r, n) { var a = 0, s = -1, i = new t(292), u = r[n], h = i.subarray(0, 256), l = i.subarray(256, 268), v = new e(i.buffer, 268); if (u < 128) { var c = y(r, n + 1, 6), p = c[1], w = c[0] << 3, g = r[n += u]; g || f(0); for (var d = 0, m = 0, z = p.b, E = z, k = (++n << 3) - 8 + b(g); !((k -= z) < w);) { var A = k >> 3; if (h[++s] = p.s[d += (r[A] | r[A + 1] << 8) >> (7 & k) & (1 << z) - 1], (k -= E) < w) break; h[++s] = p.s[m += (r[A = k >> 3] | r[A + 1] << 8) >> (7 & k) & (1 << E) - 1], z = p.n[d], d = p.t[d], E = p.n[m], m = p.t[m] } ++s > 255 && f(0) } else { for (s = u - 127; a < s; a += 2) { var T = r[++n]; h[a] = T >> 4, h[a + 1] = 15 & T } ++n } var x = 0; for (a = 0; a < s; ++a)(I = h[a]) > 11 && f(0), x += I && 1 << I - 1; var F = b(x) + 1, S = 1 << F, B = S - x; for (B & B - 1 && f(0), h[s++] = b(B) + 1, a = 0; a < s; ++a) { var I; ++l[h[a] = (I = h[a]) && F + 1 - I] } var U = new t(S << 1), D = U.subarray(0, S), M = U.subarray(S); for (v[F] = 0, a = F; a > 0; --a) { var W = v[a]; o(M, a, W, v[a - 1] = W + l[a] * (1 << F - a)) } for (v[0] != S && f(0), a = 0; a < s; ++a) { var O = h[a]; if (O) { var j = v[O]; o(D, a, j, v[O] = j + (1 << F - O)) } } return [n, { n: M, b: F, s: D }] }, w = y(new t([81, 16, 99, 140, 49, 198, 24, 99, 12, 33, 196, 24, 99, 102, 102, 134, 70, 146, 4]), 0, 6)[1], g = y(new t([33, 20, 196, 24, 99, 140, 33, 132, 16, 66, 8, 33, 132, 16, 66, 8, 33, 68, 68, 68, 68, 68, 68, 68, 68, 36, 9]), 0, 6)[1], d = y(new t([32, 132, 16, 66, 102, 70, 68, 68, 68, 68, 36, 73, 2]), 0, 5)[1], m = function (r, t) { for (var e = r.length, n = new s(e), a = 0; a < e; ++a)n[a] = t, t += 1 << r[a]; return n }, z = new t(new s([0, 0, 0, 0, 16843009, 50528770, 134678020, 202050057, 269422093]).buffer, 0, 36), E = m(z, 0), k = new t(new s([0, 0, 0, 0, 0, 0, 0, 0, 16843009, 50528770, 117769220, 185207048, 252579084, 16]).buffer, 0, 53), A = m(k, 3), T = function (r, t, e) { var n = r.length, a = t.length, s = r[n - 1], i = (1 << e.b) - 1, o = -e.b; s || f(0); for (var u = 0, h = e.b, l = (n << 3) - 8 + b(s) - h, v = -1; l > o && v < a;) { var c = l >> 3; t[++v] = e.s[u = (u << h | (r[c] | r[c + 1] << 8 | r[c + 2] << 16) >> (7 & l)) & i], l -= h = e.n[u] } l == o && v + 1 == a || f(0) }, x = function (r, t, e) { var n = 6, a = t.length + 3 >> 2, s = a << 1, i = a + s; T(r.subarray(n, n += r[0] | r[1] << 8), t.subarray(0, a), e), T(r.subarray(n, n += r[2] | r[3] << 8), t.subarray(a, s), e), T(r.subarray(n, n += r[4] | r[5] << 8), t.subarray(s, i), e), T(r.subarray(n), t.subarray(i), e) }, F = function (r, n, a) { var s, u = n.b, h = r[u], l = h >> 1 & 3; n.l = 1 & h; var v = h >> 3 | r[u + 1] << 5 | r[u + 2] << 13, c = (u += 3) + v; if (1 == l) { if (u >= r.length) return; return n.b = u + 1, a ? (o(a, r[u], n.y, n.y += v), a) : o(new t(v), r[u]) } if (!(c > r.length)) { if (0 == l) return n.b = c, a ? (a.set(r.subarray(u, c), n.y), n.y += v, a) : i(r, u, c); if (2 == l) { var m = r[u], F = 3 & m, S = m >> 2 & 3, B = m >> 4, I = 0, U = 0; F < 2 ? 1 & S ? B |= r[++u] << 4 | (2 & S && r[++u] << 12) : B = m >> 3 : (U = S, S < 2 ? (B |= (63 & r[++u]) << 4, I = r[u] >> 6 | r[++u] << 2) : 2 == S ? (B |= r[++u] << 4 | (3 & r[++u]) << 12, I = r[u] >> 2 | r[++u] << 6) : (B |= r[++u] << 4 | (63 & r[++u]) << 12, I = r[u] >> 6 | r[++u] << 2 | r[++u] << 10)), ++u; var D = a ? a.subarray(n.y, n.y + n.m) : new t(n.m), M = D.length - B; if (0 == F) D.set(r.subarray(u, u += B), M); else if (1 == F) o(D, r[u++], M); else { var W = n.h; if (2 == F) { var O = p(r, u); I += u - (u = O[0]), n.h = W = O[1] } else W || f(0); (U ? x : T)(r.subarray(u, u += I), D.subarray(M), W) } var j = r[u++]; if (j) { 255 == j ? j = 32512 + (r[u++] | r[u++] << 8) : j > 127 && (j = j - 128 << 8 | r[u++]); var C = r[u++]; 3 & C && f(0); for (var H = [g, d, w], L = 2; L > -1; --L) { var Z = C >> 2 + (L << 1) & 3; if (1 == Z) { var q = new t([0, 0, r[u++]]); H[L] = { s: q.subarray(2, 3), n: q.subarray(0, 1), t: new e(q.buffer, 0, 1), b: 0 } } else 2 == Z ? (u = (s = y(r, u, 9 - (1 & L)))[0], H[L] = s[1]) : 3 == Z && (n.t || f(0), H[L] = n.t[L]) } var G = n.t = H, J = G[0], K = G[1], N = G[2], P = r[c - 1]; P || f(0); var Q = (c << 3) - 8 + b(P) - N.b, R = Q >> 3, V = 0, X = (r[R] | r[R + 1] << 8) >> (7 & Q) & (1 << N.b) - 1, Y = (r[R = (Q -= K.b) >> 3] | r[R + 1] << 8) >> (7 & Q) & (1 << K.b) - 1, $ = (r[R = (Q -= J.b) >> 3] | r[R + 1] << 8) >> (7 & Q) & (1 << J.b) - 1; for (++j; --j;) { var _ = N.s[X], rr = N.n[X], tr = J.s[$], er = J.n[$], nr = K.s[Y], ar = K.n[Y], sr = 1 << nr, ir = sr + ((r[R = (Q -= nr) >> 3] | r[R + 1] << 8 | r[R + 2] << 16 | r[R + 3] << 24) >>> (7 & Q) & sr - 1); R = (Q -= k[tr]) >> 3; var or = A[tr] + ((r[R] | r[R + 1] << 8 | r[R + 2] << 16) >> (7 & Q) & (1 << k[tr]) - 1); R = (Q -= z[_]) >> 3; var ur = E[_] + ((r[R] | r[R + 1] << 8 | r[R + 2] << 16) >> (7 & Q) & (1 << z[_]) - 1); if (R = (Q -= rr) >> 3, X = N.t[X] + ((r[R] | r[R + 1] << 8) >> (7 & Q) & (1 << rr) - 1), R = (Q -= er) >> 3, $ = J.t[$] + ((r[R] | r[R + 1] << 8) >> (7 & Q) & (1 << er) - 1), R = (Q -= ar) >> 3, Y = K.t[Y] + ((r[R] | r[R + 1] << 8) >> (7 & Q) & (1 << ar) - 1), ir > 3) n.o[2] = n.o[1], n.o[1] = n.o[0], n.o[0] = ir -= 3; else { var hr = ir - (0 != ur); hr ? (ir = 3 == hr ? n.o[0] - 1 : n.o[hr], hr > 1 && (n.o[2] = n.o[1]), n.o[1] = n.o[0], n.o[0] = ir) : ir = n.o[0] } for (L = 0; L < ur; ++L)D[V + L] = D[M + L]; M += ur; var fr = (V += ur) - ir; if (fr < 0) { var lr = -fr, vr = n.e + fr; for (lr > or && (lr = or), L = 0; L < lr; ++L)D[V + L] = n.w[vr + L]; V += lr, or -= lr, fr = 0 } for (L = 0; L < or; ++L)D[V + L] = D[fr + L]; V += or } if (V != M) for (; M < D.length;)D[V++] = D[M++]; else V = D.length; a ? n.y += V : D = i(D, 0, V) } else if (a) { if (n.y += B, M) for (L = 0; L < B; ++L)D[L] = D[M + L] } else M && (D = i(D, M)); return n.b = c, D } f(2) } }, S = function (r, e) { if (1 == r.length) return r[0]; for (var n = new t(e), a = 0, s = 0; a < r.length; ++a) { var i = r[a]; n.set(i, s), s += i.length } return n }; function B(r, t) { for (var e = [], n = +!t, a = 0, s = 0; r.length;) { var i = c(r, n || t); if ("object" == typeof i) { for (n ? (t = null, i.w.length == i.u && (e.push(t = i.w), s += i.u)) : (e.push(t), i.e = 0); !i.l;) { var o = F(r, i, t); o || f(5), t ? i.e = i.y : (e.push(o), s += o.length, u(i.w, 0, o.length), i.w.set(o, i.w.length - o.length)) } a = i.b + 4 * i.c } else a = i; r = r.subarray(a) } return S(e, s) } _e.decompress = B; var I = function () { function r(r) { this.ondata = r, this.c = [], this.l = 0, this.z = 0 } return r.prototype.push = function (r, e) { if ("number" == typeof this.s) { var n = Math.min(r.length, this.s); r = r.subarray(n), this.s -= n } var a = r.length + this.l; if (!this.s) { if (e) { if (!a) return void this.ondata(new t(0), !0); a < 5 && f(5) } else if (a < 18) return this.c.push(r), void (this.l = a); if (this.l && (this.c.push(r), r = S(this.c, a), this.c = [], this.l = 0), "number" == typeof (this.s = c(r))) return this.push(r, e) } if ("number" != typeof this.s) { if (a < (this.z || 3)) return e && f(5), this.c.push(r), void (this.l = a); if (this.l && (this.c.push(r), r = S(this.c, a), this.c = [], this.l = 0), !this.z && a < (this.z = 2 & r[this.s.b] ? 4 : 3 + (r[this.s.b] >> 3 | r[this.s.b + 1] << 5 | r[this.s.b + 2] << 13))) return e && f(5), this.c.push(r), void (this.l = a); for (this.z = 0;;) { var s = F(r, this.s); if (!s) { e && f(5); var i = r.subarray(this.s.b); return this.s.b = 0, this.c.push(i), void (this.l += i.length) } if (this.ondata(s, !1), u(this.s.w, 0, s.length), this.s.w.set(s, this.s.w.length - s.length), this.s.l) { var o = r.subarray(this.s.b); return this.s = 4 * this.s.c, void this.push(o, e) } } } else e && f(5) }, r }(); _e.Decompress = I; return _e })();
+
+    let textos = null;
+    function cargarTextos(url) {
+        if (!textos) textos = fetch(url).then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.arrayBuffer(); })
+            .then(buf => JSON.parse(new TextDecoder().decode(ZSTD.decompress(new Uint8Array(buf)))).citas || {})
+            .catch(e => { textos = null; console.error('WtLecturas: no se pudo cargar lecturas-textos.json.zst', e); throw e; });
+        return textos;
+    }
+    let dlg = null;
+    function ventana() {
+        if (dlg) return dlg;
+        dlg = document.createElement('dialog');
+        dlg.className = `${P}-dlg`;
+        dlg.setAttribute('aria-labelledby', `${P}-dt`);
+        dlg.innerHTML =
+            `<div class="${P}-dcab"><span class="${P}-dstripe"></span><div class="${P}-dtit"><span class="${P}-dk"></span><span class="${P}-dt" id="${P}-dt"></span></div>` +
+            `<button type="button" class="${P}-dx" aria-label="Cerrar" title="Cerrar">×</button></div>` +
+            `<div class="${P}-dtexto" tabindex="0"></div>` +
+            `<div class="${P}-dpie"><span title="Versión examinada por nueve censores nombrados por Real orden de 13 de julio de 1815 y aprobada por el Ordinario eclesiástico. Texto de la edición de París de 1836 (Génesis a Números, de la de Madrid de 1823), transcrito por OCR y revisado a mano contra los escaneos, con la ortografía actualizada.">Biblia de Torres Amat (1836), con licencia eclesiástica · OCR revisado (puede contener errores) · dominio público</span> · <a class="${P}-dv" target="_blank" rel="nofollow external noopener">Leer en vatican.va ↗</a></div>`;
+        dlg.querySelector(`.${P}-dx`).addEventListener('click', () => dlg.close());
+        dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); });   // clic en el fondo
+        document.body.appendChild(dlg);
+        return dlg;
+    }
+    function parrafos(t) { return String(t).split('\n').filter(Boolean).map(l => `<p>${esc(l)}</p>`).join(''); }
+    function abrirLectura(a, url, color, etiqueta) {
+        const cita = a.dataset.cita;
+        const d = ventana();
+        const caja = d.querySelector(`.${P}-dtexto`);
+        d.querySelector(`.${P}-dk`).textContent = etiqueta;
+        d.querySelector(`.${P}-dt`).textContent = cita.replace(/\s*\(R\.?:[^)]*\)/, '');
+        d.querySelector(`.${P}-dstripe`).style.setProperty('background', color, 'important');
+        d.querySelector(`.${P}-dv`).href = a.href;
+        caja.innerHTML = `<p class="${P}-dr">Cargando…</p>`;
+        if (!d.open) d.showModal();
+        caja.scrollTop = 0;
+        cargarTextos(url).then(t => {
+            const v = t[cita];
+            if (!v) { caja.innerHTML = `<p class="${P}-dr">No tenemos el texto de esta lectura. Puedes leerla en vatican.va.</p>`; return; }
+            caja.innerHTML = typeof v === 'string' ? parrafos(v)
+                : `<p class="${P}-dr"><span class="${P}-drl">R.</span> ${esc(v.respuesta)}</p>` + parrafos(v.texto);
+        }, () => { caja.innerHTML = `<p class="${P}-dr">No se ha podido cargar el texto. Puedes leerla en vatican.va.</p>`; });
+    }
+
     function hoyUTC() { const n = new Date(); return utcDate(n.getFullYear(), n.getMonth() + 1, n.getDate()); }
 
     function init(host) {
@@ -1109,6 +1197,15 @@ ${R}[data-wl-ancho] .${P}-sec{grid-column:1/-1}
                 e.preventDefault();
                 mover(e.key === 'ArrowLeft' ? -1 : 1);
             }
+        });
+
+        const urlTextos = host.dataset.textos ? new URL(host.dataset.textos, location.href).href : TEXTOS_URL;
+        lista.addEventListener('click', e => {
+            const a = e.target.closest && e.target.closest(`a[data-cita]`);
+            if (!a || e.button !== 0 || e.ctrlKey || e.metaKey || e.shiftKey || e.altKey || typeof HTMLDialogElement === 'undefined') return;
+            e.preventDefault();
+            const row = a.closest(`.${P}-row`), k = row ? row.dataset.k : '';
+            abrirLectura(a, urlTextos, stripe.style.getPropertyValue('background') || COLOR.verde, NOMBRE_K[k] || (/^\d+\.ª$/.test(k) ? `${k} lectura` : k || 'Lectura'));
         });
 
         pintar();
