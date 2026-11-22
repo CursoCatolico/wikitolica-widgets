@@ -979,16 +979,21 @@ ${D} .${P}-dpie a:hover{text-decoration:underline;color:var(--wl-lkh)}
     const MIN = utcDate(1583, 1, 1), MAX = utcDate(9999, 12, 31);
 
     const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
+    // Los datos separan los capítulos con raya («Mt 26, 14 — 27, 66») y tienen alguna errata de espacios
+    // («Lc 15, 1- 10», «6c -7», «4,1»), y así son también las claves de lecturas-textos.json. Solo lo que
+    // se ve se unifica: guion corto siempre sin espacios («Mt 26, 14-27, 66») y espacio tras la coma.
+    // data-cita no cambia.
+    const guion = s => String(s).replace(/\s*[-—]\s*/g, '-').replace(/,(?=\d)/g, ', ');
 
     function citaHTML(v, salmo) {
         const cita = typeof v === 'string' ? v : v && v.cita;
         if (!cita) return '';
-        let txt = cita.replace(/\s*\(R\.?:[^)]*\)/, '');
+        let txt = guion(cita.replace(/\s*\(R\.?:[^)]*\)/, ''));
         if (salmo) txt = txt.replace(/^Sal\s+(?=\d)/, '');
         const breve = v && typeof v === 'object' && v.forma_breve ? ` · Forma breve: ${v.forma_breve}` : '';
         const href = bibliaHref(cita);
-        if (!href) return `<span title="${esc(cita + breve)}">${esc(txt)}</span>`;
-        return `<a href="${href}" target="_blank" rel="nofollow external noopener" class="${P}-a" data-cita="${esc(cita)}" title="${esc(`Leer ${cita}${breve}`)}">${esc(txt)}</a>`;
+        if (!href) return `<span title="${esc(guion(cita + breve))}">${esc(txt)}</span>`;
+        return `<a href="${href}" target="_blank" rel="nofollow external noopener" class="${P}-a" data-cita="${esc(cita)}" title="${esc(guion(`Leer ${cita}${breve}`))}">${esc(txt)}</a>`;
     }
     function rowHTML(k, vals, sep) {
         const parts = vals.filter(Boolean).map(v => citaHTML(v, k === 'Sal')).filter(Boolean);
@@ -1115,7 +1120,7 @@ ${D} .${P}-dpie a:hover{text-decoration:underline;color:var(--wl-lkh)}
         const d = ventana();
         const caja = d.querySelector(`.${P}-dtexto`);
         d.querySelector(`.${P}-dk`).textContent = etiqueta;
-        d.querySelector(`.${P}-dt`).textContent = cita.replace(/\s*\(R\.?:[^)]*\)/, '');
+        d.querySelector(`.${P}-dt`).textContent = guion(cita.replace(/\s*\(R\.?:[^)]*\)/, ''));
         d.querySelector(`.${P}-dstripe`).style.setProperty('background', color, 'important');
         d.querySelector(`.${P}-dv`).href = a.href;
         caja.innerHTML = `<p class="${P}-dr">Cargando…</p>`;
